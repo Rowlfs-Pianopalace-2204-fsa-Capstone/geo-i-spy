@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import tailwind from 'tailwind-rn';
 
-const buttonStyle = 'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20';
+const buttonStyle =
+  'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow';
 
 export default function SignIn() {
   return (
