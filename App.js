@@ -23,8 +23,12 @@ export default function App() {
         <TextInput style={styles.input}></TextInput>
         <Text>Password:</Text>
         <TextInput style={styles.input}></TextInput>
-        <Pressable style={styles.loggingButtons}></Pressable>
-        <Pressable style={styles.loggingButtons}></Pressable>
+        <Pressable style={styles.loggingButtons}>
+          <Text style={styles.buttonText}>Sign in!!</Text>
+        </Pressable>
+        <Pressable style={styles.loggingButtons}>
+          <Text style={styles.buttonText}>Sign up!!</Text>
+        </Pressable>
         <SignUp></SignUp>
         <SignIn></SignIn>
       </View>
@@ -52,18 +56,20 @@ const styles = StyleSheet.create({
     borderColor: 'lightgrey',
   },
   loggingButtons: {
-    padding: 5,
     marginTop: 5,
     color: 'blue',
     borderWidth: 1,
     height: 25,
     borderRadius: 5,
-    backgroundColor: 'blue',
+    backgroundColor: 'lightgrey',
   },
   LogInImage: {
     flex: 2,
   },
   bottomHalf: {
     flex: 1,
+  },
+  buttonText: {
+    fontStyle: 'bold',
   },
 });
