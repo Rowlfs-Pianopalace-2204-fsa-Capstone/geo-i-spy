@@ -14,23 +14,13 @@ import SignIn from './client/components/SignIn';
 export default function App() {
   const isSigned = true;
   return isSigned ? (
-    <View style={styles.loggedOutBody}>
-      <View style={styles.LogInImage}>
+    <View style={tailwind('flex-1 my-20 pl-6 pr-6')}>
+      <View style={tailwind('flex-1')}>
         <Text> default image</Text>
       </View>
-      <View style={styles.bottomHalf}>
-        <Text>Email:</Text>
-        <TextInput style={styles.input}></TextInput>
-        <Text>Password:</Text>
-        <TextInput style={styles.input}></TextInput>
-        <Pressable style={styles.loggingButtons}>
-          <Text style={styles.buttonText}>Sign in!!</Text>
-        </Pressable>
-        <Pressable style={styles.loggingButtons}>
-          <Text style={styles.buttonText}>Sign up!!</Text>
-        </Pressable>
-        <SignUp></SignUp>
+      <View style={tailwind('flex-1')}>
         <SignIn></SignIn>
+        <SignUp></SignUp>
       </View>
     </View>
   ) : (
@@ -43,33 +33,3 @@ export default function App() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  loggedOutBody: {
-    flex: 1,
-    flexDirection: 'column',
-    marginTop: 80,
-    paddingHorizontal: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-  },
-  loggingButtons: {
-    marginTop: 5,
-    color: 'blue',
-    borderWidth: 1,
-    height: 25,
-    borderRadius: 5,
-    backgroundColor: 'lightgrey',
-  },
-  LogInImage: {
-    flex: 1,
-  },
-  bottomHalf: {
-    flex: 1,
-  },
-  buttonText: {
-    fontWeight: 'bold',
-  },
-});
