@@ -1,4 +1,4 @@
-import User from "../db/models/users";
+const User = require("../db/models/users");
 
 const requireToken = async (req, res, next) => {
   try {

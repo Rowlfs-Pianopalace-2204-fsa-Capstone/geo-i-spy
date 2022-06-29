@@ -1,12 +1,12 @@
 const router = require("express").Router();
-import requireToken from "../gateKeepingMiddleware";
+// const requireToken = require("./gateKeepingMiddleware");
 
 const {
   models: { User },
 } = require("../db");
 module.exports = router;
 
-router.get("/", requireToken, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ["id", "username"],
