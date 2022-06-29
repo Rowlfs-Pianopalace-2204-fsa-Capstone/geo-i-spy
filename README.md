@@ -1,6 +1,7 @@
 # geo-i-spy
 
 Overview:
+some change
 
 A mobile app that encourages outdoor expoloration and gets users to find hidden gems in their area. It will use machine learning to identify those items in their pictures.
 
