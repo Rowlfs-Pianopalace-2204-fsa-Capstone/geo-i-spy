@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
 import tailwind from 'tailwind-rn';
 import SignUp from './client/components/SignIn';
 import SignIn from './client/components/SignIn';
@@ -6,7 +6,7 @@ import SignIn from './client/components/SignIn';
 export default function App() {
   const isSigned = true;
   return isSigned ? (
-    <View>
+    <View style={styles.body}>
       <SignUp></SignUp>
       <SignIn></SignIn>
     </View>
@@ -20,3 +20,9 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  body: {
+    marginTop: 80,
+  },
+});
