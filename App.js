@@ -1,6 +1,6 @@
 import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
 import tailwind from 'tailwind-rn';
-import SignUp from './client/components/SignIn';
+import SignUp from './client/components/SignUp';
 import SignIn from './client/components/SignIn';
 
 export default function App() {
