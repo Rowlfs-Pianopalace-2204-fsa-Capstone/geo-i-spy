@@ -1,4 +1,11 @@
-import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  View,
+  TextInput,
+  Button,
+} from 'react-native';
 import tailwind from 'tailwind-rn';
 import SignUp from './client/components/SignUp';
 import SignIn from './client/components/SignIn';
@@ -6,7 +13,13 @@ import SignIn from './client/components/SignIn';
 export default function App() {
   const isSigned = true;
   return isSigned ? (
-    <View style={styles.body}>
+    <View style={styles.loggedOut}>
+      <Text>Email:</Text>
+      <TextInput style={styles.input}></TextInput>
+      <Text>Password:</Text>
+      <TextInput style={styles.input}></TextInput>
+      <Button style={styles.loggingButtons} title="Sign in"></Button>
+      <Button style={styles.loggingButtons} title="Sign up"></Button>
       <SignUp></SignUp>
       <SignIn></SignIn>
     </View>
@@ -22,7 +35,18 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  body: {
+  loggedOut: {
     marginTop: 80,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+  },
+  loggingButtons: {
+    padding: 5,
+    margin: 5,
+    color: 'blue',
   },
 });
