@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   Button,
+  Pressable,
 } from 'react-native';
 import tailwind from 'tailwind-rn';
 import SignUp from './client/components/SignUp';
@@ -13,15 +14,20 @@ import SignIn from './client/components/SignIn';
 export default function App() {
   const isSigned = true;
   return isSigned ? (
-    <View style={styles.loggedOut}>
-      <Text>Email:</Text>
-      <TextInput style={styles.input}></TextInput>
-      <Text>Password:</Text>
-      <TextInput style={styles.input}></TextInput>
-      <Button style={styles.loggingButtons} title="Sign in"></Button>
-      <Button style={styles.loggingButtons} title="Sign up"></Button>
-      <SignUp></SignUp>
-      <SignIn></SignIn>
+    <View style={styles.loggedOutBody}>
+      <View style={styles.LogInImage}>
+        <Text> default image</Text>
+      </View>
+      <View style={styles.bottomHalf}>
+        <Text>Email:</Text>
+        <TextInput style={styles.input}></TextInput>
+        <Text>Password:</Text>
+        <TextInput style={styles.input}></TextInput>
+        <Pressable style={styles.loggingButtons}></Pressable>
+        <Pressable style={styles.loggingButtons}></Pressable>
+        <SignUp></SignUp>
+        <SignIn></SignIn>
+      </View>
     </View>
   ) : (
     <SafeAreaView style={tailwind('flex-1 items-center justify-center')}>
@@ -35,10 +41,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  loggedOut: {
+  loggedOutBody: {
+    flex: 1,
+    flexDirection: 'column',
     marginTop: 80,
-    marginRight: 10,
-    marginLeft: 10,
+    paddingHorizontal: 10,
   },
   input: {
     borderWidth: 1,
@@ -46,7 +53,17 @@ const styles = StyleSheet.create({
   },
   loggingButtons: {
     padding: 5,
-    margin: 5,
+    marginTop: 5,
     color: 'blue',
+    borderWidth: 1,
+    height: 25,
+    borderRadius: 5,
+    backgroundColor: 'blue',
+  },
+  LogInImage: {
+    flex: 2,
+  },
+  bottomHalf: {
+    flex: 1,
   },
 });
