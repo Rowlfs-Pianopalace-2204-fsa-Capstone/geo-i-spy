@@ -18,13 +18,17 @@ export default function SignUp() {
     <View style={tw`border`}>
       <Text style={tw`shadow-xl`}>Email:</Text>
       <TextInput style={tw`border border-gray-400`}></TextInput>
+      <Text>First name:</Text>
+      <TextInput style={tw`border border-gray-400`}></TextInput>
+      <Text>Last name:</Text>
+      <TextInput style={tw`border border-gray-400`}></TextInput>
       <Text>Password:</Text>
       <TextInput style={tw`border border-gray-400`}></TextInput>
+      <Text>Confirm password:</Text>
+      <TextInput style={tw`border border-gray-400`}></TextInput>
+
       <Pressable style={tw`${buttonStyle}`}>
-        <Text style={tw`font-bold`}>Sign in!!</Text>
-      </Pressable>
-      <Pressable style={tw`${buttonStyle}`}>
-        <Text style={tw`font-bold`}>Sign up!!</Text>
+        <Text style={tw`font-bold`}>Create account</Text>
       </Pressable>
     </View>
   );
