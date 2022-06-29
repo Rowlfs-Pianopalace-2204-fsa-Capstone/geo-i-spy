@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
   },
   LogInImage: {
-    flex: 2,
+    flex: 1,
   },
   bottomHalf: {
     flex: 1,
   },
   buttonText: {
-    fontStyle: 'bold',
+    fontWeight: 'bold',
   },
 });
