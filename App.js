@@ -4,7 +4,7 @@ import SignUp from './client/components/SignIn';
 import SignIn from './client/components/SignIn';
 
 export default function App() {
-  const isSigned = false;
+  const isSigned = true;
   return isSigned ? (
     <View>
       <SignUp></SignUp>
