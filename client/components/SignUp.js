@@ -15,7 +15,7 @@ const buttonStyle =
 
 export default function SignUp() {
   return (
-    <View style={tw`border`}>
+    <View style={tw`border bg-blue-800`}>
       <Text style={tw`shadow-xl`}>Email:</Text>
       <TextInput style={tw`border border-gray-400`}></TextInput>
       <Text>First name:</Text>

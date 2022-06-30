@@ -15,16 +15,20 @@ const buttonStyle =
 
 export default function SignIn() {
   return (
-    <View>
-      <Text style={tw`shadow-xl`}>Email:</Text>
-      <TextInput style={tw`border border-gray-400`}></TextInput>
-      <Text>Password:</Text>
-      <TextInput style={tw`border border-gray-400`}></TextInput>
+    <View style={tw`bg-gray-200/50 p-4`}>
+      <Text style={tw`shadow-xl font-bold`}>Email:</Text>
+      <TextInput
+        style={tw`border border-gray-500 bg-gray-200/75 pl-2`}
+      ></TextInput>
+      <Text style={tw`shadow-xl font-bold`}>Password:</Text>
+      <TextInput
+        style={tw`border border-gray-500  bg-gray-200/75 pl-2`}
+      ></TextInput>
       <Pressable style={tw`${buttonStyle}`}>
-        <Text style={tw`font-bold`}>Sign in!!</Text>
+        <Text style={tw`font-bold`}>Sign in</Text>
       </Pressable>
       <Pressable style={tw`${buttonStyle}`}>
-        <Text style={tw`font-bold`}>Sign up!!</Text>
+        <Text style={tw`font-bold`}>Sign Up</Text>
       </Pressable>
     </View>
   );
