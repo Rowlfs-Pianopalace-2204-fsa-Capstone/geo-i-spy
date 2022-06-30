@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
-import { MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackActions } from '@react-navigation/native';
 
 export default function CameraComponent({ navigation }) {
@@ -43,10 +44,11 @@ export default function CameraComponent({ navigation }) {
           <TouchableOpacity
             style={tw`absolute top-10 left-1`}
             onPress={() => {
-              navigation.dispatch(StackActions.pop(1));
+              // navigation.dispatch(StackActions.pop(1));
+              navigation.navigate('Home');
             }}
           >
-            <Feather name='x' size={40} color='black' />
+            <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`absolute bottom-10 left-5`}
@@ -56,7 +58,11 @@ export default function CameraComponent({ navigation }) {
               );
             }}
           >
-            <MaterialIcons name='flip-camera-android' size={40} color='black' />
+            <MaterialCommunityIcons
+              name='camera-flip'
+              size={40}
+              color='black'
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`absolute bottom-10  right-40`}
@@ -64,8 +70,8 @@ export default function CameraComponent({ navigation }) {
               handleRecord();
             }}
           >
-            <Entypo
-              name='controller-record'
+            <MaterialCommunityIcons
+              name='radiobox-marked'
               size={50}
               color={recording ? 'red' : 'black'}
               style={tw`opacity-60`}
