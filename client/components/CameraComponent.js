@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
 import { MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 
-export default function App() {
+export default function CameraComponent({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
   const [recording, setRecording] = useState(false);
@@ -42,7 +43,7 @@ export default function App() {
           <TouchableOpacity
             style={tw`absolute top-10 left-1`}
             onPress={() => {
-              console.log('leave camera');
+              navigation.dispatch(StackActions.pop(1));
             }}
           >
             <Feather name='x' size={40} color='black' />
