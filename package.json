@@ -36,7 +36,7 @@
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "start-server": "JWT=shh NODE_ENV=shh nodemon server",
-    "windows-build": "cross-env NODE_ENV=shh",
+    "windows-build": "cross-env JWT=shh NODE_ENV=shh nodemon server",
     "seed": "node script/seed.js"
   },
   "version": "1.0.0",

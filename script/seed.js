@@ -18,7 +18,6 @@ async function seed() {
 
   // Creating Users
   for (let i = 0; i < userNames.length; i++) {
-    console.log(userNames[1]);
     const user = await User.create({
       username: userNames[i],
       password: '123',
@@ -28,13 +27,14 @@ async function seed() {
       const challenge = await Challenge.create({
         name: challengeNames[j],
         difficulty: 'easy',
-        score: j,
+        score: j * 10 + 5,
         description: 'Everyday items you can find easy.',
       });
+
       await user.addChallenge(challenge);
     }
   }
-  console.log(`seeded ${challengeNames.length} challenges`);
+  console.log(`seeded challenges & users`);
   console.log(`seeded successfully`);
   return 'Data seeded';
 }

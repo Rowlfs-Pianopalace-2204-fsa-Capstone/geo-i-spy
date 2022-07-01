@@ -14,8 +14,10 @@ Hint.belongsTo(Challenge);
 Challenge.hasMany(Picture);
 Picture.belongsTo(Challenge);
 
-Challenge.belongsToMany(User, { through: Achievements });
-User.belongsToMany(Challenge, { through: Achievements });
+// Challenge.belongsToMany(User, { through: Achievements });
+// User.belongsToMany(Challenge, { through: Achievements });
+Challenge.belongsTo(User);
+User.hasMany(Challenge);
 
 User.hasMany(Friends);
 Friends.belongsTo(User);
