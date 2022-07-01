@@ -21,7 +21,9 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "0.17.7",
     "sequelize": "^6.21.2",
-    "twrnc": "^3.3.3"
+    "twrnc": "^3.3.3",
+    "expo-media-library": "~14.1.0",
+    "expo-file-system": "~14.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
