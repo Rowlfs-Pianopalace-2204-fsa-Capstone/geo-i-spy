@@ -13,19 +13,14 @@ const dummyData = {
   description: 'Test description',
 };
 
-export default function AllChallenges() {
+export default function SingleChallenge() {
   return (
     <View>
-      <Image
-        source={
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/800px-GoldenGateBridge-001.jpg'
-        }
-      />
       <Text>{dummyData.name}</Text>
       <Text>{dummyData.difficulty}</Text>
       <Text>{dummyData.score}</Text>
       <Text>{dummyData.description}</Text>
-      <Pressable></Pressable>
+      <Pressable>Complete Challenge</Pressable>
     </View>
   );
 }
