@@ -1,11 +1,12 @@
 /** @format */
 
 const db = require('./db');
+const Achievements = require('./models/achievements');
 const Challenge = require('./models/challenges');
 const Friends = require('./models/friends');
 const Hint = require('./models/hint');
 const Picture = require('./models/pictures');
-const User = require('./models/users');
+const User = require('./models/user');
 
 Challenge.hasMany(Hint);
 Hint.belongsTo(Challenge);
@@ -13,8 +14,8 @@ Hint.belongsTo(Challenge);
 Challenge.hasMany(Picture);
 Picture.belongsTo(Challenge);
 
-Challenge.belongsToMany(User, { through: 'Achievements' });
-User.belongsToMany(Challenge, { through: 'Achievements' });
+Challenge.belongsToMany(User, { through: Achievements });
+User.belongsToMany(Challenge, { through: Achievements });
 
 User.hasMany(Friends);
 Friends.belongsTo(User);
@@ -22,6 +23,7 @@ Friends.belongsTo(User);
 module.exports = {
   db,
   models: {
+    Achievements,
     Friends,
     User,
     Picture,

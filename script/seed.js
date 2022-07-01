@@ -1,11 +1,12 @@
 /** @format */
-
-'use strict';
+const challengeNames = ['Bottle', 'Can', 'Mouse', 'Laptop', 'Horse'];
+const userNames = ['cody', 'murphy'];
 
 const {
   db,
   models: { User },
 } = require('../server/db/index');
+const Challenge = require('../server/db/models/challenges');
 User;
 /**
  * seed - this function clears the database, updates tables to
@@ -16,19 +17,26 @@ async function seed() {
   console.log('db synced!');
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ]);
+  for (let i = 0; i < userNames.length; i++) {
+    console.log(userNames[1]);
+    const user = await User.create({
+      username: userNames[i],
+      password: '123',
+    });
 
-  console.log(`seeded ${users.length} users`);
+    for (let j = 0; j < challengeNames.length; j++) {
+      const challenge = await Challenge.create({
+        name: challengeNames[j],
+        difficulty: 'easy',
+        score: j,
+        description: 'Everyday items you can find easy.',
+      });
+      await user.addChallenge(challenge);
+    }
+  }
+  console.log(`seeded ${challengeNames.length} challenges`);
   console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+  return 'Data seeded';
 }
 
 /*
