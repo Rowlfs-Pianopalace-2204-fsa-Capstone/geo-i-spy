@@ -14,13 +14,19 @@ Hint.belongsTo(Challenge);
 Challenge.hasMany(Picture);
 Picture.belongsTo(Challenge);
 
-// Challenge.belongsToMany(User, { through: Achievements });
-// User.belongsToMany(Challenge, { through: Achievements });
-Challenge.belongsTo(User);
-User.hasMany(Challenge);
+Challenge.belongsToMany(User, { through: Achievements });
+User.belongsToMany(Challenge, { through: Achievements });
 
-User.hasMany(Friends);
-Friends.belongsTo(User);
+User.belongsToMany(User, {
+  as: 'friends',
+  foreignKey: 'user_id',
+  through: Friends,
+});
+User.belongsToMany(User, {
+  as: 'userFriends',
+  foreignKey: 'friend_id',
+  through: Friends,
+});
 
 module.exports = {
   db,

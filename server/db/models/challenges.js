@@ -15,10 +15,6 @@ const Challenge = db.define('challenge', {
     type: Sequelize.STRING,
     defaultValue: 'easy',
   },
-  completed: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
-  },
   score: {
     type: Sequelize.INTEGER,
     validate: {

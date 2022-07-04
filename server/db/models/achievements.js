@@ -4,9 +4,8 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Achievements = db.define('Achievement', {
-  completed: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
+  img_url: {
+    type: Sequelize.STRING,
   },
 });
 
