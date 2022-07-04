@@ -12,9 +12,30 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   password: {
     type: Sequelize.STRING,
+  },
+  img_url: {
+    type: Sequelize.STRING,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true,
+    },
+  },
+  score: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  biography: {
+    type: Sequelize.TEXT,
   },
 });
 
