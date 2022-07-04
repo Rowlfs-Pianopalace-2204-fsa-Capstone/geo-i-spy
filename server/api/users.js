@@ -49,7 +49,6 @@ router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
       score: parseInt(req.body.score) || user.score,
       biography: req.body.biography || user.biography,
     };
-    console.log(updatedInformation);
     await user.update(updatedInformation);
     res.json(user);
   } catch (error) {
