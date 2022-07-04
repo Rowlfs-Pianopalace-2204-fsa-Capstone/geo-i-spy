@@ -59,8 +59,19 @@ export default function CameraComponent({ navigation }) {
         }
       );
       let responseJson = await response.json();
-      console.log(responseJson);
-      // this.setState({
+      console.log('@@@@@@', responseJson), '@@@@@@@';
+      const challengeItem = 'Beverage can';
+      let challengeFound = false;
+      responseJson.responses[0].labelAnnotations.map((guess) => {
+        console.log('GUESS:', guess);
+        if (guess.description === challengeItem) {
+          challengeFound = true;
+        }
+      });
+      challengeFound
+        ? console.log('You passed the challenge')
+        : console.log('Try again');
+      // this.setState({r
       //   googleResponse: responseJson,
       //   uploading: false
       // });
@@ -117,7 +128,7 @@ export default function CameraComponent({ navigation }) {
               navigation.navigate('Home');
             }}
           >
-            <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
+            <MaterialCommunityIcons name="alpha-x" size={40} color="black" />
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`absolute bottom-10 left-5`}
@@ -128,9 +139,9 @@ export default function CameraComponent({ navigation }) {
             }}
           >
             <MaterialCommunityIcons
-              name='camera-flip'
+              name="camera-flip"
               size={40}
-              color='black'
+              color="black"
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -140,7 +151,7 @@ export default function CameraComponent({ navigation }) {
             }}
           >
             <MaterialCommunityIcons
-              name='radiobox-marked'
+              name="radiobox-marked"
               size={50}
               color={recording ? 'red' : 'black'}
               style={tw`opacity-60`}
