@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   SafeAreaView,
