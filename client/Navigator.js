@@ -25,8 +25,6 @@ import SignIn from './components/SignIn';
 import HomePage from './components/HomePage';
 import CameraComponent from './components/CameraComponent';
 import UserProfile from './components/UserProfile';
-import AllChallenges from './components/AllChallenges';
-import SingleChallenge from './components/SingleChallenge';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -51,30 +49,6 @@ export default function Navigator() {
         style={{ backgroundColor: 'tomato' }}
       >
         <Tab.Screen
-          name='Challenge'
-          component={SingleChallenge}
-          options={{
-            tabBarLabel: 'Challenge',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name='alien-outline'
-                color={color}
-                size={26}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name='Challenges'
-          component={AllChallenges}
-          options={{
-            tabBarLabel: 'Challenges',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='alien' color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name='Home'
           component={HomePage}
           options={{
@@ -84,7 +58,6 @@ export default function Navigator() {
             ),
           }}
         />
-
         <Tab.Screen
           name='Camera'
           component={CameraComponent}
