@@ -58,7 +58,6 @@ export default function Navigator() {
             ),
           }}
         />
-
         <Tab.Screen
           name='Camera'
           component={CameraComponent}

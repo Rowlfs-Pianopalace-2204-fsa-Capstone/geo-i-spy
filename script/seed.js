@@ -22,6 +22,8 @@ async function seed() {
     const user = await User.create({
       username: userNames[i],
       password: '123',
+      email: `${userNames[i]}@email.com`,
+      biography: 'I am a generated fake user.',
     });
     users.push(user);
   }
@@ -39,6 +41,7 @@ async function seed() {
         'https://t4.ftcdn.net/jpg/03/54/26/09/360_F_354260981_mvf4Yt39tO1iAWkXeFcPayv0OkTw6p4j.jpg',
     });
   }
+  // Friends
   await users[3].addFriends(1);
   console.log(`seeded challenges ${challengeNames.length}`);
   console.log(`seeded successfully`);
