@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,6 +13,7 @@ import {
 } from 'react-native';
 
 import tw from 'twrnc';
+import toast from '../helpers/toast';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
@@ -43,11 +46,18 @@ export default function SignIn({ signIn }) {
               ></TextInput>
               <TouchableOpacity
                 style={tw`${buttonStyle}`}
-                onPress={() => signIn()}
+                onPress={() => {
+                  signIn(), toast.success({ message: 'BUTTON WORKED' });
+                }}
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={tw`${buttonStyle}`}>
+              <TouchableOpacity
+                style={tw`${buttonStyle}`}
+                onPress={() => {
+                  toast.success({ message: 'BUTTON WORKED' });
+                }}
+              >
                 <Text style={tw`font-bold`}>Sign Up</Text>
               </TouchableOpacity>
             </View>
