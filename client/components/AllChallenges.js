@@ -40,7 +40,11 @@ const dummyData = [
 export const mapArray = (arr) => {
   return arr.map((ele) => {
     return (
-      <TouchableOpacity key={ele.id} style={tw`border bg-blue-800`}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Camera')}
+        key={ele.id}
+        style={tw`border bg-blue-800`}
+      >
         <Text>{ele.name}</Text>
         <Text>{ele.difficulty}</Text>
         <Text>{ele.score}</Text>

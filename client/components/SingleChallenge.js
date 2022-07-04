@@ -6,7 +6,7 @@ import tw from 'twrnc';
 
 const dummyData = {
   id: '1',
-  name: 'Bridge',
+  name: 'Beverage can',
   difficulty: '1',
   score: '10',
   officialLocation: false,
@@ -15,12 +15,14 @@ const dummyData = {
 
 export default function SingleChallenge() {
   return (
-    <View>
-      <Text>{dummyData.name}</Text>
-      <Text>{dummyData.difficulty}</Text>
-      <Text>{dummyData.score}</Text>
-      <Text>{dummyData.description}</Text>
-      <Pressable>Complete Challenge</Pressable>
+    <View style={tw`border-2 border-gray-500 p-25`}>
+      <Text>Todays challenge is to take a photo of a:</Text>
+      <Text>{dummyData.name}!</Text>
+      <Text>Rarity: {dummyData.difficulty}</Text>
+      <Text>Score: {dummyData.score}</Text>
+      <Text>Description: {dummyData.description}</Text>
+      <Text>Complete Challenge</Text>
+      <Pressable></Pressable>
     </View>
   );
 }
