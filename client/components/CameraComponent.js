@@ -60,8 +60,19 @@ export default function CameraComponent({ navigation }) {
         }
       );
       let responseJson = await response.json();
-      //console.log(responseJson);
-      // this.setState({
+      console.log('@@@@@@', responseJson), '@@@@@@@';
+      const challengeItem = 'Beverage can';
+      let challengeFound = false;
+      responseJson.responses[0].labelAnnotations.map((guess) => {
+        console.log('GUESS:', guess);
+        if (guess.description === challengeItem) {
+          challengeFound = true;
+        }
+      });
+      challengeFound
+        ? console.log('You passed the challenge')
+        : console.log('Try again');
+      // this.setState({r
       //   googleResponse: responseJson,
       //   uploading: false
       // });

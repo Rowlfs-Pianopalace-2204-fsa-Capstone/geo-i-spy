@@ -1,11 +1,13 @@
 /** @format */
-
-'use strict';
+const challengeNames = ['Bottle', 'Can', 'Mouse', 'Laptop', 'Horse'];
+const userNames = ['cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
 const {
   db,
   models: { User },
 } = require('../server/db/index');
+const Challenge = require('../server/db/models/challenges');
+const Friends = require('../server/db/models/friends');
 User;
 /**
  * seed - this function clears the database, updates tables to
@@ -14,21 +16,36 @@ User;
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
-
+  let users = [];
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ]);
-
-  console.log(`seeded ${users.length} users`);
+  for (let i = 0; i < userNames.length; i++) {
+    const user = await User.create({
+      username: userNames[i],
+      password: '123',
+      email: `${userNames[i]}@email.com`,
+      biography: 'I am a generated fake user.',
+    });
+    users.push(user);
+  }
+  console.log(`seeded users ${users.length}`);
+  for (let j = 0; j < challengeNames.length; j++) {
+    const challenge = await Challenge.create({
+      name: challengeNames[j],
+      difficulty: 'easy',
+      score: j * 10 + 5,
+      description: 'Everyday items you can find easy.',
+    });
+    const achievement = await users[0].addChallenge(challenge);
+    await achievement[0].update({
+      img_url:
+        'https://t4.ftcdn.net/jpg/03/54/26/09/360_F_354260981_mvf4Yt39tO1iAWkXeFcPayv0OkTw6p4j.jpg',
+    });
+  }
+  // Friends
+  await users[3].addFriends(1);
+  console.log(`seeded challenges ${challengeNames.length}`);
   console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+  return 'Data seeded';
 }
 
 /*

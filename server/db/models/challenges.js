@@ -10,27 +10,23 @@ const Challenge = db.define('challenge', {
     validate: {
       notEmpty: true,
     },
-    difficulty: {
-      type: Sequelize.STRING,
-      defaultValue: 'easy',
+  },
+  difficulty: {
+    type: Sequelize.STRING,
+    defaultValue: 'easy',
+  },
+  score: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 1,
+      max: 100,
     },
-    score: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: 1,
-        max: 100,
-      },
-      officialLocation: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
-      },
+  },
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
     },
   },
 });

@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   SafeAreaView,
@@ -70,7 +72,6 @@ export default function Navigator() {
             ),
           }}
         />
-
         <Tab.Screen
           name='Camera'
           component={CamNav}
