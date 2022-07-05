@@ -1,39 +1,39 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Pressable,
   TouchableOpacity,
-} from 'react-native';
-import tw from 'twrnc';
+} from "react-native";
+import tw from "twrnc";
 
 const dummyData = [
   {
-    id: '1',
-    name: 'Bridge',
-    difficulty: '1',
-    score: '10',
+    id: "1",
+    name: foot,
+    difficulty: "1",
+    score: "10",
     officialLocation: false,
-    description: 'Test description',
+    description: "Test description",
   },
   {
-    id: '2',
-    name: 'mouse',
-    difficulty: '2',
-    score: '1',
+    id: "2",
+    name: "mouse",
+    difficulty: "2",
+    score: "1",
     officialLocation: false,
-    description: 'Test description',
+    description: "Test description",
   },
   {
-    id: '3',
-    name: 'can',
-    difficulty: '3',
-    score: '1',
+    id: "3",
+    name: "can",
+    difficulty: "3",
+    score: "1",
     officialLocation: false,
-    description: 'Test description',
+    description: "Test description",
   },
 ];
 
@@ -41,7 +41,7 @@ export const mapArray = (arr) => {
   return arr.map((ele) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Camera')}
+        onPress={() => navigation.navigate("Camera")}
         key={ele.id}
         style={tw`border bg-blue-800`}
       >

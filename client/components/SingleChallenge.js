@@ -1,16 +1,16 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
-import tw from 'twrnc';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import tw from "twrnc";
 
 const dummyData = {
-  id: '1',
-  name: 'Beverage can',
-  difficulty: '1',
-  score: '10',
+  id: "1",
+  name: "Beverage can",
+  difficulty: "1",
+  score: "10",
   officialLocation: false,
-  description: 'Test description',
+  description: "Test description",
 };
 
 export default function SingleChallenge() {
