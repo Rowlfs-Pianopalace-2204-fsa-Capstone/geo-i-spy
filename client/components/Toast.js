@@ -1,7 +1,12 @@
 /** @format */
 
-import { useEffect, useState } from 'react';
-import { DeviceEventEmitter } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { DeviceEventEmitter, Platform, ToastAndroid } from 'react-native';
+// import Animated, {
+//   withTiming,
+//   useSharedValue,
+//   useAnimatedStyle,
+// } from 'react-native-reanimated';
 import {
   StyleSheet,
   SafeAreaView,
@@ -16,11 +21,21 @@ import {
 const Toast = () => {
   const [messageType, setMessageType] = useState(null);
   const [message, setMessage] = useState(null);
+
+  // const animatedOpacity = useSharedValue(0.5);
+  // const animatedStyle = useAnimatedStyle(() => {
+  //   return {
+  //     opacity: animatedOpacity.value,
+  //   };
+  // });
+  const [timeOutDuration, setTimeOutDuration] = useState(3000);
+  const timeOutRef = useRef(null);
   const colors = {
     danger: '#dc3545',
     success: '#28a745',
     info: '#343a40',
   };
+
   useEffect(() => {
     if (message) {
       setInterval(() => {
@@ -28,12 +43,34 @@ const Toast = () => {
       }, 3000);
     }
   });
+
   const onNewToast = (data) => {
-    console.log('data', data);
+    if (data.duration) {
+      setTimeOutDuration(3000);
+    }
 
     setMessage(data.message);
     setMessageType(data.type);
   };
+  const closeToast = () => {
+    setMessage(null);
+    setTimeOutDuration(3000);
+  };
+
+  useEffect(() => {
+    if (message) {
+      timeOutRef.current = setInterval(() => {
+        if (timeOutDuration === 0) {
+          closeToast();
+        } else {
+          setTimeOutDuration((prev) => prev - 1000);
+        }
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timeOutRef.current);
+    };
+  }, [message, timeOutDuration]);
   useEffect(() => {
     DeviceEventEmitter.addListener('SHOW_TOAST_MESSAGE', onNewToast);
     return () => {
@@ -56,16 +93,18 @@ const Toast = () => {
         borderRadius: 4,
       }}
     >
-      <Text
-        style={{
-          padding: 14,
-          color: 'white',
-          fontSize: 16,
-          textAlign: 'center',
-        }}
-      >
-        {message}
-      </Text>
+      <TouchableOpacity>
+        <Text
+          style={{
+            padding: 14,
+            color: 'white',
+            fontSize: 16,
+            textAlign: 'center',
+          }}
+        >
+          {message}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

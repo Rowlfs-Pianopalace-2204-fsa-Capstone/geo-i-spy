@@ -47,17 +47,12 @@ export default function SignIn({ signIn }) {
               <TouchableOpacity
                 style={tw`${buttonStyle}`}
                 onPress={() => {
-                  signIn(), toast.success({ message: 'BUTTON WORKED' });
+                  signIn();
                 }}
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={tw`${buttonStyle}`}
-                onPress={() => {
-                  toast.success({ message: 'BUTTON WORKED' });
-                }}
-              >
+              <TouchableOpacity style={tw`${buttonStyle}`}>
                 <Text style={tw`font-bold`}>Sign Up</Text>
               </TouchableOpacity>
             </View>
