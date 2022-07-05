@@ -9,33 +9,33 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tw from "twrnc";
-
-const dummyData = [
-  {
-    id: "1",
-    name: foot,
-    difficulty: "1",
-    score: "10",
-    officialLocation: false,
-    description: "Test description",
-  },
-  {
-    id: "2",
-    name: "mouse",
-    difficulty: "2",
-    score: "1",
-    officialLocation: false,
-    description: "Test description",
-  },
-  {
-    id: "3",
-    name: "can",
-    difficulty: "3",
-    score: "1",
-    officialLocation: false,
-    description: "Test description",
-  },
-];
+import { GlobalDataContext } from "../../App";
+// const dummyData = [
+//   {
+//     id: "1",
+//     name: foot,
+//     difficulty: "1",
+//     score: "10",
+//     officialLocation: false,
+//     description: "Test description",
+//   },
+//   {
+//     id: "2",
+//     name: "mouse",
+//     difficulty: "2",
+//     score: "1",
+//     officialLocation: false,
+//     description: "Test description",
+//   },
+//   {
+//     id: "3",
+//     name: "can",
+//     difficulty: "3",
+//     score: "1",
+//     officialLocation: false,
+//     description: "Test description",
+//   },
+// ];
 
 export const mapArray = (arr) => {
   return arr.map((ele) => {
@@ -54,5 +54,6 @@ export const mapArray = (arr) => {
 };
 
 export default function AllChallenges() {
-  return <View>{mapArray(dummyData)}</View>;
+  const { challengesData } = React.useContext(GlobalDataContext);
+  return <View>{mapArray(challengesData)}</View>;
 }

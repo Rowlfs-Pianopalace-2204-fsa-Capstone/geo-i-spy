@@ -1,6 +1,13 @@
 export const apiGetAllChallenges = async () => {
-  const response = await fetch("/api/challenges");
+  const response = await fetch("http://localhost:8080/api/challenges", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
   const data = await response.json();
+  console.log(data);
   return data;
 };
 
