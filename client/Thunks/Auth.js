@@ -1,6 +1,8 @@
+/** @format */
+
 export const apiAuthLogin = async (user) => {
-  const response = await fetch("/auth/login", {
-    method: "POST",
+  const response = await fetch('https://geoispy.herokuapp.com/auth/login', {
+    method: 'POST',
     headers: null,
     body: JSON.stringify(user),
   });
@@ -9,8 +11,8 @@ export const apiAuthLogin = async (user) => {
 };
 
 export const apiAuthSignUp = async (user) => {
-  const response = await fetch("/auth/signup", {
-    method: "POST",
+  const response = await fetch('https://geoispy.herokuapp.com/auth/signup', {
+    method: 'POST',
     headers: null,
     body: JSON.stringify(user),
   });
@@ -19,8 +21,8 @@ export const apiAuthSignUp = async (user) => {
 };
 
 export const apiAuthGetMe = async () => {
-  const response = await fetch("/auth/me", {
-    method: "GET",
+  const response = await fetch('https://geoispy.herokuapp.com/auth/me', {
+    method: 'GET',
     headers: null,
   });
   const data = await response.json();

@@ -28,7 +28,7 @@ const Toast = () => {
   //     opacity: animatedOpacity.value,
   //   };
   // });
-  const [timeOutDuration, setTimeOutDuration] = useState(3000);
+  const [timeOutDuration, setTimeOutDuration] = useState(6000);
   const timeOutRef = useRef(null);
   const colors = {
     danger: '#dc3545',
@@ -40,13 +40,13 @@ const Toast = () => {
     if (message) {
       setInterval(() => {
         setMessage(null);
-      }, 3000);
+      }, 6000);
     }
   });
 
   const onNewToast = (data) => {
     if (data.duration) {
-      setTimeOutDuration(3000);
+      setTimeOutDuration(6000);
     }
 
     setMessage(data.message);
@@ -54,7 +54,7 @@ const Toast = () => {
   };
   const closeToast = () => {
     setMessage(null);
-    setTimeOutDuration(3000);
+    setTimeOutDuration(6000);
   };
 
   useEffect(() => {
