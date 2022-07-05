@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
 import * as MediaLibrary from 'expo-media-library';
@@ -19,9 +19,10 @@ export default function CameraComponent({ navigation }) {
   const submitToGoogle = async (image) => {
     try {
       setUpload(true);
-      const encoded = await FileSystem.readAsStringAsync(image, {
-        encoding: 'base64',
-      });
+      // const encoded = await FileSystem.readAsStringAsync(image, {
+      //   encoding: 'base64',
+      // });
+
       // const fs = require('fs');
       // let imageFile = fs.readFileSync(image);
       // let encoded = Buffer.from(imageFile).toString('base64');
@@ -42,7 +43,7 @@ export default function CameraComponent({ navigation }) {
               // { type: 'WEB_DETECTION', maxResults: 5 },
             ],
             image: {
-              content: encoded,
+              content: image,
             },
           },
         ],
@@ -75,6 +76,11 @@ export default function CameraComponent({ navigation }) {
       //   googleResponse: responseJson,
       //   uploading: false
       // });
+
+      // .responses.map((response) => {
+      //   return response.description;
+      // });
+      return responseJson;
     } catch (error) {
       console.log(error);
     }
@@ -93,21 +99,21 @@ export default function CameraComponent({ navigation }) {
 
   const handleRecord = async () => {
     if (recording) {
-      await camera.stopRecording();
-
-      setRecording(false);
+      //await camera.stopRecording();
     } else if (!recording) {
       setRecording(true);
+      const picture = await camera.takePictureAsync({ base64: true });
+      setImage(picture.uri);
+      setRecording(false);
 
-      const recording = await camera.takePictureAsync();
-      console.log(recording);
-      submitToGoogle(recording.uri);
+      const pushAction = StackActions.push('Image', { image: picture });
+      navigation.dispatch(pushAction);
+      const { responses } = await submitToGoogle(picture.base64);
+      const results = responses[0].labelAnnotations.map(
+        (response) => response.description
+      );
 
-      // try {
-      //   await MediaLibrary.saveToLibraryAsync(recording.uri);
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      console.log('result', results);
     }
   };
 
@@ -128,7 +134,7 @@ export default function CameraComponent({ navigation }) {
               navigation.navigate('Home');
             }}
           >
-            <MaterialCommunityIcons name="alpha-x" size={40} color="black" />
+            <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`absolute bottom-10 left-5`}
@@ -139,9 +145,9 @@ export default function CameraComponent({ navigation }) {
             }}
           >
             <MaterialCommunityIcons
-              name="camera-flip"
+              name='camera-flip'
               size={40}
-              color="black"
+              color='black'
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -151,7 +157,7 @@ export default function CameraComponent({ navigation }) {
             }}
           >
             <MaterialCommunityIcons
-              name="radiobox-marked"
+              name='radiobox-marked'
               size={50}
               color={recording ? 'red' : 'black'}
               style={tw`opacity-60`}

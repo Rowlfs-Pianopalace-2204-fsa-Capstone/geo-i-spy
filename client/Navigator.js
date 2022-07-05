@@ -25,9 +25,23 @@ import SignIn from './components/SignIn';
 import HomePage from './components/HomePage';
 import CameraComponent from './components/CameraComponent';
 import UserProfile from './components/UserProfile';
+import ViewImage from './components/ViewImage';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
+const CamNav = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='CameraView'
+        component={CameraComponent}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name='Image' component={ViewImage} />
+    </Stack.Navigator>
+  );
+};
 
 export default function Navigator() {
   const [isSigned, setSigned] = useState(false);
@@ -60,7 +74,7 @@ export default function Navigator() {
         />
         <Tab.Screen
           name='Camera'
-          component={CameraComponent}
+          component={CamNav}
           options={{
             tabBarLabel: 'Camera',
             tabBarIcon: ({ color }) => (
@@ -68,6 +82,7 @@ export default function Navigator() {
             ),
           }}
         />
+
         <Tab.Screen
           name='Profile'
           options={{
