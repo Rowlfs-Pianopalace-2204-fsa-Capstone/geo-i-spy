@@ -43,5 +43,9 @@
   },
   "version": "1.0.0",
   "private": true,
-  "name": "geo-i-spy"
+  "name": "geo-i-spy",
+  "engines": {
+    "node": "16.24",
+    "npm": "8.0"
+  }
 }
