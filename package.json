@@ -42,7 +42,6 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "heroku-prebuild": "npm install --dev",
     "start-server": "JWT=shh NODE_ENV=shh nodemon server",
