@@ -1,47 +1,26 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+
 import {
   StyleSheet,
   Text,
   View,
   Pressable,
   TouchableOpacity,
-} from "react-native";
-import tw from "twrnc";
-import { GlobalDataContext } from "../../App";
-// const dummyData = [
-//   {
-//     id: "1",
-//     name: foot,
-//     difficulty: "1",
-//     score: "10",
-//     officialLocation: false,
-//     description: "Test description",
-//   },
-//   {
-//     id: "2",
-//     name: "mouse",
-//     difficulty: "2",
-//     score: "1",
-//     officialLocation: false,
-//     description: "Test description",
-//   },
-//   {
-//     id: "3",
-//     name: "can",
-//     difficulty: "3",
-//     score: "1",
-//     officialLocation: false,
-//     description: "Test description",
-//   },
-// ];
+} from 'react-native';
+import tw from 'twrnc';
+import { GlobalDataContext } from '../../App';
 
-export const mapArray = (arr) => {
+export const mapArray = (arr, navigation) => {
   return arr.map((ele) => {
+    const { setSingleChallengeData } = React.useContext(GlobalDataContext);
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Camera")}
+        onPress={() => [
+          setSingleChallengeData(ele),
+          navigation.navigate('SingleChallenge'),
+        ]}
         key={ele.id}
         style={tw`border bg-blue-800`}
       >
@@ -53,7 +32,7 @@ export const mapArray = (arr) => {
   });
 };
 
-export default function AllChallenges() {
+export default function AllChallenges({ navigation }) {
   const { challengesData } = React.useContext(GlobalDataContext);
-  return <View>{mapArray(challengesData)}</View>;
+  return <View>{mapArray(challengesData, navigation)}</View>;
 }

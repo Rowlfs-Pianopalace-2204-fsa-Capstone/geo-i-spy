@@ -1,13 +1,14 @@
+/** @format */
+
 export const apiGetAllChallenges = async () => {
-  const response = await fetch("http://localhost:8080/api/challenges", {
+  const response = await fetch('http://localhost:8080/api/challenges', {
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
   });
 
   const data = await response.json();
-  console.log(data);
   return data;
 };
 
@@ -19,7 +20,7 @@ export const apiGetSingleChallenge = async (id) => {
 
 export const apiDeleteChallenge = async (id) => {
   const response = await fetch(`/api/challenges/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: null,
   });
   const data = await response.json();
@@ -27,8 +28,8 @@ export const apiDeleteChallenge = async (id) => {
 };
 
 export const apiPostChallenge = async (challenge) => {
-  const response = await fetch("/api/challenges", {
-    method: "POST",
+  const response = await fetch('/api/challenges', {
+    method: 'POST',
     headers: null,
     body: JSON.stringify(challenge),
   });
@@ -38,7 +39,7 @@ export const apiPostChallenge = async (challenge) => {
 
 export const apiUpdateChallenge = async (challenge) => {
   const response = await fetch(`/api/challenges/${challenge.id}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: null,
     body: JSON.stringify(challenge),
   });
