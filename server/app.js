@@ -1,5 +1,5 @@
 /** @format */
-
+const cors = require("cors");
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
@@ -10,7 +10,7 @@ module.exports = app;
 app.use(morgan("dev"));
 
 app.use(express.json());
-
+app.use(cors());
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 

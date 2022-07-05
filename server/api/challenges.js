@@ -1,15 +1,15 @@
 /** @format */
 
-const router = require('express').Router();
-const { requireToken } = require('./gateKeepingMiddleware');
-const { isAdmin } = require('./gateKeepingMiddleware');
+const router = require("express").Router();
+const { requireToken } = require("./gateKeepingMiddleware");
+const { isAdmin } = require("./gateKeepingMiddleware");
 
 const {
   models: { Challenge },
-} = require('../db');
+} = require("../db");
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const challenges = await Challenge.findAll();
     res.json(challenges);
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', requireToken, isAdmin, async (req, res, next) => {
+router.post("/", requireToken, isAdmin, async (req, res, next) => {
   try {
     await Challenge.create({
       name: req.body.name,
@@ -32,7 +32,7 @@ router.post('/', requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const challenge = await Challenge.findByPk(req.params.id);
     res.json(challenge);
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
+router.delete("/:id", requireToken, isAdmin, async (req, res, next) => {
   try {
     const challenge = await Challenge.findByPk(req.params.id);
     challenge.destroy();
@@ -51,7 +51,7 @@ router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-router.put('/', requireToken, isAdmin, async (req, res, next) => {
+router.put("/", requireToken, isAdmin, async (req, res, next) => {
   try {
     const challenge = await Challenge.update({
       name: req.body.name,
