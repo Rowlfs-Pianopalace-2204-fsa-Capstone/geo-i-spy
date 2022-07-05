@@ -45,7 +45,7 @@
   "private": true,
   "name": "geo-i-spy",
   "engines": {
-    "node": "16.24",
+    "node": "16.x",
     "npm": "8.0"
   }
 }
