@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
@@ -7,6 +9,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackActions } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
+import toast from '../helpers/toast';
 
 export default function CameraComponent({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -31,7 +34,7 @@ export default function CameraComponent({ navigation }) {
         requests: [
           {
             features: [
-              { type: 'LABEL_DETECTION', maxResults: 3 },
+              { type: 'LABEL_DETECTION', maxResults: 10 },
               // { type: 'LANDMARK_DETECTION', maxResults: 5 },
               // { type: 'FACE_DETECTION', maxResults: 5 },
               // { type: 'LOGO_DETECTION', maxResults: 5 },
@@ -70,8 +73,10 @@ export default function CameraComponent({ navigation }) {
         }
       });
       challengeFound
-        ? console.log('You passed the challenge')
-        : console.log('Try again');
+        ? toast.success({ message: `You found a ${challengeItem}!` })
+        : toast.danger({
+            message: `${challengeItem} not detected, try again.`,
+          });
       // this.setState({r
       //   googleResponse: responseJson,
       //   uploading: false

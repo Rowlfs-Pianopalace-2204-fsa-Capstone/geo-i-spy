@@ -10,7 +10,7 @@ export default function HomePage({ navigation }) {
   const { challengesData } = React.useContext(GlobalDataContext);
 
   //This is a placeholder for until we decide a way to set the weekly challenges
-  const weeklyChallenge = challengesData[0];
+  const weeklyChallenge = challengesData[0] || {};
   return (
     <SafeAreaView style={tw`flex-1 items-center justify-center`}>
       <View style={tw`border-2 border-gray-500 p-25`}>
