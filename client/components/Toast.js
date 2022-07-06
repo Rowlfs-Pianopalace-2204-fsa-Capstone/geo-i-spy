@@ -31,7 +31,7 @@ const Toast = () => {
   const [timeOutDuration, setTimeOutDuration] = useState(6000);
   const timeOutRef = useRef(null);
   const colors = {
-    danger: '#dc3545',
+    danger: 'red',
     success: '#28a745',
     info: '#343a40',
   };
