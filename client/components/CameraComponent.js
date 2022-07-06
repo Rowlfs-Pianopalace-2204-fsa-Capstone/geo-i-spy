@@ -5,13 +5,17 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
 import * as MediaLibrary from 'expo-media-library';
-
+import { useIsFocused } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackActions } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 import toast from '../helpers/toast';
+import { GlobalDataContext } from '../../App';
 
 export default function CameraComponent({ navigation }) {
+  const isFocused = useIsFocused();
+  const { SingleChallengeData } = React.useContext(GlobalDataContext);
+
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
   const [recording, setRecording] = useState(false);
@@ -62,9 +66,12 @@ export default function CameraComponent({ navigation }) {
           body: body,
         }
       );
+      const testFunction = () => {
+        toast.success({ message: null });
+      };
       let responseJson = await response.json();
       console.log('@@@@@@', responseJson), '@@@@@@@';
-      const challengeItem = 'Beverage can';
+      const challengeItem = SingleChallengeData.name;
       let challengeFound = false;
       responseJson.responses[0].labelAnnotations.map((guess) => {
         console.log('GUESS:', guess);
@@ -72,11 +79,13 @@ export default function CameraComponent({ navigation }) {
           challengeFound = true;
         }
       });
-      challengeFound
-        ? toast.success({ message: `You found a ${challengeItem}!` })
-        : toast.danger({
-            message: `${challengeItem} not detected, try again.`,
-          });
+      if (challengeFound) {
+        toast.success({ message: `You found a ${challengeItem}!` });
+        setTimeout(testFunction, 5000);
+      } else {
+        toast.danger({ message: `No ${challengeItem} detected, try again.` });
+        setTimeout(testFunction, 5000);
+      }
       // this.setState({r
       //   googleResponse: responseJson,
       //   uploading: false
@@ -93,10 +102,11 @@ export default function CameraComponent({ navigation }) {
 
   useEffect(() => {
     (async () => {
+      console.log('THIS RAN');
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     console.log('permission', hasPermission);
@@ -123,53 +133,58 @@ export default function CameraComponent({ navigation }) {
   };
 
   if (hasPermission === null) {
-    return <View />;
+    return <Text>{hasPermission}</Text>;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  return (
-    <View style={tw`flex-1`}>
-      <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
-        <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
-          <TouchableOpacity
-            style={tw`absolute top-10 left-1`}
-            onPress={() => {
-              // navigation.dispatch(StackActions.pop(1));
-              navigation.navigate('Home');
-            }}
-          >
-            <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={tw`absolute bottom-10 left-5`}
-            onPress={() => {
-              setType(
-                type === CameraType.back ? CameraType.front : CameraType.back
-              );
-            }}
-          >
-            <MaterialCommunityIcons
-              name='camera-flip'
-              size={40}
-              color='black'
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={tw`absolute bottom-10  right-40`}
-            onPress={() => {
-              handleRecord();
-            }}
-          >
-            <MaterialCommunityIcons
-              name='radiobox-marked'
-              size={50}
-              color={recording ? 'red' : 'black'}
-              style={tw`opacity-60`}
-            />
-          </TouchableOpacity>
-        </View>
-      </Camera>
-    </View>
-  );
+  if (isFocused) {
+    return (
+      <View style={tw`flex-1`}>
+        <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
+          <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
+            <TouchableOpacity
+              style={tw`absolute top-10 left-1`}
+              onPress={() => {
+                // navigation.dispatch(StackActions.pop(1));
+                navigation.navigate('Home');
+              }}
+            >
+              <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={tw`absolute bottom-10 left-5`}
+              onPress={() => {
+                setType(
+                  type === CameraType.back ? CameraType.front : CameraType.back
+                );
+              }}
+            >
+              <MaterialCommunityIcons
+                name='camera-flip'
+                size={40}
+                color='black'
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={tw`absolute bottom-10  right-40`}
+              onPress={() => {
+                handleRecord();
+              }}
+            >
+              <MaterialCommunityIcons
+                name='radiobox-marked'
+                size={50}
+                color={recording ? 'red' : 'black'}
+                style={tw`opacity-60`}
+              />
+            </TouchableOpacity>
+          </View>
+        </Camera>
+      </View>
+    );
+  } else {
+    setHasPermission(null);
+    return <View />;
+  }
 }
