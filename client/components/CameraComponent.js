@@ -10,7 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackActions } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 import toast from '../helpers/toast';
-import { GlobalDataContext } from '../../App';
+import { GlobalDataContext } from '../Context';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
