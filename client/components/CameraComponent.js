@@ -66,6 +66,9 @@ export default function CameraComponent({ navigation }) {
           body: body,
         }
       );
+      const testFunction = () => {
+        toast.success({ message: null });
+      };
       let responseJson = await response.json();
       console.log('@@@@@@', responseJson), '@@@@@@@';
       const challengeItem = SingleChallengeData.name;
@@ -76,11 +79,13 @@ export default function CameraComponent({ navigation }) {
           challengeFound = true;
         }
       });
-      challengeFound
-        ? toast.success({ message: `You found a ${challengeItem}!` })
-        : toast.danger({
-            message: `${challengeItem} not detected, try again.`,
-          });
+      if (challengeFound) {
+        toast.success({ message: `You found a ${challengeItem}!` });
+        setTimeout(testFunction, 5000);
+      } else {
+        toast.danger({ message: `No ${challengeItem} detected, try again.` });
+        setTimeout(testFunction, 5000);
+      }
       // this.setState({r
       //   googleResponse: responseJson,
       //   uploading: false
@@ -97,6 +102,7 @@ export default function CameraComponent({ navigation }) {
 
   useEffect(() => {
     (async () => {
+      console.log('THIS RAN');
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();

@@ -11,7 +11,7 @@ const toast = {
   danger: (options) => {
     DeviceEventEmitter.emit(SHOW_TOAST_MESSAGE, {
       ...options,
-      type: 'An error has occured',
+      type: 'danger',
     });
   },
   success: (options) => {

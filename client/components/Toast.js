@@ -36,13 +36,13 @@ const Toast = () => {
     info: '#343a40',
   };
 
-  useEffect(() => {
-    if (message) {
-      setInterval(() => {
-        setMessage(null);
-      }, 6000);
-    }
-  });
+  // useEffect(() => {
+  //   if (message) {
+  //     setInterval(() => {
+  //       setMessage(null);
+  //     }, 6000);
+  //   }
+  // });
 
   const onNewToast = (data) => {
     if (data.duration) {
@@ -52,25 +52,27 @@ const Toast = () => {
     setMessage(data.message);
     setMessageType(data.type);
   };
-  const closeToast = () => {
-    setMessage(null);
-    setTimeOutDuration(6000);
-  };
+  // const closeToast = () => {
+  //   setMessage(null);
+  //   setTimeOutDuration(6000);
+  // };
 
-  useEffect(() => {
-    if (message) {
-      timeOutRef.current = setInterval(() => {
-        if (timeOutDuration === 0) {
-          closeToast();
-        } else {
-          setTimeOutDuration((prev) => prev - 1000);
-        }
-      }, 1000);
-    }
-    return () => {
-      clearInterval(timeOutRef.current);
-    };
-  }, [message, timeOutDuration]);
+  // useEffect(() => {
+  //   if (message) {
+  //     timeOutRef.current = setInterval(() => {
+  //       if (timeOutDuration === 0) {
+  //         setMessage(null);
+  //         setTimeOutDuration(6000);
+  //       } else {
+  //         console.log(timeOutDuration);
+  //         setTimeOutDuration((prev) => prev - 1000);
+  //       }
+  //     }, 1000);
+  //   }
+  //   return () => {
+  //     clearInterval(timeOutRef.current);
+  //   };
+  // }, [message, timeOutDuration]);
   useEffect(() => {
     DeviceEventEmitter.addListener('SHOW_TOAST_MESSAGE', onNewToast);
     return () => {
