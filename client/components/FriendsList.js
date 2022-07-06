@@ -8,7 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { GlobalDataContext } from '../../App';
+import { GlobalDataContext } from '../Context';
 
 export default function FriendsList({ navigation }) {
   const dummyData = [
