@@ -1,7 +1,16 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Modal,
+  Alert,
+  Pressable,
+} from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
 import * as MediaLibrary from 'expo-media-library';
@@ -11,6 +20,7 @@ import { StackActions } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 import toast from '../helpers/toast';
 import { GlobalDataContext } from '../Context';
+import { apiSendToCloudVision } from '../Thunks/Challenges';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
@@ -20,52 +30,15 @@ export default function CameraComponent({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [recording, setRecording] = useState(false);
   const [camera, setCamera] = useState(null);
+  const [resultVisible, setresultVisible] = useState(false);
   const [uploading, setUpload] = useState(false);
   const [image, setImage] = useState(null);
 
   const submitToGoogle = async (image) => {
     try {
       setUpload(true);
-      // const encoded = await FileSystem.readAsStringAsync(image, {
-      //   encoding: 'base64',
-      // });
 
-      // const fs = require('fs');
-      // let imageFile = fs.readFileSync(image);
-      // let encoded = Buffer.from(imageFile).toString('base64');
-
-      let body = JSON.stringify({
-        requests: [
-          {
-            features: [
-              { type: 'LABEL_DETECTION', maxResults: 10 },
-              // { type: 'LANDMARK_DETECTION', maxResults: 5 },
-              // { type: 'FACE_DETECTION', maxResults: 5 },
-              // { type: 'LOGO_DETECTION', maxResults: 5 },
-              // { type: 'TEXT_DETECTION', maxResults: 5 },
-              // { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
-              // { type: 'SAFE_SEARCH_DETECTION', maxResults: 5 },
-              // { type: 'IMAGE_PROPERTIES', maxResults: 5 },
-              // { type: 'CROP_HINTS', maxResults: 5 },
-              // { type: 'WEB_DETECTION', maxResults: 5 },
-            ],
-            image: {
-              content: image,
-            },
-          },
-        ],
-      });
-      let response = await fetch(
-        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA7XC9GtbutkELajb80zbyoOCJfraTFPgg',
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: body,
-        }
-      );
+      const response = await apiSendToCloudVision(image);
       const testFunction = () => {
         toast.success({ message: null });
       };
@@ -86,14 +59,6 @@ export default function CameraComponent({ navigation }) {
         toast.danger({ message: `No ${challengeItem} detected, try again.` });
         setTimeout(testFunction, 5000);
       }
-      // this.setState({r
-      //   googleResponse: responseJson,
-      //   uploading: false
-      // });
-
-      // .responses.map((response) => {
-      //   return response.description;
-      // });
       return responseJson;
     } catch (error) {
       console.log(error);
@@ -108,10 +73,6 @@ export default function CameraComponent({ navigation }) {
     })();
   }, [isFocused]);
 
-  useEffect(() => {
-    console.log('permission', hasPermission);
-  }, [hasPermission]);
-
   const handleRecord = async () => {
     if (recording) {
       //await camera.stopRecording();
@@ -121,14 +82,16 @@ export default function CameraComponent({ navigation }) {
       setImage(picture.uri);
       setRecording(false);
 
-      const pushAction = StackActions.push('Image', { image: picture });
-      navigation.dispatch(pushAction);
-      const { responses } = await submitToGoogle(picture.base64);
-      const results = responses[0].labelAnnotations.map(
-        (response) => response.description
-      );
+      // const pushAction = StackActions.push('Image', { image: picture });
+      // navigation.dispatch(pushAction);
+      setresultVisible(true);
+      // //const { responses } = await submitToGoogle(picture.base64);
 
-      console.log('result', results);
+      // const results = responses[0].labelAnnotations.map(
+      //   (response) => response.description
+      // );
+
+      // console.log('result', results);
     }
   };
 
@@ -141,6 +104,28 @@ export default function CameraComponent({ navigation }) {
   if (isFocused) {
     return (
       <View style={tw`flex-1`}>
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={resultVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setresultVisible(!resultVisible);
+          }}
+        >
+          <Image source={{ uri: image }} />
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setresultVisible(!resultVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
           <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
             <TouchableOpacity
@@ -188,3 +173,47 @@ export default function CameraComponent({ navigation }) {
     return <View />;
   }
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
