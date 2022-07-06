@@ -11,6 +11,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
+import React from 'react';
 
 import tw from 'twrnc';
 import toast from '../helpers/toast';

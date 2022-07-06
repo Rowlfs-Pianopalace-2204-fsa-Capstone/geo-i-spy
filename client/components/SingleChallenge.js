@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import tw from 'twrnc';
-import { GlobalDataContext } from '../../App';
+import { GlobalDataContext } from '../Context';
 
 export default function SingleChallenge({ navigation }) {
   const { SingleChallengeData } = React.useContext(GlobalDataContext);

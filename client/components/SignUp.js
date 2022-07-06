@@ -7,6 +7,7 @@ import {
   Button,
   Pressable,
 } from 'react-native';
+import React from 'react';
 
 import tw from 'twrnc';
 
