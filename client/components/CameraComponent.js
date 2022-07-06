@@ -6,6 +6,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Touchable,
   Image,
   Modal,
   Alert,
@@ -31,7 +32,7 @@ export default function CameraComponent({ navigation }) {
   const [recording, setRecording] = useState(false);
   const [camera, setCamera] = useState(null);
   const [resultVisible, setresultVisible] = useState(false);
-  const [uploading, setUpload] = useState(false);
+  const [uploading, setUpload] = useState('none');
   const [image, setImage] = useState(null);
 
   const submitToGoogle = async (image) => {
@@ -85,15 +86,21 @@ export default function CameraComponent({ navigation }) {
       // const pushAction = StackActions.push('Image', { image: picture });
       // navigation.dispatch(pushAction);
       setresultVisible(true);
-      // //const { responses } = await submitToGoogle(picture.base64);
+      setUpload('uploading');
+      const { responses } = await submitToGoogle(picture.base64);
 
-      // const results = responses[0].labelAnnotations.map(
-      //   (response) => response.description
-      // );
+      const results = responses[0].labelAnnotations.map(
+        (response) => response.description
+      );
+      setUpload();
 
-      // console.log('result', results);
+      console.log('result', results);
     }
   };
+
+  useEffect(() => {
+    console.log('image', image);
+  }, [resultVisible]);
 
   if (hasPermission === null) {
     return <Text>{hasPermission}</Text>;
@@ -113,18 +120,20 @@ export default function CameraComponent({ navigation }) {
             setresultVisible(!resultVisible);
           }}
         >
-          <Image source={{ uri: image }} />
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setresultVisible(!resultVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
+          <Pressable
+            style={tw`flex-1 justify-center`}
+            onPress={() => setresultVisible(!resultVisible)}
+          >
+            <Image
+              style={tw`flex-1 justify-center m-10 mt-40 mb-50 border-8 border-white rounded-lg`}
+              source={{
+                uri: image,
+              }}
+            />
+            <View
+              style={tw`absolute float-right spinner-border animate-spin w-8 h-8 border-4 border-white`}
+            />
+          </Pressable>
         </Modal>
         <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
           <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
@@ -215,5 +224,16 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  container: {
+    paddingTop: 50,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+  logo: {
+    width: 66,
+    height: 58,
   },
 });
