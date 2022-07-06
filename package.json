@@ -5,19 +5,13 @@
     "@react-navigation/material-bottom-tabs": "^6.2.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
-    "bcrypt": "^5.0.1",
-    "clean-webpack-plugin": "^4.0.0",
-    "cors": "^2.8.5",
     "expo": "^45.0.0",
     "expo-av": "~11.2.3",
     "expo-camera": "~12.2.0",
     "expo-file-system": "~14.0.0",
     "expo-media-library": "~14.1.0",
-    "express": "^4.18.1",
     "json-loader": "^0.5.7",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "pg": "^8.7.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
@@ -26,27 +20,14 @@
     "react-native-screens": "~3.11.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "0.17.7",
-    "react-native-webpack": "^0.1.1",
-    "sequelize": "^6.21.2",
-    "twrnc": "^3.3.3",
-    "webpack": "^5.73.0"
+    "twrnc": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "cross-env": "^7.0.3",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3"
+    "cross-env": "^7.0.3"
   },
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "build:dev": "npm run build -- --watch --mode=development",
-    "heroku-prebuild": "npm install --dev",
-    "start-server": "JWT=shh NODE_ENV=shh nodemon server",
-    "windows-build": "cross-env JWT=shh NODE_ENV=shh nodemon server",
-    "seed": "node script/seed.js"
+    "start": "expo start"
   },
   "version": "1.0.0",
   "private": true,
