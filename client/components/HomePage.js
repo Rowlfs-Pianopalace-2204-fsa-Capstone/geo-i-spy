@@ -5,7 +5,7 @@ import tw from 'twrnc';
 
 import { View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import SingleChallenge from './SingleChallenge';
-import { GlobalDataContext } from '../../App';
+import { GlobalDataContext } from '../Context';
 export default function HomePage({ navigation }) {
   const { challengesData } = React.useContext(GlobalDataContext);
 

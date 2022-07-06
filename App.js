@@ -1,10 +1,10 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import Toast from "./client/components/Toast";
-import Navigator from "./client/Navigator";
-import { apiGetAllChallenges } from "./client/Thunks/Challenges";
-export const GlobalDataContext = React.createContext();
+import React, { useEffect, useState } from 'react';
+import Toast from './client/components/Toast';
+import Navigator from './client/Navigator';
+import { apiGetAllChallenges } from './client/Thunks/Challenges';
+import { GlobalDataContext } from './client/Context';
 
 export default function App() {
   const [challengesData, setChallengesData] = useState([]);

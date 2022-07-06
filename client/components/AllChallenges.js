@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import tw from 'twrnc';
-import { GlobalDataContext } from '../../App';
+import { GlobalDataContext } from '../Context';
 
 export const mapArray = (arr, navigation) => {
   return arr.map((ele) => {
