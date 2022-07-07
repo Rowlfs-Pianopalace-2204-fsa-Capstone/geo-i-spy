@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
+
 const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
 const textStyle = 'pb-2 font-bold';
 const dummyData = {
@@ -22,8 +23,8 @@ const dummyData = {
   email: 'Billy@gmail.com',
 };
 const dummyDataFollow = false;
+
 export default function FriendProfile() {
-  //--
   const followsYou = true;
   const [isFollowing, setIsFollowing] = useState(dummyDataFollow);
   const friendData = dummyData;
@@ -35,8 +36,8 @@ export default function FriendProfile() {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 p-6 mt-6`}>
-      <View style={tw`flex-1 items-center pb-22`}>
+    <SafeAreaView style={tw`flex-1 px-6 mt-2`}>
+      <View style={tw`flex-1 items-center pb-26`}>
         <Text style={tw`font-bold text-4xl`}>{friendData.name}</Text>
         <Image
           source={{ uri: friendData.img_url }}
@@ -44,10 +45,10 @@ export default function FriendProfile() {
         ></Image>
       </View>
       <View style={tw`flex-2 p-2 border-2`}>
-        <Text style={tw`${textStyle}`}>Username: {friendData.username}</Text>
-        <Text style={tw`${textStyle}`}>Score:{friendData.score}</Text>
-        <Text style={tw`${textStyle}`}>Email: {friendData.email}</Text>
-        <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text>
+        {/* <Text style={tw`${textStyle}`}>Username: {friendData.username}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>Score:{friendData.score}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>Email: {friendData.email}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text> */}
         {isFollowing ? (
           <TouchableOpacity
             onPress={() => unfollow()}

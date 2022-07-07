@@ -22,10 +22,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
 
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+
 import HomePage from './components/HomePage';
 import CameraComponent from './components/CameraComponent';
-import UserProfile from './components/UserProfile';
-
+import ProfileNavigate from './components/ProfileNavigate';
+import ViewImage from './components/ViewImage';
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
 
@@ -51,6 +53,17 @@ export default function Navigator() {
       <Stack.Navigator>
         <Stack.Screen name='SignIn' options={{ headerShown: false }}>
           {(props) => <SignIn {...props} signIn={() => setSigned(true)} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name='SignUp'
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'lightgray',
+            },
+          }}
+        >
+          {(props) => <SignUp {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
@@ -117,7 +130,7 @@ export default function Navigator() {
           }}
         >
           {(props) => (
-            <UserProfile {...props} signOut={() => setSigned(false)} />
+            <ProfileNavigate {...props} signOut={() => setSigned(false)} />
           )}
         </Tab.Screen>
       </Tab.Navigator>

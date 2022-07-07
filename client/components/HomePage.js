@@ -12,7 +12,7 @@ export default function HomePage({ navigation }) {
   //This is a placeholder for until we decide a way to set the weekly challenges
   const weeklyChallenge = challengesData[0] || {};
   return (
-    <SafeAreaView style={tw`flex-1 items-center justify-center`}>
+    <SafeAreaView style={tw`flex-1 items-center justify-center shadow-lg`}>
       <View style={tw`border-2 border-gray-500 p-25`}>
         <Text>
           This weeks challenge is to take a picture of a: {weeklyChallenge.name}
