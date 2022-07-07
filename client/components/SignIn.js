@@ -19,11 +19,14 @@ import toast from '../helpers/toast';
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
 
-export default function SignIn({ signIn }) {
+export default function SignIn({ signIn, navigation }) {
+  const signUp = () => {
+    navigation.navigate('SignUp');
+  };
   return (
     <ImageBackground
       source={require(`../../public/Bridge.jpeg`)}
-      resizeMode='cover'
+      resizeMode="cover"
       style={tw`flex-1 justify-center`}
     >
       <View style={tw`flex-1 my-20 pl-6 pr-6`}>
@@ -53,7 +56,12 @@ export default function SignIn({ signIn }) {
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={tw`${buttonStyle}`}>
+              <TouchableOpacity
+                onPress={() => {
+                  signUp();
+                }}
+                style={tw`${buttonStyle}`}
+              >
                 <Text style={tw`font-bold`}>Sign Up</Text>
               </TouchableOpacity>
             </View>

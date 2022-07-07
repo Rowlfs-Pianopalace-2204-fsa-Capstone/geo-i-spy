@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-
 import {
   StyleSheet,
   Text,
@@ -9,9 +8,10 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
+const textStyle = `font-bold`;
+
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
-
 export const mapArray = (arr, navigation) => {
   return arr.map((ele) => {
     const { setSingleChallengeData } = React.useContext(GlobalDataContext);
@@ -22,11 +22,11 @@ export const mapArray = (arr, navigation) => {
           navigation.navigate('SingleChallenge'),
         ]}
         key={ele.id}
-        style={tw`border bg-blue-800`}
+        style={tw`border bg-blue-400 p-6`}
       >
-        <Text>{ele.name}</Text>
-        <Text>{ele.difficulty}</Text>
-        <Text>{ele.score}</Text>
+        <Text style={tw`${textStyle}`}>{ele.name}</Text>
+        <Text style={tw`${textStyle}`}>{ele.difficulty}</Text>
+        <Text style={tw`${textStyle}`}>{ele.score}</Text>
       </TouchableOpacity>
     );
   });
@@ -34,5 +34,9 @@ export const mapArray = (arr, navigation) => {
 
 export default function AllChallenges({ navigation }) {
   const { challengesData } = React.useContext(GlobalDataContext);
-  return <View>{mapArray(challengesData, navigation)}</View>;
+  return (
+    <View style={tw`flex-1 pt-12 px-6`}>
+      {mapArray(challengesData, navigation)}
+    </View>
+  );
 }
