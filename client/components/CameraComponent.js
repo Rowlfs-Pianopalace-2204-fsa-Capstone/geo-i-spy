@@ -70,11 +70,11 @@ export default function CameraComponent({ navigation }) {
         toast.success({ message: null });
       };
       let responseJson = await response.json();
-      console.log('@@@@@@', responseJson), '@@@@@@@';
+      console.log(responseJson);
       const challengeItem = SingleChallengeData.name;
       let challengeFound = false;
       responseJson.responses[0].labelAnnotations.map((guess) => {
-        console.log('GUESS:', guess);
+        console.log('GUESS:', guess.description);
         if (guess.description === challengeItem) {
           challengeFound = true;
         }
@@ -150,7 +150,7 @@ export default function CameraComponent({ navigation }) {
                 navigation.navigate('Home');
               }}
             >
-              <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
+              <MaterialCommunityIcons name="alpha-x" size={40} color="black" />
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`absolute bottom-10 left-5`}
@@ -161,9 +161,9 @@ export default function CameraComponent({ navigation }) {
               }}
             >
               <MaterialCommunityIcons
-                name='camera-flip'
+                name="camera-flip"
                 size={40}
-                color='black'
+                color="black"
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -173,7 +173,7 @@ export default function CameraComponent({ navigation }) {
               }}
             >
               <MaterialCommunityIcons
-                name='radiobox-marked'
+                name="radiobox-marked"
                 size={50}
                 color={recording ? 'red' : 'black'}
                 style={tw`opacity-60`}
