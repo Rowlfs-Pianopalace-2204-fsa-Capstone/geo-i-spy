@@ -7,17 +7,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserProfile from './UserProfile';
 import FollowingList from './FollowingList';
 import PublicProfile from './PublicProfile';
+import FollowersList from './FollowersList';
 
 const ProfileStack = createNativeStackNavigator();
 
 const ProfileNavigate = ({ signOut }, navigation) => {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="UserProfile" options={{ headerShown: false }}>
+      <ProfileStack.Screen name='UserProfile' options={{ headerShown: false }}>
         {(props) => <UserProfile {...props} signOut={() => signOut()} />}
       </ProfileStack.Screen>
       <ProfileStack.Screen
-        name="FollowingList"
+        name='FollowingList'
         options={{
           headerShown: true,
           headerStyle: {
@@ -28,7 +29,18 @@ const ProfileNavigate = ({ signOut }, navigation) => {
         {(props) => <FollowingList {...props} />}
       </ProfileStack.Screen>
       <ProfileStack.Screen
-        name="PublicProfile"
+        name='FollowersList'
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: 'lightgray',
+          },
+        }}
+      >
+        {(props) => <FollowersList {...props} />}
+      </ProfileStack.Screen>
+      <ProfileStack.Screen
+        name='PublicProfile'
         options={{
           headerShown: true,
           headerStyle: {
