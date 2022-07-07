@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,6 +22,7 @@ import * as FileSystem from 'expo-file-system';
 import toast from '../helpers/toast';
 import { GlobalDataContext } from '../Context';
 import { apiSendToCloudVision } from '../Thunks/Challenges';
+import LottieView from 'lottie-react-native';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
@@ -32,8 +33,10 @@ export default function CameraComponent({ navigation }) {
   const [recording, setRecording] = useState(false);
   const [camera, setCamera] = useState(null);
   const [resultVisible, setresultVisible] = useState(false);
-  const [uploading, setUpload] = useState('none');
+  const [uploading, setUpload] = useState(false);
   const [image, setImage] = useState(null);
+  const [result, setResult] = useState(false);
+  const animationRef = useRef(null);
 
   const submitToGoogle = async (image) => {
     try {
@@ -46,14 +49,17 @@ export default function CameraComponent({ navigation }) {
       let responseJson = await response.json();
       console.log('@@@@@@', responseJson), '@@@@@@@';
       const challengeItem = SingleChallengeData.name;
-      let challengeFound = false;
+      let challengeResult = false;
+      setResult(false);
+
       responseJson.responses[0].labelAnnotations.map((guess) => {
         console.log('GUESS:', guess);
         if (guess.description === challengeItem) {
-          challengeFound = true;
+          setResult(true);
+          challengeResult = true;
         }
       });
-      if (challengeFound) {
+      if (challengeResult) {
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {
@@ -86,17 +92,33 @@ export default function CameraComponent({ navigation }) {
       // const pushAction = StackActions.push('Image', { image: picture });
       // navigation.dispatch(pushAction);
       setresultVisible(true);
-      setUpload('uploading');
+      setUpload(true);
       const { responses } = await submitToGoogle(picture.base64);
 
       const results = responses[0].labelAnnotations.map(
         (response) => response.description
       );
-      setUpload();
+      setUpload(false);
 
       console.log('result', results);
     }
   };
+
+  useEffect(() => {
+    if (uploading === false) {
+      if (animationRef.current !== null) {
+        if (result) {
+          animationRef.current.play(0, 120);
+        } else {
+          animationRef.current.play(0, 59);
+        }
+
+        console.log('uploading is false');
+      }
+    }
+
+    // Or set a specific startFrame and endFrame with:
+  }, [uploading]);
 
   useEffect(() => {
     console.log('image', image);
@@ -124,15 +146,35 @@ export default function CameraComponent({ navigation }) {
             style={tw`flex-1 justify-center`}
             onPress={() => setresultVisible(!resultVisible)}
           >
-            <Image
-              style={tw`flex-1 justify-center m-10 mt-40 mb-50 border-8 border-white rounded-lg`}
-              source={{
-                uri: image,
-              }}
-            />
-            <View
-              style={tw`absolute float-right spinner-border animate-spin w-8 h-8 border-4 border-white`}
-            />
+            <View style={tw`flex-1 justify-center m-10 mt-40 mb-50 `}>
+              <Image
+                style={tw`flex-1 border-8 border-white rounded-lg`}
+                source={{
+                  uri: image,
+                }}
+              />
+              {uploading ? (
+                <LottieView
+                  source={require('../../public/assets/loading.json')}
+                  resizeMode='contain'
+                  autoPlay
+                />
+              ) : result ? (
+                <LottieView
+                  source={require('../../public/assets/success.json')}
+                  resizeMode='contain'
+                  loop={false}
+                  ref={animationRef}
+                />
+              ) : (
+                <LottieView
+                  source={require('../../public/assets/failed.json')}
+                  resizeMode='contain'
+                  loop={false}
+                  ref={animationRef}
+                />
+              )}
+            </View>
           </Pressable>
         </Modal>
         <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
