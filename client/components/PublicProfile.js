@@ -45,10 +45,10 @@ export default function FriendProfile() {
         ></Image>
       </View>
       <View style={tw`flex-2 p-2 border-2`}>
-        <Text style={tw`${textStyle}`}>Username: {friendData.username}</Text>
-        <Text style={tw`${textStyle}`}>Score:{friendData.score}</Text>
-        <Text style={tw`${textStyle}`}>Email: {friendData.email}</Text>
-        <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text>
+        {/* <Text style={tw`${textStyle}`}>Username: {friendData.username}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>Score:{friendData.score}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>Email: {friendData.email}</Text> */}
+        {/* <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text> */}
         {isFollowing ? (
           <TouchableOpacity
             onPress={() => unfollow()}
