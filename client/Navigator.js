@@ -22,9 +22,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
 
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+
 import HomePage from './components/HomePage';
 import CameraComponent from './components/CameraComponent';
-import UserProfile from './components/UserProfile';
+import ProfileNavigate from './components/ProfileNavigate';
 import ViewImage from './components/ViewImage';
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
@@ -36,11 +38,11 @@ const CamNav = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='CameraView'
+        name="CameraView"
         component={CameraComponent}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name='Image' component={ViewImage} />
+      <Stack.Screen name="Image" component={ViewImage} />
     </Stack.Navigator>
   );
 };
@@ -50,58 +52,69 @@ export default function Navigator() {
   return !isSigned ? (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='SignIn' options={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" options={{ headerShown: false }}>
           {(props) => <SignIn {...props} signIn={() => setSigned(true)} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="SignUp"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'lightgray',
+            },
+          }}
+        >
+          {(props) => <SignUp {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName='Home'
-        activeColor='#e91e63'
+        initialRouteName="Home"
+        activeColor="#e91e63"
         labelStyle={{ fontSize: 12 }}
         animationEnabled={true}
         style={{ backgroundColor: 'tomato' }}
       >
         <Tab.Screen
-          name='Home'
+          name="Home"
           component={HomePage}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='home' color={color} size={26} />
+              <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
           }}
         />
         <Tab.Screen
-          name='Camera'
+          name="Camera"
           component={CamNav}
           options={{
             tabBarLabel: 'Camera',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='camera' color={color} size={26} />
+              <MaterialCommunityIcons name="camera" color={color} size={26} />
             ),
           }}
         />
         <Tab.Screen
-          name='Challenges'
+          name="Challenges"
           component={AllChallenges}
           options={{
             tabBarLabel: 'Challenges',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='alien' color={color} size={26} />
+              <MaterialCommunityIcons name="alien" color={color} size={26} />
             ),
           }}
         />
         <Tab.Screen
-          name='SingleChallenge'
+          name="SingleChallenge"
           component={SingleChallenge}
           options={{
             tabBarLabel: 'Current Challenge',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name='alien-outline'
+                name="alien-outline"
                 color={color}
                 size={26}
               />
@@ -109,16 +122,16 @@ export default function Navigator() {
           }}
         />
         <Tab.Screen
-          name='Profile'
+          name="Profile"
           options={{
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='account' color={color} size={26} />
+              <MaterialCommunityIcons name="account" color={color} size={26} />
             ),
           }}
         >
           {(props) => (
-            <UserProfile {...props} signOut={() => setSigned(false)} />
+            <ProfileNavigate {...props} signOut={() => setSigned(false)} />
           )}
         </Tab.Screen>
       </Tab.Navigator>
