@@ -35,8 +35,8 @@ export default function App() {
         }}
       >
         <Toast />
-        {/* <Navigator /> */}
-        <SignUp />
+        <Navigator />
+        {/* <SignUp /> */}
         {/* <PublicProfile /> */}
         {/* <FollowingList /> */}
       </GlobalDataContext.Provider>
