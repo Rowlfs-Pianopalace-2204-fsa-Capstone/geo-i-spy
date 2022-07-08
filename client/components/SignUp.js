@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -85,8 +86,8 @@ export default function SignUp() {
   };
 
   return (
-    <View style={tw`flex-1 bg-blue-200 p-12 top-0 justify-items-center`}>
-      <View style={tw`flex-1 items-center `}>
+    <ScrollView style={tw`flex-1 bg-blue-200 p-12`}>
+      <View style={tw`flex-1 items-center pb-50 `}>
         <Text style={tw`text-2xl`}>Create your account!</Text>
       </View>
       <View style={tw`flex-1`}>
@@ -167,6 +168,6 @@ export default function SignUp() {
           <Text style={tw`font-bold`}>Create account</Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 }
