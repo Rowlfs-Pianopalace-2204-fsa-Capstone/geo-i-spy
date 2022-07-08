@@ -1,11 +1,15 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
-import Toast from './client/components/Toast';
-import Navigator from './client/Navigator';
-import { apiGetAllChallenges } from './client/Thunks/Challenges';
-import { GlobalDataContext } from './client/Context';
-import SignUp from './client/components/SignUp';
+import React, { useEffect, useState } from "react";
+import Toast from "./client/components/Toast";
+import Navigator from "./client/Navigator";
+import { apiGetAllChallenges } from "./client/Thunks/Challenges";
+import { GlobalDataContext } from "./client/Context";
+import { GlobalIsSignedContext } from "./client/Context";
+import PublicProfile from "./client/components/PublicProfile";
+import FollowingList from "./client/components/FollowingList";
+
+import SignUp from "./client/components/SignUp";
 
 export default function App() {
   const [followData, setFollowData] = useState([]);
@@ -13,6 +17,7 @@ export default function App() {
   const [challengesData, setChallengesData] = useState([]);
   const [SingleChallengeData, setSingleChallengeData] = useState({});
   const [authData, setAuthData] = useState({});
+  const [isSigned, setIsSigned] = useState(false);
   useEffect(() => {
     apiGetAllChallenges().then((data) => {
       setChallengesData(data);
@@ -34,11 +39,17 @@ export default function App() {
           setSingleUser,
         }}
       >
-        <Toast />
-        <Navigator />
-        {/* <SignUp /> */}
-        {/* <PublicProfile /> */}
-        {/* <FollowingList /> */}
+        <GlobalIsSignedContext.Provider
+          value={{
+            isSigned,
+            setIsSigned,
+          }}
+        >
+          <Toast />
+          <Navigator />
+          {/* <PublicProfile /> */}
+          {/* <FollowingList /> */}
+        </GlobalIsSignedContext.Provider>
       </GlobalDataContext.Provider>
     </>
   );

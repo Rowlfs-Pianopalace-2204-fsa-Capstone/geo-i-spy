@@ -23,7 +23,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-vision-camera": "^2.13.5",
     "react-native-web": "0.17.7",
-    "twrnc": "^3.3.3"
+    "twrnc": "^3.3.3",
+    "expo-secure-store": "~11.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

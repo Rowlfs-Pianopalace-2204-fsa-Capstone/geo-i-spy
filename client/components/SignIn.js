@@ -10,18 +10,37 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
-} from 'react-native';
-import React from 'react';
-
-import tw from 'twrnc';
-import toast from '../helpers/toast';
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { apiAuthLogin } from "../Thunks/Auth";
+import { GlobalDataContext } from "../Context";
+import { GlobalIsSignedContext } from "../Context";
+import tw from "twrnc";
+import toast from "../helpers/toast";
+import * as SecureStore from "expo-secure-store";
 
 const buttonStyle =
-  'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
+  "m-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg";
 
-export default function SignIn({ signIn, navigation }) {
+export default function SignIn({ navigation }) {
+  const [username, setUsername] = useState("cody");
+  const [password, setPassword] = useState("123");
+  const { authData, setAuthData } = React.useContext(GlobalDataContext);
+  const { setIsSigned } = React.useContext(GlobalIsSignedContext);
+
+  useEffect(() => {}, [authData]);
+
+  const handleLogin = async () => {
+    const user = await apiAuthLogin(username, password);
+    if (user) {
+      console.log(user);
+      setAuthData(user);
+      setIsSigned(true);
+    }
+  };
+
   const signUp = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate("SignUp");
   };
   return (
     <ImageBackground
@@ -33,26 +52,29 @@ export default function SignIn({ signIn, navigation }) {
         <ScrollView>
           <View style={tw`flex-3 justify-center text-center`}>
             <Text style={tw`font-bold text-4xl bg-gray-100/40 `}>
-              {' '}
+              {" "}
               Welcome to
             </Text>
             <Text style={tw`font-bold text-4xl bg-gray-100/40`}>Geo-I-Spy</Text>
           </View>
           <View style={tw`flex-1`}>
             <View style={tw`bg-gray-200/50 p-4`}>
-              <Text style={tw`shadow-xl font-bold`}>Email:</Text>
+              <Text style={tw`shadow-xl font-bold`}>Username:</Text>
               <TextInput
+                placeholder="username"
+                onChangeText={(username) => setUsername(username)}
                 style={tw`border border-gray-500 bg-gray-200/75 pl-2`}
               ></TextInput>
               <Text style={tw`shadow-xl font-bold`}>Password:</Text>
               <TextInput
+                placeholder="password"
+                secureTextEntry={true}
+                onChangeText={(password) => setPassword(password)}
                 style={tw`border border-gray-500  bg-gray-200/75 pl-2`}
               ></TextInput>
               <TouchableOpacity
                 style={tw`${buttonStyle}`}
-                onPress={() => {
-                  signIn();
-                }}
+                onPress={handleLogin}
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
               </TouchableOpacity>
