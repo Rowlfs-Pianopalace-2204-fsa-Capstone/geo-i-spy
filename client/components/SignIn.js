@@ -52,7 +52,6 @@ export default function SignIn({ navigation }) {
         <ScrollView>
           <View style={tw`flex-3 justify-center text-center`}>
             <Text style={tw`font-bold text-4xl bg-gray-100/40 `}>
-              {' '}
               Welcome to
             </Text>
             <Text style={tw`font-bold text-4xl bg-gray-100/40`}>Geo-I-Spy</Text>
