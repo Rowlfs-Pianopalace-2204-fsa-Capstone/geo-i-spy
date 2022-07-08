@@ -37,14 +37,6 @@ export default function SignIn({ navigation }) {
       setIsSigned(true);
     }
   };
-  const handleLogout = async () => {
-    const logout = await SecureStore.deleteItemAsync("token");
-    console.log({ logout });
-    if (logout) {
-      setAuthData({});
-      setIsSigned(false);
-    }
-  };
 
   const signUp = () => {
     navigation.navigate("SignUp");

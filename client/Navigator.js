@@ -44,7 +44,7 @@ const CamNav = () => {
 };
 
 export default function Navigator() {
-  const { isSigned, setIsSigned } = React.useContext(GlobalIsSignedContext);
+  const { isSigned } = React.useContext(GlobalIsSignedContext);
   return !isSigned ? (
     <NavigationContainer>
       <Stack.Navigator>
