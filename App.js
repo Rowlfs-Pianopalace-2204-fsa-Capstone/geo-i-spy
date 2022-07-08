@@ -5,8 +5,8 @@ import Toast from './client/components/Toast';
 import Navigator from './client/Navigator';
 import { apiGetAllChallenges } from './client/Thunks/Challenges';
 import { GlobalDataContext } from './client/Context';
-import PublicProfile from './client/components/PublicProfile';
-import FollowingList from './client/components/FollowingList';
+import SignUp from './client/components/SignUp';
+
 export default function App() {
   const [followData, setFollowData] = useState([]);
   const [singleUser, setSingleUser] = useState({});
@@ -35,7 +35,8 @@ export default function App() {
         }}
       >
         <Toast />
-        <Navigator />
+        {/* <Navigator /> */}
+        <SignUp />
         {/* <PublicProfile /> */}
         {/* <FollowingList /> */}
       </GlobalDataContext.Provider>
