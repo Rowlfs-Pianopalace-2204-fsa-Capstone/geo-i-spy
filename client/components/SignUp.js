@@ -85,8 +85,10 @@ export default function SignUp() {
   };
 
   return (
-    <View style={tw`flex-1 bg-blue-200 p-12 top-0`}>
-      <View style={tw`flex-1`}></View>
+    <View style={tw`flex-1 bg-blue-200 p-12 top-0 justify-items-center`}>
+      <View style={tw`flex-1 items-center `}>
+        <Text style={tw`text-2xl`}>Create your account!</Text>
+      </View>
       <View style={tw`flex-1`}>
         <Text style={tw`font-bold`}>Email:</Text>
         <TextInput
