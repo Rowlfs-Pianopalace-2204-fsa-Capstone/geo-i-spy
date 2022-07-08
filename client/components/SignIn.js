@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { apiAuthLogin } from "../Thunks/Auth";
@@ -36,6 +37,10 @@ export default function SignIn({ navigation }) {
       console.log(user);
       setAuthData(user);
       setIsSigned(true);
+    } else if (user === undefined) {
+      Alert.alert("Alert", "Username or Password is not valid", [
+        { text: "Ok" },
+      ]);
     }
   };
 
