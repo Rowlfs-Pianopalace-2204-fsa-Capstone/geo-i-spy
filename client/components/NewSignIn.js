@@ -28,34 +28,23 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      {!isSigned ? (
-        <View>
-          <Text style={styles.helloText}>Hello There!</Text>
-          <TextInput
-            placeholder="username"
-            style={styles.textInput}
-            onChangeText={(username) => setUsername(username)}
-          />
-          <TextInput
-            placeholder="password"
-            secureTextEntry={true}
-            style={styles.textInput}
-            onChangeText={(password) => setPassword(password)}
-          />
-          <Text style={styles.loginBtn} onPress={handleLogin}>
-            Login
-          </Text>
-        </View>
-      ) : (
-        <View>
-          <Text style={styles.welcomeText}>
-            Welcome back! {authData.username}
-          </Text>
-          <Text style={styles.logoutBtn} onPress={handleLogout}>
-            Logout
-          </Text>
-        </View>
-      )}
+      <View>
+        <Text style={styles.helloText}>Hello There!</Text>
+        <TextInput
+          placeholder="username"
+          style={styles.textInput}
+          onChangeText={(username) => setUsername(username)}
+        />
+        <TextInput
+          placeholder="password"
+          secureTextEntry={true}
+          style={styles.textInput}
+          onChangeText={(password) => setPassword(password)}
+        />
+        <Text style={styles.loginBtn} onPress={handleLogin}>
+          Login
+        </Text>
+      </View>
     </View>
   );
 }

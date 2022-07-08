@@ -28,11 +28,7 @@ export default function SignIn({ signIn, navigation }) {
   const { authData, setAuthData } = React.useContext(GlobalDataContext);
   const { isSigned, setIsSigned } = React.useContext(GlobalIsSignedContext);
 
-  useEffect(() => {
-    if (!authData) {
-      setAuthData({});
-    }
-  }, [authData]);
+  useEffect(() => {}, [authData]);
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
     if (user) {
