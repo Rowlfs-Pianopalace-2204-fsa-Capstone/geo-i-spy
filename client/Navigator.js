@@ -27,7 +27,7 @@ import ProfileNavigate from "./components/ProfileNavigate";
 
 import AllChallenges from "./components/AllChallenges";
 import SingleChallenge from "./components/SingleChallenge";
-import NewSignIn from "./components/NewSignIn";
+
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
