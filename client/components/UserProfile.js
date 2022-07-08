@@ -25,6 +25,9 @@ const UserProfile = ({ signOut, navigation }) => {
   const showFollowing = () => {
     navigation.navigate('FollowingList');
   };
+  const showFollowers = () => {
+    navigation.navigate('FollowersList');
+  };
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
       <View style={tw`flex-1 items-center`}>
@@ -36,6 +39,7 @@ const UserProfile = ({ signOut, navigation }) => {
         />
       </View>
       <View style={tw`flex-1`}>
+        <Text style={tw`${textStyle}`}>ID: {user.id}</Text>
         <Text style={tw`${textStyle}`}>Name: {user.name}</Text>
         <Text style={tw`${textStyle}`}>Username: {user.username}</Text>
         <Text style={tw`${textStyle}`}>E-mail: {user.email}</Text>
@@ -47,6 +51,13 @@ const UserProfile = ({ signOut, navigation }) => {
           <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               View following
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => showFollowers()}>
+          <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
+            <Text style={tw`text-white font-semibold text-lg`}>
+              View followers
             </Text>
           </View>
         </TouchableOpacity>
