@@ -22,11 +22,11 @@ import * as SecureStore from "expo-secure-store";
 const buttonStyle =
   "m-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg";
 
-export default function SignIn({ signIn, navigation }) {
+export default function SignIn({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { authData, setAuthData } = React.useContext(GlobalDataContext);
-  const { isSigned, setIsSigned } = React.useContext(GlobalIsSignedContext);
+  const { setIsSigned } = React.useContext(GlobalIsSignedContext);
 
   useEffect(() => {}, [authData]);
   const handleLogin = async () => {
@@ -69,7 +69,7 @@ export default function SignIn({ signIn, navigation }) {
               <Text style={tw`shadow-xl font-bold`}>Username:</Text>
               <TextInput
                 placeholder="username"
-                onChangetext={(username) => setUsername(username)}
+                onChangeText={(username) => setUsername(username)}
                 style={tw`border border-gray-500 bg-gray-200/75 pl-2`}
               ></TextInput>
               <Text style={tw`shadow-xl font-bold`}>Password:</Text>
@@ -81,9 +81,7 @@ export default function SignIn({ signIn, navigation }) {
               ></TextInput>
               <TouchableOpacity
                 style={tw`${buttonStyle}`}
-                onPress={() => {
-                  () => handleLogin();
-                }}
+                onPress={handleLogin}
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
               </TouchableOpacity>
