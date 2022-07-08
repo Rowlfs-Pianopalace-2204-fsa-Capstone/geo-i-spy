@@ -126,9 +126,7 @@ export default function Navigator() {
             ),
           }}
         >
-          {(props) => (
-            <ProfileNavigate {...props} signOut={() => setSigned(false)} />
-          )}
+          {(props) => <ProfileNavigate {...props} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
