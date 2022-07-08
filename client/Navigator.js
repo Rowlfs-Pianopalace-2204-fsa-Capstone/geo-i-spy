@@ -13,7 +13,6 @@ import {
   ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -40,7 +39,6 @@ const CamNav = () => {
         component={CameraComponent}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Image" component={ViewImage} />
     </Stack.Navigator>
   );
 };
