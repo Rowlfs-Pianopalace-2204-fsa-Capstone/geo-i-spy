@@ -61,7 +61,10 @@ export default function CameraComponent({ navigation }) {
         }
       });
       if (challengeResult) {
-        pictureToCloud(`data:image/jpeg;base64,${image}`);
+        pictureToCloud(
+          `data:image/jpeg;base64,${image}`,
+          SingleChallengeData.id
+        );
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {

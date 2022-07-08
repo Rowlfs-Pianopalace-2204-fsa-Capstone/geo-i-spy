@@ -1,12 +1,11 @@
 /** @format */
 import * as SecureStore from 'expo-secure-store';
 
-export const pictureToCloud = async (base64EncodedImage) => {
+export const pictureToCloud = async (base64EncodedImage, id) => {
   try {
     const token = await SecureStore.getItemAsync('token');
     const reponse = await fetch(
-      `https://geoispy.herokuapp.com/api/achievements/4
-  `,
+      `https://geoispy.herokuapp.com/api/achievements/${id}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', authorization: token },
