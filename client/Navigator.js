@@ -24,7 +24,7 @@ import SignUp from "./components/SignUp";
 import HomePage from "./components/HomePage";
 import CameraComponent from "./components/CameraComponent";
 import ProfileNavigate from "./components/ProfileNavigate";
-import ViewImage from "./components/ViewImage";
+
 import AllChallenges from "./components/AllChallenges";
 import SingleChallenge from "./components/SingleChallenge";
 import NewSignIn from "./components/NewSignIn";
@@ -44,13 +44,12 @@ const CamNav = () => {
 };
 
 export default function Navigator() {
-  // const [setIsSigned] = React.useContext(GlobalIsSignedContext);
-  const [isSigned, setSigned] = useState(false);
+  const { isSigned, setIsSigned } = React.useContext(GlobalIsSignedContext);
   return !isSigned ? (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="SignIn" options={{ headerShown: false }}>
-          {(props) => <NewSignIn {...props} signIn={() => setSigned(true)} />}
+          {(props) => <NewSignIn {...props} />}
         </Stack.Screen>
         <Stack.Screen
           name="SignUp"

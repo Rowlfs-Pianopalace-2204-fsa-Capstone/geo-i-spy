@@ -35,8 +35,11 @@ export default function SignIn({ signIn, navigation }) {
   }, [authData]);
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
-    setAuthData(user);
-    setIsSigned(true);
+    if (user) {
+      console.log(user);
+      setAuthData(user);
+      setIsSigned(true);
+    }
   };
   const handleLogout = async () => {
     const logout = await SecureStore.deleteItemAsync("token");
@@ -83,7 +86,7 @@ export default function SignIn({ signIn, navigation }) {
               <TouchableOpacity
                 style={tw`${buttonStyle}`}
                 onPress={() => {
-                  handleLogin();
+                  () => handleLogin();
                 }}
               >
                 <Text style={tw`font-bold`}>Sign in</Text>
