@@ -16,7 +16,7 @@ export const apiAuthLogin = async (username, password) => {
     if (data) {
       await SecureStore.setItemAsync("token", data.token);
 
-      apiAuthGetMe();
+      return apiAuthGetMe();
     }
   } catch (error) {}
 };
@@ -28,7 +28,6 @@ export const apiAuthSignUp = async (user) => {
     body: JSON.stringify(user),
   });
   const data = await response.json();
-  return data;
 };
 
 export const apiAuthGetMe = async () => {
@@ -38,6 +37,6 @@ export const apiAuthGetMe = async () => {
     headers: { authorization: token },
   });
   const data = await response.json();
-  console.log(data);
+
   return data;
 };
