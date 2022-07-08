@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
+  ScrollView,
   Pressable,
   TouchableOpacity,
 } from 'react-native';
@@ -35,8 +35,9 @@ export const mapArray = (arr, navigation) => {
 export default function AllChallenges({ navigation }) {
   const { challengesData } = React.useContext(GlobalDataContext);
   return (
-    <View style={tw`flex-1 pt-12 px-6`}>
+    <ScrollView style={tw`flex-1 pt-12 px-6`}>
       {mapArray(challengesData, navigation)}
-    </View>
+      <Text style={tw`h-20`}></Text>
+    </ScrollView>
   );
 }
