@@ -52,7 +52,7 @@ export default function Navigator() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="SignIn" options={{ headerShown: false }}>
-          {(props) => <NewSignIn {...props} signIn={() => setSigned(true)} />}
+          {(props) => <SignIn {...props} signIn={() => setSigned(true)} />}
         </Stack.Screen>
         <Stack.Screen
           name="SignUp"

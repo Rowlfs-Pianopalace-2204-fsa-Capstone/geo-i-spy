@@ -38,6 +38,6 @@ export const apiAuthGetMe = async () => {
     headers: { authorization: token },
   });
   const data = await response.json();
-
+  console.log(data);
   return data;
 };
