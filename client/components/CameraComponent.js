@@ -23,6 +23,7 @@ import toast from '../helpers/toast';
 import { GlobalDataContext } from '../Context';
 import { apiSendToCloudVision } from '../Thunks/Challenges';
 import LottieView from 'lottie-react-native';
+import { pictureToCloud } from '../Thunks/cloud';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
@@ -34,7 +35,7 @@ export default function CameraComponent({ navigation }) {
   const [camera, setCamera] = useState(null);
   const [resultVisible, setresultVisible] = useState(false);
   const [uploading, setUpload] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({});
   const [result, setResult] = useState(false);
   const animationRef = useRef(null);
 
@@ -60,6 +61,7 @@ export default function CameraComponent({ navigation }) {
         }
       });
       if (challengeResult) {
+        pictureToCloud(`data:image/jpeg;base64,${image}`);
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {
@@ -86,11 +88,12 @@ export default function CameraComponent({ navigation }) {
     } else if (!recording) {
       setRecording(true);
       const picture = await camera.takePictureAsync({ base64: true });
-      setImage(picture.uri);
+      setImage(picture);
       setRecording(false);
 
       // const pushAction = StackActions.push('Image', { image: picture });
       // navigation.dispatch(pushAction);
+      // pictureToCloud(`data:image/jpeg;base64,${picture.base64}`);
       setresultVisible(true);
       setUpload(true);
       const { responses } = await submitToGoogle(picture.base64);
@@ -120,9 +123,7 @@ export default function CameraComponent({ navigation }) {
     // Or set a specific startFrame and endFrame with:
   }, [uploading]);
 
-  useEffect(() => {
-    console.log('image', image);
-  }, [resultVisible]);
+  useEffect(() => {}, [resultVisible]);
 
   if (hasPermission === null) {
     return <Text>{hasPermission}</Text>;
@@ -150,7 +151,7 @@ export default function CameraComponent({ navigation }) {
               <Image
                 style={tw`flex-1 border-8 border-white rounded-lg`}
                 source={{
-                  uri: image,
+                  uri: image.uri,
                 }}
               />
               {uploading ? (
@@ -186,7 +187,7 @@ export default function CameraComponent({ navigation }) {
                 navigation.navigate('Home');
               }}
             >
-              <MaterialCommunityIcons name="alpha-x" size={40} color="black" />
+              <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`absolute bottom-10 left-5`}
@@ -197,9 +198,9 @@ export default function CameraComponent({ navigation }) {
               }}
             >
               <MaterialCommunityIcons
-                name="camera-flip"
+                name='camera-flip'
                 size={40}
-                color="black"
+                color='black'
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -209,7 +210,7 @@ export default function CameraComponent({ navigation }) {
               }}
             >
               <MaterialCommunityIcons
-                name="radiobox-marked"
+                name='radiobox-marked'
                 size={50}
                 color={recording ? 'red' : 'black'}
                 style={tw`opacity-60`}
