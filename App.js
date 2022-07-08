@@ -8,6 +8,9 @@ import { GlobalDataContext } from "./client/Context";
 import { GlobalIsSignedContext } from "./client/Context";
 import PublicProfile from "./client/components/PublicProfile";
 import FollowingList from "./client/components/FollowingList";
+
+import SignUp from "./client/components/SignUp";
+
 export default function App() {
   const [followData, setFollowData] = useState([]);
   const [singleUser, setSingleUser] = useState({});
