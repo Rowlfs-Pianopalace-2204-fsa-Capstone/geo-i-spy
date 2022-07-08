@@ -23,8 +23,8 @@ const buttonStyle =
   "m-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg";
 
 export default function SignIn({ navigation }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("cody");
+  const [password, setPassword] = useState("123");
   const { authData, setAuthData } = React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
 
