@@ -129,6 +129,7 @@ export default function SignUp() {
 
         <TextInput
           value={password}
+          secureTextEntry={true}
           onChangeText={setPassword}
           style={tw`border border-gray-400`}
         ></TextInput>
@@ -149,6 +150,7 @@ export default function SignUp() {
         <Text style={tw`font-bold`}>Confirm password:</Text>
         <TextInput
           value={matching}
+          secureTextEntry={true}
           onChangeText={setMatching}
           style={tw`border border-gray-400`}
         ></TextInput>
