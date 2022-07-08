@@ -27,7 +27,7 @@ import SignUp from './components/SignUp';
 import HomePage from './components/HomePage';
 import CameraComponent from './components/CameraComponent';
 import ProfileNavigate from './components/ProfileNavigate';
-import ViewImage from './components/ViewImage';
+
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
 
@@ -42,7 +42,6 @@ const CamNav = () => {
         component={CameraComponent}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name='Image' component={ViewImage} />
     </Stack.Navigator>
   );
 };
