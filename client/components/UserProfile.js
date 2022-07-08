@@ -39,7 +39,6 @@ const UserProfile = ({ navigation }) => {
     if (logout === undefined) {
       setAuthData({});
       setIsSigned(false);
-      navigation.navigate("SignIn");
     }
   };
 
