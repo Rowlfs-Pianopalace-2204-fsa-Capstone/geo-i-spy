@@ -36,6 +36,8 @@ export default function SignIn({ navigation }) {
       console.log(user);
       setAuthData(user);
       setIsSigned(true);
+    } else if (user === undefined) {
+      toast("Invalid username or password");
     }
   };
 
