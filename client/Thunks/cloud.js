@@ -17,7 +17,7 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
         body: JSON.stringify({ data: base64EncodedImage }),
       }
     );
-    console.log(reponse);
+    return;
   } catch (error) {
     console.error(error);
   }
