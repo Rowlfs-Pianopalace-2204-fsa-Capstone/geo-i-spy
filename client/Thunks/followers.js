@@ -4,7 +4,12 @@ import { GlobalDataContext } from '../Context';
 import React from 'react';
 
 export const apiGetAllFollowers = async (id) => {
-  const token = await SecureStore.getItemAsync('token');
+  let token;
+  if (window.localStorage) {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
   const response = await fetch(
     `https://geoispy.herokuapp.com/api/followers/${id}`,
     {
@@ -20,7 +25,12 @@ export const apiGetAllFollowers = async (id) => {
 };
 
 export const apiGetAllFollowing = async (id) => {
-  const token = await SecureStore.getItemAsync('token');
+  let token;
+  if (window.localStorage) {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
   const response = await fetch(
     `https://geoispy.herokuapp.com/api/followers/following/${id}`,
     {
@@ -38,7 +48,12 @@ export const apiGetAllFollowing = async (id) => {
 };
 
 export const apiStopFollowing = async (id) => {
-  const token = await SecureStore.getItemAsync('token');
+  let token;
+  if (window.localStorage) {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
   const response = await fetch(
     `https://geoispy.herokuapp.com/api/followers/${id}`,
     {
@@ -54,7 +69,12 @@ export const apiStopFollowing = async (id) => {
   return data;
 };
 export const apiStartFollowing = async (id) => {
-  const token = await SecureStore.getItemAsync('token');
+  let token;
+  if (window.localStorage) {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
   const response = await fetch(
     `https://geoispy.herokuapp.com/api/followers/${id}`,
     {

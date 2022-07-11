@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import tw from 'twrnc';
 import {
   View,
@@ -16,11 +16,15 @@ import { apiGetAllFollowers } from '../Thunks/followers';
 export default function FollowersList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
   const { followingData } = React.useContext(GlobalDataContext);
-  const followers = followingData || [];
+  const [followers, setFollowers] = useState([]);
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
   };
+  useEffect(async () => {
+    console.log(followingData);
+    await setFollowers(followingData);
+  }, [followingData]);
   return (
     <ScrollView style={tw`flex-1 pt-6 px-8`}>
       <View style={tw`flex-1 items-center`}>

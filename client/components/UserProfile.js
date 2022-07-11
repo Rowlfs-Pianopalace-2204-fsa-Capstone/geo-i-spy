@@ -31,14 +31,6 @@ const UserProfile = ({ navigation }) => {
     React.useContext(GlobalDataContext);
   const user = authData;
 
-  useEffect(async () => {
-    const Followers = await apiGetAllFollowers(parseInt(user.id));
-    setFollowData(Followers);
-  }, []);
-  useEffect(async () => {
-    const Following = await apiGetAllFollowing(parseInt(user.id));
-    setFollowingData(Following);
-  }, []);
   const showFollowing = () => {
     navigation.navigate('FollowingList');
   };

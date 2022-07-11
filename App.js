@@ -10,6 +10,10 @@ import PublicProfile from './client/components/PublicProfile';
 import FollowingList from './client/components/FollowingList';
 
 import SignUp from './client/components/SignUp';
+import {
+  apiGetAllFollowers,
+  apiGetAllFollowing,
+} from './client/Thunks/followers';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -24,6 +28,15 @@ export default function App() {
       setChallengesData(data);
     });
   }, []);
+
+  useEffect(async () => {
+    if (authData.id) {
+      const Following = await apiGetAllFollowing(parseInt(authData.id));
+      setFollowingData(Following);
+      const Followers = await apiGetAllFollowers(parseInt(authData.id));
+      setFollowData(Followers);
+    }
+  }, [authData]);
   return (
     <>
       <GlobalDataContext.Provider
