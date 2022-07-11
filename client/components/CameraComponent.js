@@ -144,9 +144,9 @@ export default function CameraComponent({ navigation }) {
     return (
       <View style={tw`flex-1`}>
         <Modal
-          style={tw`m-0`}
+          style={tw`bg-gray-100`}
           animationType='slide'
-          transparent={false}
+          transparent={true}
           visible={resultVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
@@ -182,7 +182,7 @@ export default function CameraComponent({ navigation }) {
                       </Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={tw`grow`} onPress={tryAgain}>
+                  <TouchableOpacity style={tw`grow`} onPress={uploadResult}>
                     <View style={tw`bg-green-500 px-5 py-3 rounded-full`}>
                       <Text style={tw`text-white font-semibold text-lg`}>
                         Select
