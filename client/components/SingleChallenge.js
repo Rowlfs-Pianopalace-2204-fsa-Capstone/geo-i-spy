@@ -14,11 +14,21 @@ import { GlobalDataContext } from '../Context';
 
 export default function SingleChallenge({ navigation }) {
   const { SingleChallengeData } = React.useContext(GlobalDataContext);
-  const image = SingleChallengeData.users[0].Achievement.img_url;
   return (
     <View style={tw`border-2 border-gray-500 p-25`}>
       {SingleChallengeData.users ? (
-        <Image source={{ uri: image }} style={tw`h-50 w-50`}></Image>
+        <>
+          <Image
+            source={{ uri: SingleChallengeData.users[0].Achievement.img_url }}
+            style={tw`h-50 w-50`}
+          ></Image>
+          <Text>
+            Completed:{' '}
+            {new Date(
+              SingleChallengeData.users[0].Achievement.createdAt + ''
+            ).toDateString()}
+          </Text>
+        </>
       ) : (
         <Text>
           This challenge is to take a picture of a {SingleChallengeData.name}!
