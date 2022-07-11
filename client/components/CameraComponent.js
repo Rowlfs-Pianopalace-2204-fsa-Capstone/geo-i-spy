@@ -27,7 +27,8 @@ import { pictureToCloud } from '../Thunks/cloud';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
-  const { SingleChallengeData } = React.useContext(GlobalDataContext);
+  const { SingleChallengeData, setAchievements, achievements } =
+    React.useContext(GlobalDataContext);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
@@ -38,7 +39,6 @@ export default function CameraComponent({ navigation }) {
   const [image, setImage] = useState({});
   const [result, setResult] = useState(false);
   const animationRef = useRef(null);
-
   const submitToGoogle = async (image) => {
     try {
       setUpload(true);
@@ -60,11 +60,13 @@ export default function CameraComponent({ navigation }) {
           challengeResult = true;
         }
       });
+
       if (challengeResult) {
         pictureToCloud(
           `data:image/jpeg;base64,${image}`,
           SingleChallengeData.id
         );
+        setAchievements([...achievements, SingleChallengeData]);
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {

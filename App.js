@@ -14,6 +14,7 @@ import {
   apiGetAllFollowers,
   apiGetAllFollowing,
 } from './client/Thunks/followers';
+import { apiGetAllAchievements } from './client/Thunks/cloud';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -23,12 +24,7 @@ export default function App() {
   const [SingleChallengeData, setSingleChallengeData] = useState({});
   const [authData, setAuthData] = useState({});
   const [isSigned, setIsSigned] = useState(false);
-
-  useEffect(() => {
-    apiGetAllChallenges().then((data) => {
-      setChallengesData(data);
-    });
-  }, []);
+  const [achievements, setAchievements] = useState([]);
 
   return (
     <>
@@ -46,6 +42,8 @@ export default function App() {
           setSingleUser,
           followingData,
           setFollowingData,
+          achievements,
+          setAchievements,
         }}
       >
         <GlobalIsSignedContext.Provider

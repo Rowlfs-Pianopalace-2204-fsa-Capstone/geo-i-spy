@@ -22,3 +22,25 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
     console.error(error);
   }
 };
+
+export const apiGetAllAchievements = async () => {
+  try {
+    let token;
+    if (window.localStorage) {
+      token = window.localStorage.getItem('token');
+    } else {
+      token = await SecureStore.getItemAsync('token');
+    }
+    const response = await fetch(
+      `https://geoispy.herokuapp.com/api/achievements`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', authorization: token },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

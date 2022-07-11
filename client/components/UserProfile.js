@@ -18,8 +18,17 @@ const textStyle = `font-bold pb-2`;
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
-  const { authData, setAuthData, singleUser, setFollowData, setFollowingData } =
-    React.useContext(GlobalDataContext);
+  const {
+    authData,
+    singleUser,
+    setChallengesData,
+    setSingleChallengeData,
+    setAuthData,
+    setFollowData,
+    setSingleUser,
+    setFollowingData,
+    setAchievements,
+  } = React.useContext(GlobalDataContext);
   const user = authData;
 
   const showFollowing = () => {
@@ -47,6 +56,14 @@ const UserProfile = ({ navigation }) => {
     if (logout === undefined) {
       setAuthData({});
       setIsSigned(false);
+      setChallengesData([]),
+        setSingleChallengeData({}),
+        setFollowData([]),
+        setSingleUser({});
+
+      setFollowingData([]);
+
+      setAchievements([]);
     }
   };
   return (
