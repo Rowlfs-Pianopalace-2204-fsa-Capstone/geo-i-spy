@@ -19,6 +19,7 @@ import { GlobalIsSignedContext } from '../Context';
 import tw from 'twrnc';
 import toast from '../helpers/toast';
 import * as SecureStore from 'expo-secure-store';
+import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
@@ -26,10 +27,18 @@ const buttonStyle =
 export default function SignIn({ navigation }) {
   const [username, setUsername] = useState('Cody');
   const [password, setPassword] = useState('123');
-  const { authData, setAuthData } = React.useContext(GlobalDataContext);
+  const { authData, setAuthData, setFollowingData, setFollowData } =
+    React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
 
   useEffect(() => {}, [authData]);
+
+  async function fetchDataFollowers(id) {
+    const Following = await apiGetAllFollowing(parseInt(id));
+    setFollowingData(Following);
+    const Followers = await apiGetAllFollowers(parseInt(id));
+    setFollowData(Followers);
+  }
 
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
@@ -37,6 +46,7 @@ export default function SignIn({ navigation }) {
       console.log(user);
       setAuthData(user);
       setIsSigned(true);
+      fetchDataFollowers(user.id);
     } else if (user === undefined) {
       Alert.alert('Alert', 'Username or Password is not valid', [
         { text: 'Ok' },

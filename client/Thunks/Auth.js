@@ -1,6 +1,7 @@
 /** @format */
 
 import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 export const apiAuthLogin = async (username, password) => {
   try {
@@ -14,7 +15,7 @@ export const apiAuthLogin = async (username, password) => {
     const data = await response.json();
 
     if (data) {
-      if (window.localStorage) {
+      if (Platform.OS === 'web') {
         window.localStorage.setItem('token', data.token);
       } else {
         await SecureStore.setItemAsync('token', data.token);
@@ -37,7 +38,7 @@ export const apiAuthSignUp = async (user) => {
 
 export const apiAuthGetMe = async () => {
   let token;
-  if (window.localStorage) {
+  if (Platform.OS === 'web') {
     token = window.localStorage.getItem('token');
   } else {
     token = await SecureStore.getItemAsync('token');

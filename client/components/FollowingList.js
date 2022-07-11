@@ -21,7 +21,7 @@ export default function FollowingList({ navigation }) {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
   };
-  useEffect(async () => {
+  useEffect(() => {
     console.log(followData);
     setFollowing(followData);
   }, [followData]);

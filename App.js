@@ -23,20 +23,25 @@ export default function App() {
   const [SingleChallengeData, setSingleChallengeData] = useState({});
   const [authData, setAuthData] = useState({});
   const [isSigned, setIsSigned] = useState(false);
+
+  // async function fetchDataFollowers(id) {
+  //   const Following = await apiGetAllFollowing(parseInt(id));
+  //   setFollowingData(Following);
+  //   const Followers = await apiGetAllFollowers(parseInt(id));
+  //   setFollowData(Followers);
+  // }
+
   useEffect(() => {
     apiGetAllChallenges().then((data) => {
       setChallengesData(data);
     });
   }, []);
 
-  useEffect(async () => {
-    if (authData.id) {
-      const Following = await apiGetAllFollowing(parseInt(authData.id));
-      setFollowingData(Following);
-      const Followers = await apiGetAllFollowers(parseInt(authData.id));
-      setFollowData(Followers);
-    }
-  }, [authData]);
+  // useEffect(() => {
+  //   if (authData.id) {
+  //     fetchDataFollowers(authData.id);
+  //   }
+  // }, [authData]);
   return (
     <>
       <GlobalDataContext.Provider
