@@ -63,8 +63,8 @@ export const apiStopFollowing = async (id) => {
       },
     }
   );
-  const data = await response.json();
-  return data;
+
+  return;
 };
 export const apiStartFollowing = async (id) => {
   let token;
@@ -84,6 +84,5 @@ export const apiStartFollowing = async (id) => {
       },
     }
   );
-  const data = await response.json();
-  return data;
+  return;
 };
