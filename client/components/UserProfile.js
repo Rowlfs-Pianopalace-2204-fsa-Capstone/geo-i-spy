@@ -15,7 +15,8 @@ import { GlobalDataContext } from '../Context';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 const textStyle = `font-bold pb-2`;
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import ImagePickerComponent from './ImagePicker';
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
@@ -51,7 +52,9 @@ const UserProfile = ({ navigation }) => {
     showFollowing();
   }
 
-  const editPhoto = () => {};
+  const editPhoto = () => {
+    navigation.navigate('ProfilePicture');
+  };
 
   const handleLogout = async () => {
     const logout = await SecureStore.deleteItemAsync('token');
@@ -78,17 +81,7 @@ const UserProfile = ({ navigation }) => {
           }}
           style={tw`h-40 w-40 rounded-full mb-6`}
         />
-        <TouchableOpacity
-          // style={tw`absolute bottom-10  right-40`}
-          onPress={editPhoto}
-        >
-          <MaterialCommunityIcons
-            style={tw`relative ml-45`}
-            name='cog'
-            size={30}
-            color='black'
-          />
-        </TouchableOpacity>
+        <ImagePickerComponent />
       </View>
       <View style={tw`flex-1`}>
         <Text style={tw`${textStyle}`}>ID: {user.id}</Text>
