@@ -39,11 +39,18 @@ export default function FollowingList({ navigation }) {
           onChangeText={setSearchedUser}
           style={tw`border border-gray-400 w-30`}
         ></TextInput>
-        <TouchableOpacity onPress={() => searchProfile(searchedUser)}>
-          <View style={tw`bg-blue-400 rounded-lg m-2 items-center`}>
-            <Text style={tw`font-bold m-4`}>Search by ID</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={tw`flex-1 flex-row`}>
+          <TouchableOpacity onPress={() => searchProfile(searchedUser)}>
+            <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
+              <Text style={tw`font-bold m-4`}>Search by ID</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
+              <Text style={tw`font-bold m-4`}>Search by Username</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={tw`flex-5 border-2 `}>
         {followingData ? (
