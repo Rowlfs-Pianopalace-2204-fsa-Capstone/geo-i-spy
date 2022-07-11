@@ -50,9 +50,9 @@ export default function AllChallenges({ navigation }) {
     React.useContext(GlobalDataContext);
   useEffect(() => {
     setHandleToggle({
-      hard: false,
-      Medium: false,
-      easy: false,
+      rare: false,
+      uncommon: false,
+      common: false,
     });
   }, []);
   return (
@@ -62,16 +62,16 @@ export default function AllChallenges({ navigation }) {
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
-            hard: !handleToggle.hard,
+            rare: !handleToggle.rare,
           }),
         ]}
       >
         {}
-        <Text>Toggle Hard</Text>
+        <Text>Toggle Rare</Text>
       </TouchableOpacity>
 
-      {handleToggle.hard ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'hard')
+      {handleToggle.rare ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
       ) : (
         <></>
       )}
@@ -81,16 +81,16 @@ export default function AllChallenges({ navigation }) {
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
-            medium: !handleToggle.medium,
+            uncommon: !handleToggle.uncommon,
           }),
           console.log(handleToggle),
         ]}
       >
         {}
-        <Text>Toggle Medium</Text>
+        <Text>Toggle Uncommon</Text>
       </TouchableOpacity>
-      {handleToggle.medium ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'medium')
+      {handleToggle.uncommon ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
       ) : (
         <></>
       )}
@@ -99,16 +99,16 @@ export default function AllChallenges({ navigation }) {
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
-            easy: !handleToggle.easy,
+            common: !handleToggle.common,
           }),
           console.log(handleToggle),
         ]}
       >
         {}
-        <Text>Toggle easy</Text>
+        <Text>Toggle Common</Text>
       </TouchableOpacity>
-      {handleToggle.easy ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'easy')
+      {handleToggle.common ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'common')
       ) : (
         <></>
       )}
