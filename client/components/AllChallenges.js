@@ -12,21 +12,14 @@ const textStyle = `font-bold`;
 
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
-export const mapArray = (arr, navigation, achievements) => {
-  let color = 'blue';
+export const mapArray = (arr, navigation) => {
   return arr.map((ele) => {
     const { setSingleChallengeData } = React.useContext(GlobalDataContext);
-    if (achievements[0]) {
-      console.log(ele.id);
-      const achieved = achievements.filter(
-        (e) => e.challengeId === ele.id || e.id === ele.id
-      );
-      //For now we're changing the color of challenges of the ones you've completed, this method should change once we implement sorting/filtering.
-      if (achieved[0]) {
-        color = 'green';
-      } else {
-        color = 'blue';
-      }
+    let color = 'blue';
+    if (ele.users) {
+      color = 'green';
+    } else {
+      color = 'blue';
     }
     return (
       <TouchableOpacity
@@ -46,11 +39,10 @@ export const mapArray = (arr, navigation, achievements) => {
 };
 
 export default function AllChallenges({ navigation }) {
-  const { challengesData } = React.useContext(GlobalDataContext);
   const { achievements } = React.useContext(GlobalDataContext);
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
-      {mapArray(challengesData, navigation, achievements)}
+      {mapArray(achievements, navigation)}
       <Text style={tw`h-20`}></Text>
     </ScrollView>
   );
