@@ -8,6 +8,7 @@ import UserProfile from './UserProfile';
 import FollowingList from './FollowingList';
 import PublicProfile from './PublicProfile';
 import FollowersList from './FollowersList';
+import ImagePickerComponent from './ImagePicker';
 
 const ProfileStack = createNativeStackNavigator();
 
@@ -19,37 +20,40 @@ const ProfileNavigate = ({ signOut }, navigation) => {
       </ProfileStack.Screen>
       <ProfileStack.Screen
         name='FollowingList'
+        component={FollowingList}
         options={{
-          headerShown: true,
           headerStyle: {
             backgroundColor: 'lightgray',
           },
         }}
-      >
-        {(props) => <FollowingList {...props} />}
-      </ProfileStack.Screen>
+      ></ProfileStack.Screen>
       <ProfileStack.Screen
         name='FollowersList'
+        component={FollowersList}
         options={{
-          headerShown: true,
           headerStyle: {
             backgroundColor: 'lightgray',
           },
         }}
-      >
-        {(props) => <FollowersList {...props} />}
-      </ProfileStack.Screen>
+      ></ProfileStack.Screen>
       <ProfileStack.Screen
         name='PublicProfile'
+        component={PublicProfile}
         options={{
-          headerShown: true,
           headerStyle: {
             backgroundColor: 'lightgray',
           },
         }}
-      >
-        {(props) => <PublicProfile {...props} />}
-      </ProfileStack.Screen>
+      ></ProfileStack.Screen>
+      <ProfileStack.Screen
+        name='ProfilePicture'
+        options={{
+          headerStyle: {
+            backgroundColor: 'lightgray',
+          },
+        }}
+        component={ImagePickerComponent}
+      ></ProfileStack.Screen>
     </ProfileStack.Navigator>
   );
 };
