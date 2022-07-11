@@ -62,11 +62,6 @@ export default function CameraComponent({ navigation }) {
       });
 
       if (challengeResult) {
-        pictureToCloud(
-          `data:image/jpeg;base64,${image}`,
-          SingleChallengeData.id
-        );
-        setAchievements([...achievements, SingleChallengeData]);
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {
@@ -128,6 +123,15 @@ export default function CameraComponent({ navigation }) {
     // Or set a specific startFrame and endFrame with:
   }, [uploading]);
 
+  const uploadResult = () => {
+    setresultVisible(!resultVisible);
+    pictureToCloud(`data:image/jpeg;base64,${image}`, SingleChallengeData.id);
+    setAchievements([...achievements, SingleChallengeData]);
+  };
+  const tryAgain = () => {
+    setresultVisible(!resultVisible);
+  };
+
   useEffect(() => {}, [resultVisible]);
 
   if (hasPermission === null) {
@@ -140,48 +144,71 @@ export default function CameraComponent({ navigation }) {
     return (
       <View style={tw`flex-1`}>
         <Modal
+          style={tw`m-0`}
           animationType='slide'
-          transparent={true}
+          transparent={false}
           visible={resultVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
             setresultVisible(!resultVisible);
           }}
         >
-          <Pressable
-            style={tw`flex-1 justify-center`}
-            onPress={() => setresultVisible(!resultVisible)}
-          >
-            <View style={tw`flex-1 justify-center m-10 mt-40 mb-50 `}>
-              <Image
-                style={tw`flex-1 border-8 border-white rounded-lg`}
-                source={{
-                  uri: image.uri,
-                }}
+          <View style={tw`flex-1 justify-center m-10 mt-40 mb-50 `}>
+            <Image
+              style={tw`flex-1 border-8 border-white rounded-lg`}
+              source={{
+                uri: image.uri,
+              }}
+            />
+            {uploading ? (
+              <LottieView
+                source={require('../../public/assets/loading.json')}
+                resizeMode='contain'
+                autoPlay
               />
-              {uploading ? (
-                <LottieView
-                  source={require('../../public/assets/loading.json')}
-                  resizeMode='contain'
-                  autoPlay
-                />
-              ) : result ? (
+            ) : result ? (
+              <>
                 <LottieView
                   source={require('../../public/assets/success.json')}
                   resizeMode='contain'
                   loop={false}
                   ref={animationRef}
                 />
-              ) : (
+                <View style={tw`flex-none flex-row justify-center`}>
+                  <TouchableOpacity style={tw`grow`} onPress={tryAgain}>
+                    <View style={tw` bg-red-500 px-5 py-3 rounded-full`}>
+                      <Text style={tw`text-white font-semibold text-lg `}>
+                        Retake
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={tw`grow`} onPress={tryAgain}>
+                    <View style={tw`bg-green-500 px-5 py-3 rounded-full`}>
+                      <Text style={tw`text-white font-semibold text-lg`}>
+                        Select
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : (
+              <>
                 <LottieView
                   source={require('../../public/assets/failed.json')}
                   resizeMode='contain'
                   loop={false}
                   ref={animationRef}
                 />
-              )}
-            </View>
-          </Pressable>
+                <TouchableOpacity onPress={tryAgain}>
+                  <View style={tw`bg-red-500 px-5 py-3 rounded-full`}>
+                    <Text style={tw`text-white font-semibold text-lg`}>
+                      Retake
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
         </Modal>
         <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
           <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
@@ -230,58 +257,3 @@ export default function CameraComponent({ navigation }) {
     return <View />;
   }
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  container: {
-    paddingTop: 50,
-  },
-  tinyLogo: {
-    width: 50,
-    height: 50,
-  },
-  logo: {
-    width: 66,
-    height: 58,
-  },
-});
