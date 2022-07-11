@@ -43,9 +43,9 @@ export default function SignIn({ navigation }) {
       apiGetAllAchievements().then((data) => {
         setAchievements(data);
       });
-      apiGetAllChallenges().then((data) => {
-        setChallengesData(data);
-      });
+      // apiGetAllChallenges().then((data) => {
+      //   setChallengesData(data);
+      // });
     } else if (user === undefined) {
       Alert.alert('Alert', 'Username or Password is not valid', [
         { text: 'Ok' },

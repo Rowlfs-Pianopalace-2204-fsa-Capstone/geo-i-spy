@@ -62,6 +62,15 @@ export default function CameraComponent({ navigation }) {
       });
 
       if (challengeResult) {
+        pictureToCloud(
+          `data:image/jpeg;base64,${image}`,
+          SingleChallengeData.id
+        );
+        SingleChallengeData.users = [];
+        const newAchievements = achievements.filter(
+          (ele) => ele.id !== SingleChallengeData.id
+        );
+        setAchievements([SingleChallengeData, ...newAchievements]);
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {
