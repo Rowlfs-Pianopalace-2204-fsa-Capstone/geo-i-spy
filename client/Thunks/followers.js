@@ -86,3 +86,18 @@ export const apiStartFollowing = async (id) => {
   );
   return;
 };
+
+export const apiSearchUser = async (id) => {
+  const response = await fetch(
+    `https://geoispy.herokuapp.com/api/followers/search/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }
+  );
+  const data = await response.json();
+  return data;
+};
