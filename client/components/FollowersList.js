@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import tw from 'twrnc';
 import {
   View,
@@ -11,7 +11,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
-import { apiGetAllFollowers } from '../Thunks/followers';
 
 export default function FollowersList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);

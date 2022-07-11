@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import tw from 'twrnc';
 import {
   View,
@@ -11,12 +11,10 @@ import {
   ScrollView,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
-import { apiGetAllFollowing } from '../Thunks/followers';
 
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
   const { followingData } = React.useContext(GlobalDataContext);
-  const [following, setFollowing] = useState([]);
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
@@ -36,7 +34,7 @@ export default function FollowingList({ navigation }) {
       </View>
       <View style={tw`flex-5 border-2 `}>
         {followingData ? (
-          following.map((friend) => {
+          followingData.map((friend) => {
             return (
               <View key={friend.id} style={tw`pb-10  border-2 mb-10`}>
                 <TouchableOpacity

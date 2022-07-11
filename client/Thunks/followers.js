@@ -1,7 +1,5 @@
 /** @format */
 import * as SecureStore from 'expo-secure-store';
-import { GlobalDataContext } from '../Context';
-import React from 'react';
 
 export const apiGetAllFollowers = async (id) => {
   let token;

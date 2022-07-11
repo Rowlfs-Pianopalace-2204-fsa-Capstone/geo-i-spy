@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import tw from 'twrnc';
 import {
   Image,
@@ -14,15 +14,6 @@ import { GlobalIsSignedContext } from '../Context';
 import { GlobalDataContext } from '../Context';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
-const dummyData = {
-  id: 1,
-  name: 'Johnny Cash',
-  username: 'Coder21',
-  email: 'mail@gmail.com',
-  img_url:
-    'https://arielle.com.au/wp-content/uploads/2018/01/ai-robot-job-search-1024x576.jpg',
-  score: 200,
-};
 const textStyle = `font-bold pb-2`;
 
 const UserProfile = ({ navigation }) => {
