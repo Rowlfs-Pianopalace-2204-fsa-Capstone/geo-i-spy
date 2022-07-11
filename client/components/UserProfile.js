@@ -1,47 +1,54 @@
-import React from "react";
-import tw from "twrnc";
+/** @format */
+
+import React from 'react';
+import tw from 'twrnc';
 import {
   Image,
   SafeAreaView,
   TouchableOpacity,
   View,
   Text,
-} from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GlobalIsSignedContext } from "../Context";
-import { GlobalDataContext } from "../Context";
-import * as SecureStore from "expo-secure-store";
+} from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GlobalIsSignedContext } from '../Context';
+import { GlobalDataContext } from '../Context';
+import * as SecureStore from 'expo-secure-store';
+import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 const dummyData = {
   id: 1,
-  name: "Johnny Cash",
-  username: "Coder21",
-  email: "mail@gmail.com",
+  name: 'Johnny Cash',
+  username: 'Coder21',
+  email: 'mail@gmail.com',
   img_url:
-    "https://arielle.com.au/wp-content/uploads/2018/01/ai-robot-job-search-1024x576.jpg",
+    'https://arielle.com.au/wp-content/uploads/2018/01/ai-robot-job-search-1024x576.jpg',
   score: 200,
 };
 const textStyle = `font-bold pb-2`;
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
+  const { authData } = React.useContext(GlobalDataContext);
+  const { singleUser } = React.useContext(GlobalDataContext);
   const { setAuthData } = React.useContext(GlobalDataContext);
   const user = dummyData;
   const showFollowing = () => {
-    navigation.navigate("FollowingList");
+    apiGetAllFollowing(authData.id);
+    navigation.navigate('FollowingList');
   };
   const showFollowers = () => {
-    navigation.navigate("FollowersList");
+    apiGetAllFollowers(authData.id);
+    navigation.navigate('FollowersList');
   };
 
   const handleLogout = async () => {
-    const logout = await SecureStore.deleteItemAsync("token");
+    const logout = await SecureStore.deleteItemAsync('token');
 
     if (logout === undefined) {
       setAuthData({});
       setIsSigned(false);
     }
   };
-
+  console.log('AUTH DATA/SINGLE USER', singleUser, authData);
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
       <View style={tw`flex-1 items-center`}>

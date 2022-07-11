@@ -1,4 +1,5 @@
 /** @format */
+import * as SecureStore from 'expo-secure-store';
 
 export const apiGetAllChallenges = async () => {
   const response = await fetch('https://geoispy.herokuapp.com/api/challenges', {

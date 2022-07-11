@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import tw from 'twrnc';
 import {
@@ -10,42 +12,9 @@ import {
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
 
-const dummyData = [
-  {
-    id: 1,
-    name: 'Bill',
-    username: 'Billy101',
-    score: 100,
-    img_url:
-      'https://gazettereview.com/wp-content/uploads/2016/10/cyrus-2.jpg.webp',
-    biography: 'Musician',
-    email: 'Billy@gmail.com',
-  },
-  {
-    id: 2,
-    name: 'Brandon',
-    username: 'BFlowers',
-    score: 120,
-    img_url:
-      'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-193943-467432500.jpg',
-    biography: 'Astronaut',
-    email: 'Killers@gmail.com',
-  },
-  {
-    id: 3,
-    name: 'David',
-    username: 'DGrowl',
-    score: 130,
-    img_url:
-      'https://i1.wp.com/genreisdead.com/wp-content/uploads/2020/02/davegrohl-e1581532554655.jpg?zoom=2&resize=800%2C445&ssl=1',
-    biography: 'Actor, Pretender',
-    email: 'David@gmail.com',
-  },
-];
-
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const followingData = dummyData;
+  const { followingData } = React.useContext(GlobalDataContext);
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
@@ -73,9 +42,9 @@ export default function FollowingList({ navigation }) {
               >
                 <Image style={tw`h-30 w-30`} source={{ uri: friend.img_url }} />
               </TouchableOpacity>
-              <Text>{friend.name}</Text>
+              <Text>{friend.username}</Text>
               {/* <Text>Username: {friend.username}</Text> */}
-              {/* <Text>Score:{friend.score}</Text> */}
+              <Text>Score:{friend.score}</Text>
               {/* <Text>Email: {friend.email}</Text> */}
               {/* <Text>About: {friend.biography}</Text> */}
             </View>
