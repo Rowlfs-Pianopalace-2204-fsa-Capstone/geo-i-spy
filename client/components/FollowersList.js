@@ -15,16 +15,13 @@ import { apiGetAllFollowers } from '../Thunks/followers';
 
 export default function FollowersList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const { followingData } = React.useContext(GlobalDataContext);
-  const [followers, setFollowers] = useState([]);
+  const { followData } = React.useContext(GlobalDataContext);
+
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
   };
-  useEffect(async () => {
-    console.log(followingData);
-    await setFollowers(followingData);
-  }, [followingData]);
+
   return (
     <ScrollView style={tw`flex-1 pt-6 px-8`}>
       <View style={tw`flex-1 items-center`}>
@@ -38,7 +35,7 @@ export default function FollowersList({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={tw`flex-5 border-2 `}>
-        {followers.map((follower) => {
+        {followData.map((follower) => {
           return (
             <View key={follower.id} style={tw`pb-10  border-2 mb-10`}>
               <TouchableOpacity

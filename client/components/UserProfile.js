@@ -38,6 +38,18 @@ const UserProfile = ({ navigation }) => {
     navigation.navigate('FollowersList');
   };
 
+  async function fetchDataFollowers(id) {
+    const Followers = await apiGetAllFollowers(parseInt(id));
+    await setFollowData(Followers);
+    showFollowers();
+  }
+
+  async function fetchDataFollowing(id) {
+    const Following = await apiGetAllFollowing(parseInt(id));
+    await setFollowingData(Following);
+    showFollowing();
+  }
+
   const handleLogout = async () => {
     const logout = await SecureStore.deleteItemAsync('token');
 
@@ -65,14 +77,14 @@ const UserProfile = ({ navigation }) => {
       </View>
 
       <View style={tw`flex-1 items-center`}>
-        <TouchableOpacity onPress={() => showFollowing()}>
+        <TouchableOpacity onPress={() => fetchDataFollowing(user.id)}>
           <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               View following
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => showFollowers()}>
+        <TouchableOpacity onPress={() => fetchDataFollowers(user.id)}>
           <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               View followers

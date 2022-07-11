@@ -33,12 +33,12 @@ export default function SignIn({ navigation }) {
 
   useEffect(() => {}, [authData]);
 
-  async function fetchDataFollowers(id) {
-    const Following = await apiGetAllFollowing(parseInt(id));
-    setFollowingData(Following);
-    const Followers = await apiGetAllFollowers(parseInt(id));
-    setFollowData(Followers);
-  }
+  // async function fetchDataFollowers(id) {
+  //   const Following = await apiGetAllFollowing(parseInt(id));
+  //   setFollowingData(Following);
+  //   const Followers = await apiGetAllFollowers(parseInt(id));
+  //   setFollowData(Followers);
+  // }
 
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
@@ -46,7 +46,7 @@ export default function SignIn({ navigation }) {
       console.log(user);
       setAuthData(user);
       setIsSigned(true);
-      fetchDataFollowers(user.id);
+      // fetchDataFollowers(user.id);
     } else if (user === undefined) {
       Alert.alert('Alert', 'Username or Password is not valid', [
         { text: 'Ok' },

@@ -15,16 +15,13 @@ import { apiGetAllFollowing } from '../Thunks/followers';
 
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const { followData } = React.useContext(GlobalDataContext);
+  const { followingData } = React.useContext(GlobalDataContext);
   const [following, setFollowing] = useState([]);
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
   };
-  useEffect(() => {
-    console.log(followData);
-    setFollowing(followData);
-  }, [followData]);
+
   return (
     <ScrollView style={tw`flex-1 pt-6 px-8`}>
       <View style={tw`flex-1 items-center`}>
@@ -38,7 +35,7 @@ export default function FollowingList({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={tw`flex-5 border-2 `}>
-        {following ? (
+        {followingData ? (
           following.map((friend) => {
             return (
               <View key={friend.id} style={tw`pb-10  border-2 mb-10`}>
