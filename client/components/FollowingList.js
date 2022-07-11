@@ -11,10 +11,12 @@ import {
   ScrollView,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
+import { apiGetAllFollowing } from '../Thunks/followers';
 
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const { followingData } = React.useContext(GlobalDataContext);
+  const { followData } = React.useContext(GlobalDataContext);
+  const following = followData || [];
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
@@ -33,23 +35,30 @@ export default function FollowingList({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={tw`flex-5 border-2 `}>
-        {followingData.map((friend) => {
-          return (
-            <View key={friend.id} style={tw`pb-10  border-2 mb-10`}>
-              <TouchableOpacity
-                onPress={() => showPublicProfile(friend)}
-                style={tw`h-30 w-30`}
-              >
-                <Image style={tw`h-30 w-30`} source={{ uri: friend.img_url }} />
-              </TouchableOpacity>
-              <Text>{friend.username}</Text>
-              {/* <Text>Username: {friend.username}</Text> */}
-              <Text>Score:{friend.score}</Text>
-              {/* <Text>Email: {friend.email}</Text> */}
-              {/* <Text>About: {friend.biography}</Text> */}
-            </View>
-          );
-        })}
+        {following ? (
+          following.map((friend) => {
+            return (
+              <View key={friend.id} style={tw`pb-10  border-2 mb-10`}>
+                <TouchableOpacity
+                  onPress={() => showPublicProfile(friend)}
+                  style={tw`h-30 w-30`}
+                >
+                  <Image
+                    style={tw`h-30 w-30`}
+                    source={{ uri: friend.img_url }}
+                  />
+                </TouchableOpacity>
+                <Text>{friend.username}</Text>
+                {/* <Text>Username: {friend.username}</Text> */}
+                <Text>Score:{friend.score}</Text>
+                {/* <Text>Email: {friend.email}</Text> */}
+                {/* <Text>About: {friend.biography}</Text> */}
+              </View>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </View>
     </ScrollView>
   );

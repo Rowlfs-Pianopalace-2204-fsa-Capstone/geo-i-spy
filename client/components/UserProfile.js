@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import tw from 'twrnc';
 import {
   Image,
@@ -27,16 +27,22 @@ const textStyle = `font-bold pb-2`;
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
-  const { authData } = React.useContext(GlobalDataContext);
-  const { singleUser } = React.useContext(GlobalDataContext);
-  const { setAuthData } = React.useContext(GlobalDataContext);
-  const user = dummyData;
+  const { authData, setAuthData, singleUser, setFollowData, setFollowingData } =
+    React.useContext(GlobalDataContext);
+  const user = authData;
+
+  useEffect(async () => {
+    const Followers = await apiGetAllFollowers(parseInt(user.id));
+    setFollowData(Followers);
+  }, []);
+  useEffect(async () => {
+    const Following = await apiGetAllFollowing(parseInt(user.id));
+    setFollowingData(Following);
+  }, []);
   const showFollowing = () => {
-    apiGetAllFollowing(authData.id);
     navigation.navigate('FollowingList');
   };
   const showFollowers = () => {
-    apiGetAllFollowers(authData.id);
     navigation.navigate('FollowersList');
   };
 
@@ -48,7 +54,6 @@ const UserProfile = ({ navigation }) => {
       setIsSigned(false);
     }
   };
-  console.log('AUTH DATA/SINGLE USER', singleUser, authData);
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
       <View style={tw`flex-1 items-center`}>
