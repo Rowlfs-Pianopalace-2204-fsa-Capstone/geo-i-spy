@@ -37,7 +37,6 @@ export default function SignIn({ navigation }) {
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
     if (user) {
-      console.log(user);
       setAuthData(user);
       setIsSigned(true);
       apiGetAllAchievements().then((data) => {
