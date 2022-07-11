@@ -1,4 +1,6 @@
-import React from 'react';
+/** @format */
+
+import React, { useEffect } from 'react';
 import tw from 'twrnc';
 import { useState } from 'react';
 import {
@@ -9,22 +11,58 @@ import {
   Image,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
+import {
+  apiGetAllFollowing,
+  apiStartFollowing,
+  apiStopFollowing,
+} from '../Thunks/followers';
 
 const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
 const textStyle = 'pb-2 font-bold';
 
-const dummyDataFollow = false;
-
 export default function FriendProfile() {
-  const { singleUser } = React.useContext(GlobalDataContext);
-  const followsYou = true;
-  const [isFollowing, setIsFollowing] = useState(dummyDataFollow);
+  const { singleUser, followData, followingData, setFollowingData, authData } =
+    React.useContext(GlobalDataContext);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollower, setIsFollower] = useState(false);
   const friendData = singleUser;
-  const follow = () => {
-    setIsFollowing(true);
-  };
-  const unfollow = () => {
-    setIsFollowing(false);
+
+  async function fetchDataFollowing(id) {
+    const Following = await apiGetAllFollowing(parseInt(id));
+    await setFollowingData(Following);
+  }
+  useEffect(() => {
+    fetchDataFollowing(authData.id);
+  }, []);
+
+  useEffect(() => {
+    const user = followData.filter((ele) => ele.id === singleUser.id);
+    if (user[0]) {
+      setIsFollower(true);
+    }
+  }, [isFollower]);
+
+  useEffect(() => {
+    const user = followingData.filter((ele) => ele.id === singleUser.id);
+    if (user[0]) {
+      setIsFollowing(true);
+    }
+  }, [isFollowing]);
+
+  const handleFollow = async () => {
+    if (isFollowing) {
+      await apiStopFollowing(singleUser.id);
+      setFollowingData(
+        followingData.filter((ele) => {
+          ele.id !== singleUser.id;
+        })
+      );
+      setIsFollowing(!isFollowing);
+    } else {
+      await apiStartFollowing(singleUser.id);
+      setFollowingData([...followingData, singleUser]);
+      setIsFollowing(!isFollowing);
+    }
   };
 
   return (
@@ -43,20 +81,20 @@ export default function FriendProfile() {
         <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text>
         {isFollowing ? (
           <TouchableOpacity
-            onPress={() => unfollow()}
+            onPress={() => handleFollow()}
             style={tw`${buttonStyle} bg-red-400`}
           >
             <Text>Unfollow</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={() => follow()}
+            onPress={() => handleFollow()}
             style={tw`${buttonStyle} bg-blue-400`}
           >
             <Text>Follow!</Text>
           </TouchableOpacity>
         )}
-        {followsYou ? (
+        {isFollower ? (
           <Text>This user is following you</Text>
         ) : (
           <Text>This user isn't following you</Text>

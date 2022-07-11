@@ -1,29 +1,35 @@
 /** @format */
 
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 export const apiAuthLogin = async (username, password) => {
   try {
-    const response = await fetch("https://geoispy.herokuapp.com/auth/login", {
-      method: "POST",
+    const response = await fetch('https://geoispy.herokuapp.com/auth/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
 
     if (data) {
-      await SecureStore.setItemAsync("token", data.token);
-
+      if (Platform.OS === 'web') {
+        window.localStorage.setItem('token', data.token);
+      } else {
+        await SecureStore.setItemAsync('token', data.token);
+      }
       return apiAuthGetMe();
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const apiAuthSignUp = async (user) => {
-  const response = await fetch("https://geoispy.herokuapp.com/auth/signup", {
-    method: "POST",
+  const response = await fetch('https://geoispy.herokuapp.com/auth/signup', {
+    method: 'POST',
     headers: null,
     body: JSON.stringify(user),
   });
@@ -31,9 +37,14 @@ export const apiAuthSignUp = async (user) => {
 };
 
 export const apiAuthGetMe = async () => {
-  const token = await SecureStore.getItemAsync("token");
-  const response = await fetch("https://geoispy.herokuapp.com/auth/me", {
-    method: "GET",
+  let token;
+  if (Platform.OS === 'web') {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
+  const response = await fetch('https://geoispy.herokuapp.com/auth/me', {
+    method: 'GET',
     headers: { authorization: token },
   });
   const data = await response.json();
