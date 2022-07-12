@@ -83,10 +83,11 @@ export default function SignUp() {
       setCapitalization(true);
       console.log('CAPS: good');
     }
+    let nameForForm = `${name} ${lastName}`;
     setForm({
-      username: username,
-      name: `${name} ${lastName}`,
-      email: email,
+      username: username.trim(),
+      name: nameForForm.trim(),
+      email: email.trim(),
       password: password,
     });
     console.log(form);
@@ -108,7 +109,7 @@ export default function SignUp() {
       <View style={tw`flex-1 items-center pb-50 `}>
         <Text style={tw`text-2xl`}>Create your account!</Text>
       </View>
-      <View style={tw`flex-2 pb-80`}>
+      <View style={tw`flex-2 pb-110`}>
         <Text style={tw`font-bold`}>Username:</Text>
         <TextInput
           onEndEditing={() => {
