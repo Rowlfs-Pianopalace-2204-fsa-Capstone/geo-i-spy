@@ -34,7 +34,14 @@ export const apiAuthSignUp = async (user) => {
     body: JSON.stringify(user),
   });
   const data = await response.json();
-  return data;
+  if (data) {
+    if (Platform.OS === 'web') {
+      window.localStorage.setItem('token', data.token);
+    } else {
+      await SecureStore.setItemAsync('token', data.token);
+    }
+    return apiAuthGetMe();
+  }
 };
 
 export const apiAuthGetMe = async () => {
