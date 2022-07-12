@@ -7,15 +7,23 @@ import {
   Button,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
-
+import { GlobalDataContext } from '../Context';
+import { GlobalIsSignedContext } from '../Context';
+import { apiAuthSignUp } from '../Thunks/Auth';
 import tw from 'twrnc';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
-const textStyle = `border border-gray-400`;
+
 export default function SignUp() {
+  const { setAuthData } = React.useContext(GlobalDataContext);
+  const { setIsSigned } = React.useContext(GlobalIsSignedContext);
+  //username state
+  const [username, setUsername] = useState('');
+  const [validUsername, setValidUsername] = useState(true);
   //email state
   const [email, setEmail] = useState('');
   const [emailCheck, setEmailCheck] = useState(true);
@@ -33,6 +41,11 @@ export default function SignUp() {
   const [form, setForm] = useState({});
 
   const checkForm = () => {
+    if (username.length < 4 || username.length > 16) {
+      setValidUsername(false);
+    } else {
+      setValidUsername(true);
+    }
     if (email.slice(-4) === '.com' && email.includes('@')) {
       setEmailCheck(true);
       console.log('Email: valid');
@@ -71,15 +84,20 @@ export default function SignUp() {
       console.log('CAPS: good');
     }
     setForm({
+      username: username,
       name: `${name} ${lastName}`,
       email: email,
       password: password,
     });
+    console.log(form);
   };
-  const submitForm = () => {
+  const submitForm = async () => {
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
       console.log('Submit GOOD---------');
       console.log(form);
+      const newUser = await apiAuthSignUp(form);
+      setIsSigned(true);
+      setAuthData(newUser);
     } else {
       console.log('submit BAD--------');
     }
@@ -90,7 +108,24 @@ export default function SignUp() {
       <View style={tw`flex-1 items-center pb-50 `}>
         <Text style={tw`text-2xl`}>Create your account!</Text>
       </View>
-      <View style={tw`flex-1`}>
+      <View style={tw`flex-2 pb-80`}>
+        <Text style={tw`font-bold`}>Username:</Text>
+        <TextInput
+          onEndEditing={() => {
+            console.log(username);
+          }}
+          value={username}
+          onChangeText={setUsername}
+          style={tw`border border-gray-400`}
+        ></TextInput>
+        {validUsername ? (
+          <></>
+        ) : (
+          <Text style={tw`text-red-800`}>
+            -Please enter a username between 4-16 characters
+          </Text>
+        )}
+        {/*  */}
         <Text style={tw`font-bold`}>Email:</Text>
         <TextInput
           onEndEditing={() => {
@@ -160,7 +195,7 @@ export default function SignUp() {
           <Text style={tw`text-red-800`}>Passwords aren't matching</Text>
         )}
         <></>
-        <Pressable
+        <TouchableOpacity
           onPressIn={() => checkForm()}
           onPressOut={() => {
             submitForm();
@@ -168,7 +203,7 @@ export default function SignUp() {
           style={tw`${buttonStyle}`}
         >
           <Text style={tw`font-bold`}>Create account</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

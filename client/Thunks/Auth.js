@@ -30,10 +30,11 @@ export const apiAuthLogin = async (username, password) => {
 export const apiAuthSignUp = async (user) => {
   const response = await fetch('https://geoispy.herokuapp.com/auth/signup', {
     method: 'POST',
-    headers: null,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   });
   const data = await response.json();
+  return data;
 };
 
 export const apiAuthGetMe = async () => {
