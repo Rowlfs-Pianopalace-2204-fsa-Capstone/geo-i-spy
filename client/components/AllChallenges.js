@@ -54,7 +54,7 @@ export default function AllChallenges({ navigation }) {
       uncommon: false,
       common: false,
     });
-  }, []);
+  }, [achievements]);
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
       <TouchableOpacity
