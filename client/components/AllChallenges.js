@@ -83,7 +83,6 @@ export default function AllChallenges({ navigation }) {
             ...handleToggle,
             uncommon: !handleToggle.uncommon,
           }),
-          console.log(handleToggle),
         ]}
       >
         {}
@@ -101,7 +100,6 @@ export default function AllChallenges({ navigation }) {
             ...handleToggle,
             common: !handleToggle.common,
           }),
-          console.log(handleToggle),
         ]}
       >
         {}

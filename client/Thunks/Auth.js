@@ -51,7 +51,6 @@ export const apiAuthGetMe = async () => {
   } else {
     token = await SecureStore.getItemAsync('token');
   }
-  console.log(token);
   if (token) {
     const response = await fetch('https://geoispy.herokuapp.com/auth/me', {
       method: 'GET',

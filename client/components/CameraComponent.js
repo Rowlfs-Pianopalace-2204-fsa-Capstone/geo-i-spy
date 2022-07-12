@@ -69,7 +69,6 @@ export default function CameraComponent({ navigation }) {
         const newAchievements = achievements.filter(
           (ele) => ele.id !== SingleChallengeData.id
         );
-        console.log(achievement);
         setAchievements([achievement, ...newAchievements]);
 
         toast.success({ message: `You found a ${challengeItem}!` });
@@ -86,7 +85,6 @@ export default function CameraComponent({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      console.log('THIS RAN');
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();

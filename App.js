@@ -17,14 +17,6 @@ import {
 import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
 
-const checkLogin = async () => {
-  let token = await apiAuthGetMe();
-  console.log('HERERERERERERE', token);
-  if (token) {
-    return token;
-  }
-};
-
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
   const [followData, setFollowData] = useState([]);
@@ -37,7 +29,6 @@ export default function App() {
 
   const checkLogin = async () => {
     let token = await apiAuthGetMe();
-    console.log('HERERERERERERE', token, isSigned);
     if (token) {
       setAuthData(token);
       apiGetAllAchievements().then((data) => {
