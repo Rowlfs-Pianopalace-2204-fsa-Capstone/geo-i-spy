@@ -15,8 +15,11 @@ import { GlobalIsSignedContext } from '../Context';
 import { apiAuthSignUp } from '../Thunks/Auth';
 import tw from 'twrnc';
 
-const buttonStyle =
-  'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
+const style = {
+  button: `m-2 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg`,
+  textInput: `border border-gray-800 h-8 text-lg pl-2`,
+  text: `font-bold text-lg`,
+};
 
 export default function SignUp() {
   const { setAuthData } = React.useContext(GlobalDataContext);
@@ -110,31 +113,31 @@ export default function SignUp() {
         <Text style={tw`text-2xl`}>Create your account!</Text>
       </View>
       <View style={tw`flex-2 pb-110`}>
-        <Text style={tw`font-bold`}>Username:</Text>
+        <Text style={tw`${style.text}`}>Username:</Text>
         <TextInput
           onEndEditing={() => {
             console.log(username);
           }}
           value={username}
           onChangeText={setUsername}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         {validUsername ? (
           <></>
         ) : (
-          <Text style={tw`text-red-800`}>
+          <Text style={tw`${style.text}`}>
             -Please enter a username between 4-16 characters
           </Text>
         )}
         {/*  */}
-        <Text style={tw`font-bold`}>Email:</Text>
+        <Text style={tw`${style.text}`}>Email:</Text>
         <TextInput
           onEndEditing={() => {
             console.log('EDITING');
           }}
           value={email}
           onChangeText={setEmail}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         {emailCheck ? (
           <></>
@@ -143,31 +146,31 @@ export default function SignUp() {
             -Please enter a valid email address
           </Text>
         )}
-        <Text style={tw`font-bold`}>First name:</Text>
+        <Text style={tw`${style.text}`}>First name:</Text>
         <TextInput
           value={name}
           onChangeText={setName}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         {hasName ? (
           <></>
         ) : (
           <Text style={tw`text-red-800`}>-Please enter a first name</Text>
         )}
-        <Text style={tw`font-bold`}>Last name:</Text>
+        <Text style={tw`${style.text}`}>Last name:</Text>
         <TextInput
           value={lastName}
           onChangeText={setLastName}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         <></>
-        <Text style={tw`font-bold`}>Password:</Text>
+        <Text style={tw`${style.text}`}>Password:</Text>
 
         <TextInput
           value={password}
           secureTextEntry={true}
           onChangeText={setPassword}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         {passLength ? (
           <></>
@@ -183,12 +186,12 @@ export default function SignUp() {
             -Password needs at least one upper and lower case letter
           </Text>
         )}
-        <Text style={tw`font-bold`}>Confirm password:</Text>
+        <Text style={tw`${style.text}`}>Confirm password:</Text>
         <TextInput
           value={matching}
           secureTextEntry={true}
           onChangeText={setMatching}
-          style={tw`border border-gray-400`}
+          style={tw`${style.textInput}`}
         ></TextInput>
         {isMatching ? (
           <></>
@@ -201,9 +204,9 @@ export default function SignUp() {
           onPressOut={() => {
             submitForm();
           }}
-          style={tw`${buttonStyle}`}
+          style={tw`${style.button}`}
         >
-          <Text style={tw`font-bold`}>Create account</Text>
+          <Text style={tw`${style.text}`}>Create account</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

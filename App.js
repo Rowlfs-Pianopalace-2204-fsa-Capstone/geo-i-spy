@@ -10,6 +10,7 @@ import PublicProfile from './client/components/PublicProfile';
 import FollowingList from './client/components/FollowingList';
 
 import SignUp from './client/components/SignUp';
+
 import {
   apiGetAllFollowers,
   apiGetAllFollowing,
@@ -54,6 +55,7 @@ export default function App() {
         >
           <Toast />
           <Navigator />
+          {/* <SignUp /> */}
           {/* <PublicProfile /> */}
           {/* <FollowingList /> */}
         </GlobalIsSignedContext.Provider>
