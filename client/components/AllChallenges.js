@@ -7,9 +7,11 @@ import {
   ScrollView,
   Pressable,
   TouchableOpacity,
+  View,
 } from 'react-native';
 const textStyle = `font-bold`;
-
+import DownArrow from './arrowAnimations/DownArrow';
+import UpArrow from './arrowAnimations/UpArrow';
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
 export const mapArray = (
@@ -67,7 +69,14 @@ export default function AllChallenges({ navigation }) {
         ]}
       >
         {}
-        <Text>Toggle Rare</Text>
+        <View style={tw`flex-row`}>
+          <Text style={tw`flex-5`}>Toggle Rare</Text>
+          {handleToggle.rare ? (
+            <UpArrow style={tw`flex-1`} />
+          ) : (
+            <DownArrow style={tw`flex-1`} />
+          )}
+        </View>
       </TouchableOpacity>
 
       {handleToggle.rare ? (
@@ -86,7 +95,14 @@ export default function AllChallenges({ navigation }) {
         ]}
       >
         {}
-        <Text>Toggle Uncommon</Text>
+        <View style={tw`flex-row`}>
+          <Text style={tw`flex-5`}>Toggle Uncommon</Text>
+          {handleToggle.uncommon ? (
+            <UpArrow style={tw`flex-1`} />
+          ) : (
+            <DownArrow style={tw`flex-1`} />
+          )}
+        </View>
       </TouchableOpacity>
       {handleToggle.uncommon ? (
         mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
@@ -103,7 +119,14 @@ export default function AllChallenges({ navigation }) {
         ]}
       >
         {}
-        <Text>Toggle Common</Text>
+        <View style={tw`flex-row`}>
+          <Text style={tw`flex-5`}>Toggle Common</Text>
+          {handleToggle.common ? (
+            <UpArrow style={tw`flex-1`} />
+          ) : (
+            <DownArrow style={tw`flex-1`} />
+          )}
+        </View>
       </TouchableOpacity>
       {handleToggle.common ? (
         mapArray(achievements, navigation, setSingleChallengeData, 'common')
