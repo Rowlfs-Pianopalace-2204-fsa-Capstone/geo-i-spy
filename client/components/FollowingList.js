@@ -19,7 +19,7 @@ export default function FollowingList({ navigation }) {
   const [searchedUser, setSearchedUser] = useState('');
 
   const searchProfile = async (searchId) => {
-    if (searchId.length > 1) {
+    if (searchId.length > 0) {
       apiSearchUser(searchId).then((result) => {
         showPublicProfile(result);
       });
