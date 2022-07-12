@@ -31,15 +31,47 @@ import SingleChallenge from './components/SingleChallenge';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-const CamNav = () => {
+const HomeNav = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name='CameraView'
-        component={CameraComponent}
-        options={{ headerShown: false }}
+    <Tab.Navigator
+      initialRouteName='Home'
+      activeColor='#e91e63'
+      labelStyle={{ fontSize: 12 }}
+      animationEnabled={true}
+      barStyle={{ backgroundColor: 'blue' }}
+    >
+      <Tab.Screen
+        name='Home'
+        component={HomePage}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='home' color={color} size={26} />
+          ),
+        }}
       />
-    </Stack.Navigator>
+      <Tab.Screen
+        name='Challenges'
+        component={AllChallenges}
+        options={{
+          tabBarLabel: 'Challenges',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='compass' color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='Profile'
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='account' color={color} size={26} />
+          ),
+        }}
+      >
+        {(props) => <ProfileNavigate {...props} />}
+      </Tab.Screen>
+    </Tab.Navigator>
   );
 };
 
@@ -55,6 +87,7 @@ export default function Navigator() {
           name='SignUp'
           options={{
             headerShown: true,
+
             headerStyle: {
               backgroundColor: 'lightgray',
             },
@@ -66,69 +99,19 @@ export default function Navigator() {
     </NavigationContainer>
   ) : (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName='Home'
-        activeColor='#e91e63'
-        labelStyle={{ fontSize: 12 }}
-        animationEnabled={true}
-        style={{ backgroundColor: 'tomato' }}
-      >
-        <Tab.Screen
-          name='Home'
-          component={HomePage}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='home' color={color} size={26} />
-            ),
-          }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name='HomeNav'
+          options={{ headerShown: false }}
+          component={HomeNav}
         />
-        <Tab.Screen
+        <Stack.Screen
           name='Camera'
-          component={CamNav}
-          options={{
-            tabBarLabel: 'Camera',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='camera' color={color} size={26} />
-            ),
-          }}
+          component={CameraComponent}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name='Challenges'
-          component={AllChallenges}
-          options={{
-            tabBarLabel: 'Challenges',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='alien' color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name='SingleChallenge'
-          component={SingleChallenge}
-          options={{
-            tabBarLabel: 'Current Challenge',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name='alien-outline'
-                color={color}
-                size={26}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name='Profile'
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='account' color={color} size={26} />
-            ),
-          }}
-        >
-          {(props) => <ProfileNavigate {...props} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+        <Stack.Screen name='SingleChallenge' component={SingleChallenge} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
