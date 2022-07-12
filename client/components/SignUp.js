@@ -19,7 +19,7 @@ import tw from 'twrnc';
 import { apiGetAllAchievements } from '../Thunks/cloud';
 
 const style = {
-  button: `m-2 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg`,
+  button: `m-2 p-2 bg-blue-400 rounded-lg items-center mr-10 ml-10 shadow-lg`,
   textInput: `border border-gray-800 h-8 text-lg pl-2`,
   text: `font-bold text-lg`,
 };
