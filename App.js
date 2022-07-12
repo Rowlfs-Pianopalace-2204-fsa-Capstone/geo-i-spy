@@ -16,6 +16,7 @@ import {
   apiGetAllFollowing,
 } from './client/Thunks/followers';
 import { apiGetAllAchievements } from './client/Thunks/cloud';
+import { apiAuthGetMe } from './client/Thunks/Auth';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -27,6 +28,26 @@ export default function App() {
   const [isSigned, setIsSigned] = useState(false);
   const [achievements, setAchievements] = useState([]);
 
+  const checkLogin = async () => {
+    let token = await apiAuthGetMe();
+    if (token) {
+      setAuthData(token);
+      apiGetAllAchievements().then((data) => {
+        setAchievements(data);
+      });
+      return token;
+    } else {
+      setIsSigned(false);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const token = checkLogin();
+    if (token) {
+      setIsSigned(true);
+    }
+  }, []);
   return (
     <>
       <GlobalDataContext.Provider

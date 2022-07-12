@@ -15,6 +15,7 @@ export default function HomePage({ navigation }) {
     for (let i = 0; i < achievements.length; i++) {
       if (achievements[i].weeklyChallenge === true) {
         setWeeklyChallenge(achievements[i]);
+        setSingleChallengeData(achievements[i]);
       }
     }
   }, [achievements]);
@@ -29,12 +30,7 @@ export default function HomePage({ navigation }) {
         <Text>Rarity: {weeklyChallenge.difficulty}</Text>
         <Text>Score: {weeklyChallenge.score}</Text>
         <Text>Description: {weeklyChallenge.description}</Text>
-        <TouchableOpacity
-          onPress={() => [
-            setSingleChallengeData(weeklyChallenge),
-            navigation.navigate('Camera'),
-          ]}
-        >
+        <TouchableOpacity onPress={() => [navigation.navigate('Camera')]}>
           <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Complete Challenge👋

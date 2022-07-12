@@ -11,9 +11,10 @@ import {
   ImageBackground,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { apiAuthLogin } from '../Thunks/Auth';
+import { apiAuthGetMe, apiAuthLogin } from '../Thunks/Auth';
 import { GlobalDataContext } from '../Context';
 import { GlobalIsSignedContext } from '../Context';
 import tw from 'twrnc';
@@ -31,8 +32,6 @@ export default function SignIn({ navigation }) {
   const { authData, setAuthData, setAchievements, setChallengesData } =
     React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
-
-  useEffect(() => {}, [authData]);
 
   const handleLogin = async () => {
     const user = await apiAuthLogin(username, password);
