@@ -1,5 +1,5 @@
 /** @format */
-
+import { Platform } from 'react-native';
 import React from 'react';
 import tw from 'twrnc';
 import {
@@ -57,20 +57,20 @@ const UserProfile = ({ navigation }) => {
   };
 
   const handleLogout = async () => {
-    const logout = await SecureStore.deleteItemAsync('token');
-
-    if (logout === undefined) {
-      setAuthData({});
-      setIsSigned(false);
-      setChallengesData([]),
-        setSingleChallengeData({}),
-        setFollowData([]),
-        setSingleUser({});
-
-      setFollowingData([]);
-
-      setAchievements([]);
+    if (Platform.OS === 'web') {
+      window.localStorage.removeItem('token');
+    } else {
+      await SecureStore.deleteItemAsync('token');
     }
+
+    setAuthData({});
+    setIsSigned(false);
+    setChallengesData([]),
+      setSingleChallengeData({}),
+      setFollowData([]),
+      setSingleUser({});
+    setFollowingData([]);
+    setAchievements([]);
   };
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
