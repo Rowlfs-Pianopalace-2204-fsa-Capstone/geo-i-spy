@@ -10,29 +10,33 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
-
+import { GlobalDataContext } from '../Context';
+import { GlobalIsSignedContext } from '../Context';
+import { apiAuthSignUp } from '../Thunks/Auth';
 import tw from 'twrnc';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
 const textStyle = `border border-gray-400`;
 export default function SignUp() {
+  const { setAuthData } = React.useContext(GlobalDataContext);
+  const { setIsSigned } = React.useContext(GlobalIsSignedContext);
   //username state
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Miguel');
   const [validUsername, setValidUsername] = useState(true);
   //email state
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('rednu7@yahoo.com');
   const [emailCheck, setEmailCheck] = useState(true);
   //Password state
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('Password');
   const [passLength, setPassLength] = useState(true);
   const [capitalization, setCapitalization] = useState(true);
-  const [matching, setMatching] = useState('');
+  const [matching, setMatching] = useState('Password');
   const [isMatching, setIsMatching] = useState(true);
   //Names state
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Miguel');
   const [hasName, setHasName] = useState(true);
-  const [lastName, setLastName] = useState('');
+  const [lastName, setLastName] = useState('Cruz');
   //Form
   const [form, setForm] = useState({});
 
@@ -87,10 +91,13 @@ export default function SignUp() {
     });
     console.log(form);
   };
-  const submitForm = () => {
+  const submitForm = async () => {
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
       console.log('Submit GOOD---------');
       console.log(form);
+      const newUser = await apiAuthSignUp(form);
+      setIsSigned(true);
+      setAuthData(newUser);
     } else {
       console.log('submit BAD--------');
     }
