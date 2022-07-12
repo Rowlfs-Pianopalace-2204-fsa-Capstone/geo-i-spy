@@ -62,15 +62,15 @@ export default function CameraComponent({ navigation }) {
       });
 
       if (challengeResult) {
-        pictureToCloud(
+        const achievement = await pictureToCloud(
           `data:image/jpeg;base64,${image}`,
           SingleChallengeData.id
         );
-        SingleChallengeData.users = [];
         const newAchievements = achievements.filter(
           (ele) => ele.id !== SingleChallengeData.id
         );
-        setAchievements([SingleChallengeData, ...newAchievements]);
+        setAchievements([achievement, ...newAchievements]);
+
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
       } else {
@@ -85,7 +85,6 @@ export default function CameraComponent({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      console.log('THIS RAN');
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
@@ -132,10 +131,8 @@ export default function CameraComponent({ navigation }) {
     // Or set a specific startFrame and endFrame with:
   }, [uploading]);
 
-  const uploadResult = () => {
+  const uploadResult = async () => {
     setresultVisible(!resultVisible);
-    pictureToCloud(`data:image/jpeg;base64,${image}`, SingleChallengeData.id);
-    setAchievements([...achievements, SingleChallengeData]);
   };
   const tryAgain = () => {
     setresultVisible(!resultVisible);

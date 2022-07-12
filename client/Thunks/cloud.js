@@ -9,7 +9,7 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
     } else {
       token = await SecureStore.getItemAsync('token');
     }
-    const reponse = await fetch(
+    let reponse = await fetch(
       `https://geoispy.herokuapp.com/api/achievements/${id}`,
       {
         method: 'POST',
@@ -17,7 +17,8 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
         body: JSON.stringify({ data: base64EncodedImage }),
       }
     );
-    return;
+    reponse = await reponse.json();
+    return reponse;
   } catch (error) {
     console.error(error);
   }
