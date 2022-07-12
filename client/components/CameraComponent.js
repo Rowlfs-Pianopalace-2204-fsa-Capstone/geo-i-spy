@@ -133,6 +133,7 @@ export default function CameraComponent({ navigation }) {
 
   const uploadResult = async () => {
     setresultVisible(!resultVisible);
+    navigation.navigate('SingleChallenge');
   };
   const tryAgain = () => {
     setresultVisible(!resultVisible);
