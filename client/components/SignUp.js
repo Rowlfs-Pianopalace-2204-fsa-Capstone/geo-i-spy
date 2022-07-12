@@ -83,10 +83,11 @@ export default function SignUp() {
       setCapitalization(true);
       console.log('CAPS: good');
     }
+    let nameForForm = `${name} ${lastName}`;
     setForm({
-      username: username,
-      name: `${name} ${lastName}`,
-      email: email,
+      username: username.trim(),
+      name: nameForForm.trim(),
+      email: email.trim(),
       password: password,
     });
     console.log(form);
