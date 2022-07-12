@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   SafeAreaView,
@@ -14,12 +16,13 @@ import { GlobalDataContext } from '../Context';
 import { GlobalIsSignedContext } from '../Context';
 import { apiAuthSignUp } from '../Thunks/Auth';
 import tw from 'twrnc';
+import { apiGetAllAchievements } from '../Thunks/cloud';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
 
 export default function SignUp() {
-  const { setAuthData } = React.useContext(GlobalDataContext);
+  const { setAuthData, setAchievements } = React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
   //username state
   const [username, setUsername] = useState('');
@@ -96,9 +99,13 @@ export default function SignUp() {
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
       console.log('Submit GOOD---------');
       console.log(form);
+
       const newUser = await apiAuthSignUp(form);
-      setIsSigned(true);
       setAuthData(newUser);
+      setIsSigned(true);
+      apiGetAllAchievements().then((data) => {
+        setAchievements(data);
+      });
     } else {
       console.log('submit BAD--------');
     }
