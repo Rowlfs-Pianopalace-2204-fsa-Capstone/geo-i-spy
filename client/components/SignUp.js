@@ -108,7 +108,7 @@ export default function SignUp() {
       <View style={tw`flex-1 items-center pb-50 `}>
         <Text style={tw`text-2xl`}>Create your account!</Text>
       </View>
-      <View style={tw`flex-2 pb-100`}>
+      <View style={tw`flex-2 pb-110`}>
         <Text style={tw`font-bold`}>Username:</Text>
         <TextInput
           onEndEditing={() => {
