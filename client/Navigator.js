@@ -30,6 +30,7 @@ import SingleChallenge from './components/SingleChallenge';
 import Feed from './components/feed';
 import ViewPicture from './components/ViewPicture';
 import PublicProfile from './components/PublicProfile';
+import SearchResults from './components/SearchResults';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -125,6 +126,7 @@ export default function Navigator() {
         <Stack.Screen name='SingleChallenge' component={SingleChallenge} />
         <Stack.Screen name='ViewPicture' component={ViewPicture} />
         <Stack.Screen name='PublicProfile' component={PublicProfile} />
+        <Stack.Screen name='SearchResults' component={SearchResults} />
       </Stack.Navigator>
     </NavigationContainer>
   );
