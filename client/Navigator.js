@@ -48,11 +48,7 @@ const HomeNav = () => {
         options={{
           tabBarLabel: 'Feed',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name='home-outline'
-              color={color}
-              size={26}
-            />
+            <MaterialCommunityIcons name='book' color={color} size={26} />
           ),
         }}
       />
