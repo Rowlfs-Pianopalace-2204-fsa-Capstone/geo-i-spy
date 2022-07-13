@@ -66,7 +66,7 @@ export default function HomePage({ navigation }) {
                   setSingleChallengeData(weeklyChallenge),
                 ]}
               >
-                Complete Daily Challenge
+                Complete
               </Button>
             </Card.Actions>
           </Card>
@@ -110,7 +110,7 @@ export default function HomePage({ navigation }) {
                 </Card.Content>
                 <Card.Actions>
                   <Button onPress={() => [navigation.navigate('Camera')]}>
-                    Complete
+                    {SingleChallengeData.users ? 'Retake' : 'Complete'}
                   </Button>
                   <Button onPress={() => setSingleChallengeData({})}>
                     Untrack
