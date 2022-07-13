@@ -60,10 +60,12 @@ export const mapArray = (
               setImg(ele.challenge.Achievement.img_url),
               navigation.navigate('ViewPicture'),
             ]}
+            style={tw`border-2 m-2`}
           >
             <Card.Cover
               source={{ uri: ele.challenge.Achievement.img_url }}
-              style={tw`h-40`}
+              style={tw`border-2 m-2s`}
+              resizeMode='center'
             />
           </TouchableOpacity>
         </Card.Content>
