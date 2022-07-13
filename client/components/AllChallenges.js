@@ -60,7 +60,7 @@ export default function AllChallenges({ navigation }) {
     });
   }, [achievements]);
   return (
-    <ScrollView style={tw`flex-1 pt-12 px-6`}>
+    <ScrollView style={styles.filter}>
       <TouchableOpacity
         style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
         onPress={() => [
@@ -135,7 +135,17 @@ export default function AllChallenges({ navigation }) {
       ) : (
         <></>
       )}
-      <Text style={tw`h-20`}></Text>
+      <Text style={tw`h-200`}></Text>
     </ScrollView>
   );
 }
+tw`flex-1 pt-12 px-6`;
+
+const styles = StyleSheet.create({
+  filter: {
+    position: 'sticky',
+    flex: 1,
+    paddingTop: 52,
+    paddingHorizontal: 32,
+  },
+});

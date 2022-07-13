@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalIsSignedContext } from './Context';
 import tw from 'twrnc';
@@ -27,11 +28,48 @@ import ProfileNavigate from './components/ProfileNavigate';
 
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import Feed from './components/feed';
 import ViewPicture from './components/ViewPicture';
 import PublicProfile from './components/PublicProfile';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+const TabTop = createMaterialTopTabNavigator();
+
+const FeedNav = () => {
+  const inserts = useSafeAreaInsets();
+  return (
+    <TabTop.Navigator
+      initialRouteName='HomePage'
+      activeColor='#e91e63'
+      labelStyle={{ fontSize: 12 }}
+      animationEnabled={true}
+      style={{ marginTop: inserts.top }}
+    >
+      <TabTop.Screen
+        name='HomePage'
+        component={HomePage}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='home' color={color} size={26} />
+          ),
+        }}
+      />
+      <TabTop.Screen
+        name='Feed'
+        component={Feed}
+        options={{
+          tabBarLabel: 'Feed',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='book' color={color} size={26} />
+          ),
+        }}
+      />
+    </TabTop.Navigator>
+  );
+};
 
 const HomeNav = () => {
   return (
@@ -43,18 +81,8 @@ const HomeNav = () => {
       barStyle={{ backgroundColor: 'blue' }}
     >
       <Tab.Screen
-        name='Feed'
-        component={Feed}
-        options={{
-          tabBarLabel: 'Feed',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='book' color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name='Home'
-        component={HomePage}
+        component={FeedNav}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
