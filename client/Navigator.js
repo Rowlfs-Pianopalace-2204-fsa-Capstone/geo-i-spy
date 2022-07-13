@@ -29,10 +29,11 @@ import ProfileNavigate from './components/ProfileNavigate';
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import EditUser from './components/EditProfle';
 import Feed from './components/feed';
 import ViewPicture from './components/ViewPicture';
 import PublicProfile from './components/PublicProfile';
+import EditProfile from './components/EditProfle';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const TabTop = createMaterialTopTabNavigator();
@@ -153,6 +154,7 @@ export default function Navigator() {
         <Stack.Screen name='SingleChallenge' component={SingleChallenge} />
         <Stack.Screen name='ViewPicture' component={ViewPicture} />
         <Stack.Screen name='PublicProfile' component={PublicProfile} />
+        <Stack.Screen name='EditProfile' component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

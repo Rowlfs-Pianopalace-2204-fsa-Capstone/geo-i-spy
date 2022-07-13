@@ -17,6 +17,7 @@ import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 const textStyle = `font-bold pb-2`;
 
 import ImagePickerComponent from './ImagePicker';
+import EditUser from './EditProfle';
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
@@ -64,6 +65,10 @@ const UserProfile = ({ navigation }) => {
 
   const editPhoto = () => {
     navigation.navigate('ProfilePicture');
+  };
+
+  const editUser = () => {
+    navigation.navigate('EditProfile');
   };
 
   const handleLogout = async () => {
@@ -124,6 +129,15 @@ const UserProfile = ({ navigation }) => {
           <View style={tw`bg-blue-500 px-12 py-5  rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Sign Out!👋
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={tw`flex-1 items-center`}>
+        <TouchableOpacity onPress={editUser}>
+          <View style={tw`bg-blue-500 px-12 py-5  rounded-lg`}>
+            <Text style={tw`text-white font-semibold text-lg`}>
+              Edit Profile!👋
             </Text>
           </View>
         </TouchableOpacity>
