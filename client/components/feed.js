@@ -63,7 +63,7 @@ export const mapArray = (
           >
             <Card.Cover
               source={{ uri: ele.challenge.Achievement.img_url }}
-              style={tw`h-vh`}
+              style={tw`h-40`}
             />
           </TouchableOpacity>
         </Card.Content>
@@ -81,8 +81,12 @@ export default function Feed({ navigation }) {
     setImg,
     setSingleChallengeData,
   } = React.useContext(GlobalDataContext);
-  useEffect(async () => {
-    setFeed(await apiGetFeed());
+
+  useEffect(() => {
+    const getFeed = async () => {
+      setFeed(await apiGetFeed());
+    };
+    getFeed();
   }, []);
   useEffect(() => {}, [feed]);
   const showPublicProfile = async (id) => {

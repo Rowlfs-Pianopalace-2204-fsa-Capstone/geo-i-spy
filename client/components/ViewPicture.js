@@ -28,8 +28,13 @@ export default function ViewPicture({ navigation }) {
   return (
     <Card style={tw`h-full w-full`}>
       <Card.Title title='' />
+
       <Card.Content style={tw`h-full w-full`}>
+        {/* <Card.ScrollArea>
+          <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}> */}
         <Card.Cover source={{ uri: img }} style={tw`h-full w-full`} />
+        {/* </ScrollView>
+        </Card.ScrollArea> */}
       </Card.Content>
     </Card>
   );
