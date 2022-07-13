@@ -15,13 +15,14 @@ import { GlobalDataContext } from '../Context';
 import { apiSearchUser } from '../Thunks/followers';
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const { followingData } = React.useContext(GlobalDataContext);
+  const { followingData, setSearch } = React.useContext(GlobalDataContext);
   const [searchedUser, setSearchedUser] = useState('');
 
   const searchProfile = async (searchId) => {
     if (searchId.length > 0) {
       apiSearchUser(searchId).then((result) => {
-        showPublicProfile(result);
+        setSearch(result);
+        navigation.navigate('SearchResults');
       });
     } else {
       alert('Enter a username or ID');
@@ -46,12 +47,7 @@ export default function FollowingList({ navigation }) {
         <View style={tw`flex-1 flex-row`}>
           <TouchableOpacity onPress={() => searchProfile(searchedUser)}>
             <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
-              <Text style={tw`font-bold m-4`}>Search by ID</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
-              <Text style={tw`font-bold m-4`}>Search by Username</Text>
+              <Text style={tw`font-bold m-4`}>Search by users</Text>
             </View>
           </TouchableOpacity>
         </View>

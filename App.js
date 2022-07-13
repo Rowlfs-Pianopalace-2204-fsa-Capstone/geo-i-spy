@@ -30,7 +30,7 @@ export default function App() {
   const [achievements, setAchievements] = useState([]);
   const [feed, setFeed] = useState([]);
   const [img, setImg] = useState('');
-
+  const [search, setSearch] = useState([]);
   const checkLogin = async () => {
     let token = await apiAuthGetMe();
     if (token) {
@@ -73,6 +73,8 @@ export default function App() {
           setFeed,
           img,
           setImg,
+          search,
+          setSearch,
         }}
       >
         <GlobalIsSignedContext.Provider
