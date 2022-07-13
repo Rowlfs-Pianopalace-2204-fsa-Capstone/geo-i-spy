@@ -89,18 +89,31 @@ export const apiStartFollowing = async (id) => {
 };
 
 export const apiSearchUser = async (id) => {
-  const response = await fetch(
-    `https://geoispy.herokuapp.com/api/followers/search/${id}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+  let token;
+  if (Platform.OS === 'web') {
+    token = window.localStorage.getItem('token');
+  } else {
+    token = await SecureStore.getItemAsync('token');
+  }
+  if (token) {
+    try {
+      const response = await fetch(
+        `https://geoispy.herokuapp.com/api/followers/search/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            authorization: token,
+          },
+        }
+      );
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
     }
-  );
-  const data = await response.json();
-  return data;
+  }
 };
 
 export const apiGetFeed = async () => {

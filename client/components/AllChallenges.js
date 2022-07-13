@@ -60,7 +60,7 @@ export default function AllChallenges({ navigation }) {
     });
   }, [achievements]);
   return (
-    <ScrollView style={styles.filter}>
+    <ScrollView style={tw`flex-1 pt-12 px-6`}>
       <TouchableOpacity
         style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
         onPress={() => [
