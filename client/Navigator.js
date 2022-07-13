@@ -41,29 +41,29 @@ const FeedNav = () => {
   const inserts = useSafeAreaInsets();
   return (
     <TabTop.Navigator
-      initialRouteName='Feed'
+      initialRouteName='HomePage'
       activeColor='#e91e63'
       labelStyle={{ fontSize: 12 }}
       animationEnabled={true}
       style={{ marginTop: inserts.top }}
     >
       <TabTop.Screen
-        name='Feed'
+        name='HomePage'
         component={HomePage}
         options={{
-          tabBarLabel: 'Feed',
+          tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='home' color={color} size={26} />
           ),
         }}
       />
       <TabTop.Screen
-        name='Camera'
-        component={CameraComponent}
+        name='Feed'
+        component={Feed}
         options={{
-          tabBarLabel: 'Camera',
+          tabBarLabel: 'Feed',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='camera' color={color} size={26} />
+            <MaterialCommunityIcons name='book' color={color} size={26} />
           ),
         }}
       />
@@ -80,16 +80,6 @@ const HomeNav = () => {
       animationEnabled={true}
       barStyle={{ backgroundColor: 'blue' }}
     >
-      <Tab.Screen
-        name='Feed'
-        component={Feed}
-        options={{
-          tabBarLabel: 'Feed',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='book' color={color} size={26} />
-          ),
-        }}
-      />
       <Tab.Screen
         name='Home'
         component={FeedNav}
