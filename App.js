@@ -27,6 +27,8 @@ export default function App() {
   const [authData, setAuthData] = useState({});
   const [isSigned, setIsSigned] = useState(false);
   const [achievements, setAchievements] = useState([]);
+  const [feed, setFeed] = useState([]);
+  const [img, setImg] = useState('');
 
   const checkLogin = async () => {
     let token = await apiAuthGetMe();
@@ -66,6 +68,10 @@ export default function App() {
           setFollowingData,
           achievements,
           setAchievements,
+          feed,
+          setFeed,
+          img,
+          setImg,
         }}
       >
         <GlobalIsSignedContext.Provider

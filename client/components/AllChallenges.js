@@ -1,5 +1,7 @@
 /** @format */
 
+/** @format */
+
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
@@ -10,8 +12,8 @@ import {
   View,
 } from 'react-native';
 const textStyle = `font-bold`;
-import DownArrow from './arrowAnimations/DownArrow';
-import UpArrow from './arrowAnimations/UpArrow';
+// import DownArrow from './arrowAnimations/DownArrow';
+// import UpArrow from './arrowAnimations/UpArrow';
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
 export const mapArray = (
