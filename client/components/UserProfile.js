@@ -75,21 +75,39 @@ const UserProfile = ({ navigation }) => {
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
       <View style={tw`flex-1 items-center`}>
-        <Image
-          source={{
-            uri: user.img_url,
-          }}
-          style={tw`h-40 w-40 rounded-full mb-6`}
-        />
-        <ImagePickerComponent />
+        <View style={tw`h-40 w-60 mb-6 items-center`}>
+          <Image
+            source={{
+              uri: user.img_url,
+            }}
+            style={tw`h-40 w-40 rounded-full mb-6`}
+          />
+          <View style={{ position: 'absolute', bottom: 0, right: 56 }}>
+            <ImagePickerComponent />
+          </View>
+        </View>
+
+        <Text style={tw`flex-1 font-bold`}>{user.username}</Text>
       </View>
-      <View style={tw`flex-1`}>
+      <View style={tw`flex-1 flex-row align-center`}>
+        <View style={tw`flex-1`}>
+          <Text>Followers</Text>
+        </View>
+        <View style={tw`flex-1`}>
+          <Text> Score: {user.score}</Text>
+        </View>
+        <View style={tw`flex-1`}>
+          <Text>Following</Text>
+        </View>
+      </View>
+
+      {/* <View style={tw`flex-1`}>
         <Text style={tw`${textStyle}`}>ID: {user.id}</Text>
         <Text style={tw`${textStyle}`}>Name: {user.name}</Text>
         <Text style={tw`${textStyle}`}>Username: {user.username}</Text>
         <Text style={tw`${textStyle}`}>E-mail: {user.email}</Text>
         <Text style={tw`${textStyle}`}>Score: {user.score}</Text>
-      </View>
+      </View> */}
 
       <View style={tw`flex-1 items-center`}>
         <TouchableOpacity onPress={() => fetchDataFollowing(user.id)}>

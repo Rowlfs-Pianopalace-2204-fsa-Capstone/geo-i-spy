@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, TouchableOpacity } from 'react-native';
+import {
+  Button,
+  Image,
+  View,
+  Platform,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { changeProfilePic } from '../Thunks/cloud';
@@ -34,15 +41,10 @@ export default function ImagePickerComponent() {
 
   return (
     <TouchableOpacity
-      // style={tw`absolute bottom-10  right-40`}
+      style={tw`bg-sky-400 h-9 w-9 rounded-full items-center justify-center`}
       onPress={pickImage}
     >
-      <MaterialCommunityIcons
-        style={tw`relative ml-45`}
-        name='cog'
-        size={30}
-        color='black'
-      />
+      <MaterialCommunityIcons name='cog' size={25} color='black' />
     </TouchableOpacity>
   );
 }
