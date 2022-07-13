@@ -35,7 +35,7 @@ export const mapArray = (
             navigation.navigate('SingleChallenge'),
           ]}
           key={ele.id}
-          style={tw`border bg-${color}-400 p-6`}
+          style={tw`border bg-${color}-400 p-6 ml-2`}
         >
           <Text style={tw`${textStyle}`}>{ele.name}</Text>
           <Text style={tw`${textStyle}`}>{ele.difficulty}</Text>
@@ -60,7 +60,7 @@ export default function AllChallenges({ navigation }) {
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
       <TouchableOpacity
-        style={tw`border bg-blue-400 p-6`}
+        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
@@ -71,11 +71,11 @@ export default function AllChallenges({ navigation }) {
         {}
         <View style={tw`flex-row`}>
           <Text style={tw`flex-5`}>Toggle Rare</Text>
-          {handleToggle.rare ? (
+          {/* {handleToggle.rare ? (
             <UpArrow style={tw`flex-1`} />
           ) : (
             <DownArrow style={tw`flex-1`} />
-          )}
+          )} */}
         </View>
       </TouchableOpacity>
 
@@ -86,7 +86,7 @@ export default function AllChallenges({ navigation }) {
       )}
 
       <TouchableOpacity
-        style={tw`border bg-blue-400 p-6`}
+        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
@@ -97,11 +97,11 @@ export default function AllChallenges({ navigation }) {
         {}
         <View style={tw`flex-row`}>
           <Text style={tw`flex-5`}>Toggle Uncommon</Text>
-          {handleToggle.uncommon ? (
+          {/* {handleToggle.uncommon ? (
             <UpArrow style={tw`flex-1`} />
           ) : (
             <DownArrow style={tw`flex-1`} />
-          )}
+          )} */}
         </View>
       </TouchableOpacity>
       {handleToggle.uncommon ? (
@@ -110,7 +110,7 @@ export default function AllChallenges({ navigation }) {
         <></>
       )}
       <TouchableOpacity
-        style={tw`border bg-blue-400 p-6`}
+        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
         onPress={() => [
           setHandleToggle({
             ...handleToggle,
@@ -121,11 +121,11 @@ export default function AllChallenges({ navigation }) {
         {}
         <View style={tw`flex-row`}>
           <Text style={tw`flex-5`}>Toggle Common</Text>
-          {handleToggle.common ? (
+          {/* {handleToggle.common ? (
             <UpArrow style={tw`flex-1`} />
           ) : (
             <DownArrow style={tw`flex-1`} />
-          )}
+          )} */}
         </View>
       </TouchableOpacity>
       {handleToggle.common ? (
