@@ -58,7 +58,7 @@ export default function SingleChallenge({ navigation }) {
               <Button onPress={() => navigation.navigate('Camera')}>
                 {SingleChallengeData.users
                   ? 'Retake Photo!'
-                  : 'Complete Challenge1'}
+                  : 'Complete Challenge'}
               </Button>
             </Card.Actions>
           </Card>

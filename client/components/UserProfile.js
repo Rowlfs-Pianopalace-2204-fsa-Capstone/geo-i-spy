@@ -1,6 +1,6 @@
 /** @format */
 import { Platform } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import tw from 'twrnc';
 import {
   Image,
@@ -30,6 +30,8 @@ const UserProfile = ({ navigation }) => {
     setSingleUser,
     setFollowingData,
     setAchievements,
+    followingData,
+    followData,
   } = React.useContext(GlobalDataContext);
   const user = authData;
 
@@ -39,6 +41,14 @@ const UserProfile = ({ navigation }) => {
   const showFollowers = () => {
     navigation.navigate('FollowersList');
   };
+  useEffect(() => {
+    apiGetAllFollowing(user.id).then((result) => {
+      setFollowingData(result);
+    });
+    apiGetAllFollowers(user.id).then((result) => {
+      setFollowData(result);
+    });
+  }, []);
 
   async function fetchDataFollowers(id) {
     const Followers = await apiGetAllFollowers(parseInt(id));
@@ -75,39 +85,43 @@ const UserProfile = ({ navigation }) => {
   return (
     <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
       <View style={tw`flex-1 items-center`}>
-        <Image
-          source={{
-            uri: user.img_url,
-          }}
-          style={tw`h-40 w-40 rounded-full mb-6`}
-        />
-        <ImagePickerComponent />
+        <View style={tw`h-40 w-60 mb-6 items-center`}>
+          <Image
+            source={{
+              uri: user.img_url,
+            }}
+            style={tw`h-40 w-40 rounded-full mb-6`}
+          />
+          <View style={{ position: 'absolute', bottom: 0, right: 56 }}>
+            <ImagePickerComponent />
+          </View>
+        </View>
+
+        <Text style={tw`flex-1 font-bold`}>@{user.username}</Text>
       </View>
-      <View style={tw`flex-1`}>
-        <Text style={tw`${textStyle}`}>ID: {user.id}</Text>
-        <Text style={tw`${textStyle}`}>Name: {user.name}</Text>
-        <Text style={tw`${textStyle}`}>Username: {user.username}</Text>
-        <Text style={tw`${textStyle}`}>E-mail: {user.email}</Text>
-        <Text style={tw`${textStyle}`}>Score: {user.score}</Text>
+
+      <View style={tw`flex-1 flex-row px-8`}>
+        <TouchableOpacity onPress={() => fetchDataFollowers(user.id)}>
+          <View style={tw`flex-1 items-center`}>
+            <Text style={tw`font-bold`}> Followers</Text>
+            <Text>{followData.length}</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={tw`flex-1 items-center`}>
+          <Text style={tw`font-bold`}>Score</Text>
+          <Text>{user.score}</Text>
+        </View>
+        <TouchableOpacity onPress={() => fetchDataFollowing(user.id)}>
+          <View style={tw`flex-1 items-center`}>
+            <Text style={tw`font-bold`}>Following</Text>
+            <Text>{followingData.length}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={tw`flex-1 items-center`}>
-        <TouchableOpacity onPress={() => fetchDataFollowing(user.id)}>
-          <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
-            <Text style={tw`text-white font-semibold text-lg`}>
-              View following
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => fetchDataFollowers(user.id)}>
-          <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
-            <Text style={tw`text-white font-semibold text-lg`}>
-              View followers
-            </Text>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout}>
-          <View style={tw`bg-blue-500 px-5 py-3 rounded-full`}>
+          <View style={tw`bg-blue-500 px-12 py-5  rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Sign Out!👋
             </Text>
