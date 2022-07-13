@@ -27,7 +27,9 @@ import ProfileNavigate from './components/ProfileNavigate';
 
 import AllChallenges from './components/AllChallenges';
 import SingleChallenge from './components/SingleChallenge';
-
+import Feed from './components/feed';
+import ViewPicture from './components/ViewPicture';
+import PublicProfile from './components/PublicProfile';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -40,6 +42,16 @@ const HomeNav = () => {
       animationEnabled={true}
       barStyle={{ backgroundColor: 'blue' }}
     >
+      <Tab.Screen
+        name='Feed'
+        component={Feed}
+        options={{
+          tabBarLabel: 'Feed',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='book' color={color} size={26} />
+          ),
+        }}
+      />
       <Tab.Screen
         name='Home'
         component={HomePage}
@@ -111,6 +123,8 @@ export default function Navigator() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name='SingleChallenge' component={SingleChallenge} />
+        <Stack.Screen name='ViewPicture' component={ViewPicture} />
+        <Stack.Screen name='PublicProfile' component={PublicProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
