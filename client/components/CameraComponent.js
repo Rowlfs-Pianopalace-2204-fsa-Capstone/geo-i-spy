@@ -27,8 +27,12 @@ import { pictureToCloud } from '../Thunks/cloud';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
-  const { SingleChallengeData, setAchievements, achievements } =
-    React.useContext(GlobalDataContext);
+  const {
+    SingleChallengeData,
+    setSingleChallengeData,
+    setAchievements,
+    achievements,
+  } = React.useContext(GlobalDataContext);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
@@ -70,6 +74,7 @@ export default function CameraComponent({ navigation }) {
           (ele) => ele.id !== SingleChallengeData.id
         );
         setAchievements([achievement, ...newAchievements]);
+        setSingleChallengeData(achievement);
 
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);
