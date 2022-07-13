@@ -26,13 +26,19 @@ export default function ViewPicture({ navigation }) {
   const { img, singleUser } = React.useContext(GlobalDataContext);
   useEffect(() => {}, [img]);
   return (
-    <Card style={tw`border-red-500 border-2 w-full`}>
+    <Card style={tw`w-100%`}>
       <Card.Title title='' />
 
-      <Card.Content style={tw`border-blue-500 border-2 w-full`}>
+      <Card.Content
+        style={tw`flex-1 h-150 items-center border-blue-500 w-100%`}
+      >
         {/* <Card.ScrollArea>
           <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}> */}
-        <Card.Cover source={{ uri: img }} style={tw`border-2 w-full`} />
+        <Card.Cover
+          source={{ uri: img }}
+          resizeMode='center'
+          style={tw`w-100%`}
+        />
         {/* </ScrollView>
         </Card.ScrollArea> */}
       </Card.Content>
