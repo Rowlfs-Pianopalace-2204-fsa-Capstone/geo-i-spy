@@ -83,8 +83,8 @@ const UserProfile = ({ navigation }) => {
     setAchievements([]);
   };
   return (
-    <SafeAreaView style={tw`flex-1 mt-12 px-6`}>
-      <View style={tw`flex-1 items-center`}>
+    <SafeAreaView style={tw`flex-1 mt-18 px-6`}>
+      <View style={tw`flex-3 items-center`}>
         <View style={tw`h-40 w-60 mb-6 items-center`}>
           <Image
             source={{
@@ -97,31 +97,41 @@ const UserProfile = ({ navigation }) => {
           </View>
         </View>
 
-        <Text style={tw`flex-1 font-bold`}>@{user.username}</Text>
+        <Text style={tw`text-3xl`}>@{user.username}</Text>
       </View>
 
-      <View style={tw`flex-1 flex-row px-8`}>
-        <TouchableOpacity onPress={() => fetchDataFollowers(user.id)}>
-          <View style={tw`flex-1 items-center`}>
-            <Text style={tw`font-bold`}> Followers</Text>
-            <Text>{followData.length}</Text>
+      <View style={tw`flex-1 flex-row items-center px-4`}>
+        <TouchableOpacity
+          onPress={() => fetchDataFollowers(user.id)}
+          style={tw`flex-1`}
+        >
+          <View style={tw`flex-1 items-center border-r-2 border-gray-400`}>
+            <Text style={tw`font-bold text-lg`}> Followers</Text>
+            <Text style={tw`font-bold`}>{followData.length}</Text>
           </View>
         </TouchableOpacity>
-        <View style={tw`flex-1 items-center`}>
-          <Text style={tw`font-bold`}>Score</Text>
-          <Text>{user.score}</Text>
+        <View style={tw`flex-1`}>
+          <View style={tw`flex-1 items-center border-r-2  border-gray-400`}>
+            <Text style={tw`font-bold text-lg`}>Score</Text>
+            <Text style={tw`font-bold`}>{user.score}</Text>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => fetchDataFollowing(user.id)}>
+        <TouchableOpacity
+          style={tw`flex-1`}
+          onPress={() => fetchDataFollowing(user.id)}
+        >
           <View style={tw`flex-1 items-center`}>
-            <Text style={tw`font-bold`}>Following</Text>
-            <Text>{followingData.length}</Text>
+            <Text style={tw`font-bold text-lg`}>Following</Text>
+            <Text style={tw`font-bold`}>{followingData.length}</Text>
           </View>
         </TouchableOpacity>
       </View>
-
-      <View style={tw`flex-1 items-center`}>
+      <View style={tw`flex-3`}>
+        {/* This view component is just here to space stuff out */}
+      </View>
+      <View style={tw`flex-2 items-center`}>
         <TouchableOpacity onPress={handleLogout}>
-          <View style={tw`bg-blue-500 px-12 py-5  rounded-lg`}>
+          <View style={tw`bg-blue-400 px-12 py-2  rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Sign Out!👋
             </Text>
