@@ -30,9 +30,9 @@ export const mapArray = (
   setImg,
   setSingleChallengeData
 ) => {
-  return arr.map((ele) => {
+  return arr.map((ele, ind) => {
     return (
-      <View style={tw`pt-5 pb-5`} key={ele.challenge.id}>
+      <View style={tw`pt-5 pb-5`} key={ind}>
         <Card>
           <TouchableOpacity onPress={() => [showPublicProfile(ele.id)]}>
             <Card.Title
