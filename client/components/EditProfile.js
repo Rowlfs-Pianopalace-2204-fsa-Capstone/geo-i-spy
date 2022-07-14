@@ -94,19 +94,18 @@ export default function EditProfile() {
       }
     }
 
-    //CHecking for values and adding to form
+    //Checking for values and adding to form
     console.log('Info for form:', username, name, email);
     if (username) {
-      // setUsername(username.trim());
-      setForm({ ...form, username: username });
+      setForm({ ...form, username: username.trim() });
     }
     if (name) {
       let nameForForm = `${name} ${lastName}`;
-      setForm({ ...form, name: nameForForm });
+      setForm({ ...form, name: nameForForm.trim() });
     }
     if (email) {
       // setEmail(email.trim());
-      setForm(form, ...email);
+      setForm(form, ...email.trim());
     }
     if (password) {
       setForm(form, ...password);
@@ -147,9 +146,6 @@ export default function EditProfile() {
       <View style={tw`flex-2 pb-110`}>
         <Text style={tw`font-bold text-lg`}>Username:</Text>
         <TextInput
-          onEndEditing={() => {
-            console.log(username);
-          }}
           value={username}
           onChangeText={setUsername}
           style={tw`border border-gray-800 h-8 text-lg pl-2`}
