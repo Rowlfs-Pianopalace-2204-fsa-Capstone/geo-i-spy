@@ -17,6 +17,7 @@ import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 const textStyle = `font-bold pb-2`;
 
 import ImagePickerComponent from './ImagePicker';
+import { apiAuthGetMe } from '../Thunks/Auth';
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
@@ -32,6 +33,7 @@ const UserProfile = ({ navigation }) => {
     setAchievements,
     followingData,
     followData,
+    achievements,
   } = React.useContext(GlobalDataContext);
   const user = authData;
 
@@ -42,13 +44,16 @@ const UserProfile = ({ navigation }) => {
     navigation.navigate('FollowersList');
   };
   useEffect(() => {
+    apiAuthGetMe().then((result) => {
+      setAuthData(result);
+    });
     apiGetAllFollowing(user.id).then((result) => {
       setFollowingData(result);
     });
     apiGetAllFollowers(user.id).then((result) => {
       setFollowData(result);
     });
-  }, []);
+  }, [followData, achievements]);
 
   async function fetchDataFollowers(id) {
     const Followers = await apiGetAllFollowers(parseInt(id));
@@ -68,7 +73,7 @@ const UserProfile = ({ navigation }) => {
 
   const handleLogout = async () => {
     if (Platform.OS === 'web') {
-      window.localStorage.removeItem('token');
+      await window.localStorage.removeItem('token');
     } else {
       await SecureStore.deleteItemAsync('token');
     }
