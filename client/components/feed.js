@@ -34,26 +34,28 @@ export const mapArray = (
     return (
       <View style={tw`pt-5 pb-5`} key={ind}>
         <Card>
-          <TouchableOpacity onPress={() => [showPublicProfile(ele.id)]}>
-            <Card.Title
-              title={`${ele.challenge.name} challenge!`}
-              left={() => (
+          <Card.Title
+            title={
+              <TouchableOpacity
+                onPress={() => [
+                  setSingleChallengeData(ele.challenge),
+                  navigation.navigate('SingleChallenge'),
+                ]}
+              >
+                <Title>{ele.challenge.name} challenge!</Title>
+              </TouchableOpacity>
+            }
+            left={() => (
+              <TouchableOpacity onPress={() => [showPublicProfile(ele.id)]}>
                 <Image
                   source={{ uri: ele.img }}
                   style={tw`h-12 w-12 pl-12 rounded-full`}
                 />
-              )}
-            />
-          </TouchableOpacity>
+              </TouchableOpacity>
+            )}
+          />
+
           <Card.Content>
-            <TouchableOpacity
-              onPress={() => [
-                setSingleChallengeData(ele.challenge),
-                navigation.navigate('SingleChallenge'),
-              ]}
-            >
-              <Title></Title>
-            </TouchableOpacity>
             <Paragraph>
               {ele.username} completed the {ele.challenge.name} challenge for a
               whooping {ele.challenge.score} points!
@@ -98,7 +100,8 @@ export default function Feed({ navigation }) {
   }, []);
   useEffect(() => {}, [feed]);
   const showPublicProfile = async (id) => {
-    setSingleUser(await apiSearchUser(id));
+    const user = await apiSearchUser(id);
+    setSingleUser(user[0]);
     navigation.navigate('PublicProfile');
   };
   return (
