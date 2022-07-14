@@ -41,7 +41,7 @@ export default function ImagePickerComponent() {
 
   return (
     <TouchableOpacity
-      style={tw`bg-sky-400 h-9 w-9 rounded-full items-center justify-center`}
+      style={tw`bg-sky-400 h-9 w-9 rounded-full items-center justify-center border-2 border-gray-100`}
       onPress={pickImage}
     >
       <MaterialCommunityIcons name='cog' size={25} color='black' />
