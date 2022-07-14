@@ -47,16 +47,17 @@ export default function FriendProfile() {
     if (user[0]) {
       setIsFollowing(true);
     }
-  }, [isFollowing]);
+  }, []);
+
+  useEffect(() => {}, [singleUser]);
 
   const handleFollow = async () => {
     if (isFollowing) {
       await apiStopFollowing(singleUser.id);
-      setFollowingData(
-        followingData.filter((ele) => {
-          ele.id !== singleUser.id;
-        })
+      const newList = followingData.filter(
+        (ele) => parseInt(ele.id) !== parseInt(singleUser.id)
       );
+      setFollowingData(newList);
       setIsFollowing(!isFollowing);
     } else {
       await apiStartFollowing(singleUser.id);

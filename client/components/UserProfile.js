@@ -14,15 +14,13 @@ import { GlobalIsSignedContext } from '../Context';
 import { GlobalDataContext } from '../Context';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
-const textStyle = `font-bold pb-2`;
-
 import ImagePickerComponent from './ImagePicker';
+import { apiAuthGetMe } from '../Thunks/Auth';
 
 const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
   const {
     authData,
-    singleUser,
     setChallengesData,
     setSingleChallengeData,
     setAuthData,
@@ -32,6 +30,7 @@ const UserProfile = ({ navigation }) => {
     setAchievements,
     followingData,
     followData,
+    achievements,
   } = React.useContext(GlobalDataContext);
   const user = authData;
 
@@ -42,13 +41,11 @@ const UserProfile = ({ navigation }) => {
     navigation.navigate('FollowersList');
   };
   useEffect(() => {
-    apiGetAllFollowing(user.id).then((result) => {
-      setFollowingData(result);
+    apiAuthGetMe().then((result) => {
+      setAuthData(result);
     });
-    apiGetAllFollowers(user.id).then((result) => {
-      setFollowData(result);
-    });
-  }, []);
+  }, [achievements]);
+  useEffect(() => {}, [followingData, followData]);
 
   async function fetchDataFollowers(id) {
     const Followers = await apiGetAllFollowers(parseInt(id));
@@ -68,7 +65,7 @@ const UserProfile = ({ navigation }) => {
 
   const handleLogout = async () => {
     if (Platform.OS === 'web') {
-      window.localStorage.removeItem('token');
+      await window.localStorage.removeItem('token');
     } else {
       await SecureStore.deleteItemAsync('token');
     }

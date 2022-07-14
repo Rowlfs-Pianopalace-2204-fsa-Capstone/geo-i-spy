@@ -13,15 +13,14 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { apiAuthGetMe, apiAuthLogin } from '../Thunks/Auth';
+import React, { useState } from 'react';
+import { apiAuthLogin } from '../Thunks/Auth';
 import { GlobalDataContext } from '../Context';
 import { GlobalIsSignedContext } from '../Context';
 import tw from 'twrnc';
-import toast from '../helpers/toast';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllAchievements } from '../Thunks/cloud';
-import { apiGetAllChallenges } from '../Thunks/Challenges';
+import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
@@ -29,7 +28,7 @@ const buttonStyle =
 export default function SignIn({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { authData, setAuthData, setAchievements, setChallengesData } =
+  const { setAuthData, setAchievements, setFollowData, setFollowingData } =
     React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
 
@@ -41,9 +40,12 @@ export default function SignIn({ navigation }) {
       apiGetAllAchievements().then((data) => {
         setAchievements(data);
       });
-      // apiGetAllChallenges().then((data) => {
-      //   setChallengesData(data);
-      // });
+      apiGetAllFollowing(user.id).then((result) => {
+        setFollowingData(result);
+      });
+      apiGetAllFollowers(user.id).then((result) => {
+        setFollowData(result);
+      });
     } else if (user === undefined) {
       Alert.alert('Alert', 'Username or Password is not valid', [
         { text: 'Ok' },
