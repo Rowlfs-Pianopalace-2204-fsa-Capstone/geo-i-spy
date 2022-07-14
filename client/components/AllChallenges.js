@@ -105,6 +105,21 @@ export default function AllChallenges({ navigation }) {
             <Text>Common</Text>
           </View>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={tw`flex-1 border-2 items-center py-1`}
+          onPress={() => [
+            setHandleToggle({
+              ...handleToggle,
+              common: !handleToggle.common,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Completed</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       {handleToggle.uncommon ? (
         mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
