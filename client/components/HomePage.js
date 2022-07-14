@@ -28,10 +28,7 @@ export default function HomePage({ navigation }) {
     }
   }, [achievements]);
 
-  useEffect(() => {
-    console.log('SingleChallengeData:', SingleChallengeData);
-    console.log('weeklyChallenge:', weeklyChallenge);
-  }, [SingleChallengeData, weeklyChallenge]);
+  useEffect(() => {}, [SingleChallengeData, weeklyChallenge]);
 
   return (
     <SafeAreaView style={tw`flex-1 items-center justify-center shadow-lg`}>

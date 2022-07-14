@@ -14,8 +14,6 @@ import { GlobalIsSignedContext } from '../Context';
 import { GlobalDataContext } from '../Context';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
-const textStyle = `font-bold pb-2`;
-
 import ImagePickerComponent from './ImagePicker';
 import { apiAuthGetMe } from '../Thunks/Auth';
 
@@ -23,7 +21,6 @@ const UserProfile = ({ navigation }) => {
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
   const {
     authData,
-    singleUser,
     setChallengesData,
     setSingleChallengeData,
     setAuthData,
@@ -47,13 +44,8 @@ const UserProfile = ({ navigation }) => {
     apiAuthGetMe().then((result) => {
       setAuthData(result);
     });
-    apiGetAllFollowing(user.id).then((result) => {
-      setFollowingData(result);
-    });
-    apiGetAllFollowers(user.id).then((result) => {
-      setFollowData(result);
-    });
-  }, [followData, achievements]);
+  }, [achievements]);
+  useEffect(() => {}, [followingData, followData]);
 
   async function fetchDataFollowers(id) {
     const Followers = await apiGetAllFollowers(parseInt(id));

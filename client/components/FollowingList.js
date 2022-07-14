@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tw from 'twrnc';
 import {
   View,
@@ -12,10 +12,11 @@ import {
   ScrollView,
 } from 'react-native';
 import { GlobalDataContext } from '../Context';
-import { apiSearchUser } from '../Thunks/followers';
+import { apiGetAllFollowing, apiSearchUser } from '../Thunks/followers';
 export default function FollowingList({ navigation }) {
   const { setSingleUser } = React.useContext(GlobalDataContext);
-  const { followingData, setSearch } = React.useContext(GlobalDataContext);
+  const { followingData, setSearch, authData, setFollowingData } =
+    React.useContext(GlobalDataContext);
   const [searchedUser, setSearchedUser] = useState('');
 
   const searchProfile = async (searchId) => {
@@ -28,7 +29,11 @@ export default function FollowingList({ navigation }) {
       alert('Enter a username or ID');
     }
   };
-
+  useEffect(() => {
+    apiGetAllFollowing(authData.id).then((result) => {
+      setFollowingData(result);
+    });
+  }, []);
   const showPublicProfile = (user) => {
     navigation.navigate('PublicProfile');
     setSingleUser(user);
@@ -47,7 +52,7 @@ export default function FollowingList({ navigation }) {
         <View style={tw`flex-1 flex-row`}>
           <TouchableOpacity onPress={() => searchProfile(searchedUser)}>
             <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
-              <Text style={tw`font-bold m-4`}>Search by users</Text>
+              <Text style={tw`font-bold m-4`}>Search by uuser</Text>
             </View>
           </TouchableOpacity>
         </View>

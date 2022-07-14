@@ -10,8 +10,6 @@ import PublicProfile from './client/components/PublicProfile';
 import FollowingList from './client/components/FollowingList';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import SignUp from './client/components/SignUp';
-
 import {
   apiGetAllFollowers,
   apiGetAllFollowing,
@@ -37,6 +35,12 @@ export default function App() {
       setAuthData(token);
       apiGetAllAchievements().then((data) => {
         setAchievements(data);
+      });
+      apiGetAllFollowing(token.id).then((result) => {
+        setFollowingData(result);
+      });
+      apiGetAllFollowers(token.id).then((result) => {
+        setFollowData(result);
       });
       return token;
     } else {

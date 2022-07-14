@@ -9,60 +9,87 @@ import {
   View,
   Image,
 } from 'react-native';
-const textStyle = `font-bold`;
-import DownArrow from './arrowAnimations/DownArrow';
-import UpArrow from './arrowAnimations/UpArrow';
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
 import {
-  apiGetFeed,
   apiSearchUser,
   apiStartFollowing,
   apiStopFollowing,
 } from '../Thunks/followers';
-import { timeSince } from '../helpers/time';
 
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Title, Paragraph } from 'react-native-paper';
 
 export const mapArray = (
   arr,
   navigation,
   showPublicProfile,
-  handleFollow,
-  isFollowing
+  followingData,
+  setFollowingData
 ) => {
   return arr.map((ele) => {
+    const alreadyFollowing = followingData.filter((e) => e.id === ele.id);
+    if (alreadyFollowing[0]) {
+      ele.isFollowing = true;
+    }
+    const handleFollow = async (singleUser) => {
+      if (ele.isFollowing) {
+        await apiStopFollowing(singleUser.id);
+        setFollowingData(
+          followingData.filter((ele) => {
+            ele.id !== singleUser.id;
+          })
+        );
+        ele.isFollowing = false;
+      } else {
+        await apiStartFollowing(singleUser.id);
+        setFollowingData([...followingData, singleUser]);
+      }
+    };
+    //FOLLOW BUTTON STYLE
+
+    const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
+
+    //PICTURE
+
     const LeftContent = () => (
       <Image source={{ uri: ele.img_url }} style={tw`h-16 w-16 pl-16`}></Image>
     );
-    const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
 
-    // const RightContent = async () => {
-    //   // if (isFollowing) {
-    //   //   return (
-    //   //     <TouchableOpacity
-    //   //       onPress={() => handleFollow()}
-    //   //       style={tw`${buttonStyle} bg-red-400`}
-    //   //     >
-    //   //       <Text>Unfollow</Text>
-    //   //     </TouchableOpacity>
-    //   //   );
-    //   // } else {
-    //   //   return (
-    //   //     <TouchableOpacity
-    //   //       onPress={() => handleFollow()}
-    //   //       style={tw`${buttonStyle} bg-blue-400`}
-    //   //     >
-    //   //       <Text>Follow!</Text>
-    //   //     </TouchableOpacity>
-    //   //   );
-    //   // }
-    //   <Text>PLACEHOLDER</Text>;
-    // };
+    // FOLLOW BUTTON
+
+    const RightContent = () => {
+      if (ele.isFollowing) {
+        return (
+          <TouchableOpacity
+            onPress={() => handleFollow(ele)}
+            style={tw`${buttonStyle} bg-red-400`}
+          >
+            <Text>Unfollow</Text>
+          </TouchableOpacity>
+        );
+      } else {
+        return (
+          <TouchableOpacity
+            onPress={() => handleFollow(ele)}
+            style={tw`${buttonStyle} bg-blue-400`}
+          >
+            <Text>Follow!</Text>
+          </TouchableOpacity>
+        );
+      }
+    };
+
+    //CARD BOXES
+
     return (
       <Card key={ele.id} resizeMode={'contain'}>
         <TouchableOpacity onPress={() => [showPublicProfile(ele.id)]}>
-          <Card.Title title='' left={LeftContent} style={tw`h-20`} />
+          <Card.Title
+            title=''
+            left={LeftContent}
+            right={RightContent}
+            style={tw`h-20`}
+          />
           <Paragraph style={tw`mb-4 ml-4`}>{ele.username}</Paragraph>
         </TouchableOpacity>
       </Card>
@@ -71,39 +98,14 @@ export const mapArray = (
 };
 
 export default function SearchResults({ navigation }) {
-  const {
-    feed,
-    setFeed,
-    setSingleUser,
-    search,
-    followData,
-    followingData,
-    setFollowingData,
-  } = React.useContext(GlobalDataContext);
-  const [isFollowing, setIsFollowing] = useState(false);
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
+  const { setSingleUser, search, followingData, setFollowingData } =
+    React.useContext(GlobalDataContext);
+
+  useEffect(() => {}, [followingData]);
   const showPublicProfile = async (id) => {
     const user = await apiSearchUser(id);
     setSingleUser(user[0]);
     navigation.navigate('PublicProfile');
-  };
-
-  const handleFollow = async (singleUser) => {
-    if (isFollowing) {
-      await apiStopFollowing(singleUser.id);
-      setFollowingData(
-        followingData.filter((ele) => {
-          ele.id !== singleUser.id;
-        })
-      );
-      setIsFollowing(!isFollowing);
-    } else {
-      await apiStartFollowing(singleUser.id);
-      setFollowingData([...followingData, singleUser]);
-      setIsFollowing(!isFollowing);
-    }
   };
 
   return (
@@ -113,8 +115,8 @@ export default function SearchResults({ navigation }) {
           search,
           navigation,
           showPublicProfile,
-          handleFollow,
-          isFollowing
+          followingData,
+          setFollowingData
         )
       ) : (
         <Text style={tw`h-20`}>LOADING</Text>
