@@ -12,8 +12,7 @@ import {
   View,
 } from 'react-native';
 const textStyle = `font-bold`;
-// import DownArrow from './arrowAnimations/DownArrow';
-// import UpArrow from './arrowAnimations/UpArrow';
+
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
 export const mapArray = (
@@ -61,81 +60,69 @@ export default function AllChallenges({ navigation }) {
   }, [achievements]);
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            rare: !handleToggle.rare,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Rare</Text>
-          {/* {handleToggle.rare ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
+      <View style={tw`flex-1 flex-row items-center`}>
+        <TouchableOpacity
+          style={tw`flex-1 border-2 items-center py-1`}
+          onPress={() => [
+            setHandleToggle({
+              ...handleToggle,
+              rare: !handleToggle.rare,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Rare</Text>
+          </View>
+        </TouchableOpacity>
 
-      {handleToggle.rare ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
-      ) : (
-        <></>
-      )}
+        <TouchableOpacity
+          style={tw`flex-1 border-2 items-center py-1`}
+          onPress={() => [
+            setHandleToggle({
+              ...handleToggle,
+              uncommon: !handleToggle.uncommon,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Uncommon</Text>
+          </View>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            uncommon: !handleToggle.uncommon,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Uncommon</Text>
-          {/* {handleToggle.uncommon ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`flex-1 border-2 items-center py-1`}
+          onPress={() => [
+            setHandleToggle({
+              ...handleToggle,
+              common: !handleToggle.common,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Common</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       {handleToggle.uncommon ? (
         mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
       ) : (
         <></>
       )}
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            common: !handleToggle.common,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Common</Text>
-          {/* {handleToggle.common ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
+
       {handleToggle.common ? (
         mapArray(achievements, navigation, setSingleChallengeData, 'common')
       ) : (
         <></>
       )}
-      <Text style={tw`h-200`}></Text>
+      {handleToggle.rare ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
+      ) : (
+        <></>
+      )}
+      {/* <Text style={tw`h-200`}></Text> */}
     </ScrollView>
   );
 }
