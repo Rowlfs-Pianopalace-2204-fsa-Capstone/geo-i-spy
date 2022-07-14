@@ -28,18 +28,23 @@ export const mapArray = (
 ) => {
   return arr.map((ele) => {
     const alreadyFollowing = followingData.filter((e) => e.id === ele.id);
+
+    //Checks to see if user is already following
+
     if (alreadyFollowing[0]) {
       ele.isFollowing = true;
     }
+    // Follow function
+
     const handleFollow = async (singleUser) => {
       if (ele.isFollowing) {
         await apiStopFollowing(singleUser.id);
-        setFollowingData(
-          followingData.filter((ele) => {
-            ele.id !== singleUser.id;
-          })
-        );
         ele.isFollowing = false;
+        const newList = followingData.filter(
+          (ele) => parseInt(ele.id) !== parseInt(singleUser.id)
+        );
+        console.log(newList);
+        setFollowingData(newList);
       } else {
         await apiStartFollowing(singleUser.id);
         setFollowingData([...followingData, singleUser]);
@@ -109,7 +114,7 @@ export default function SearchResults({ navigation }) {
   };
 
   return (
-    <ScrollView style={tw`flex-1 pt-12 px-6`}>
+    <ScrollView>
       {search[0] ? (
         mapArray(
           search,
