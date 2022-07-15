@@ -85,7 +85,7 @@ const UserProfile = ({ navigation }) => {
     navigation.navigate('EditProfile');
   };
   return (
-    <SafeAreaView style={tw`flex-1 mt-18 px-6`}>
+    <SafeAreaView style={tw`flex-1 mt-18 px-6 items-center`}>
       <View style={tw`flex-3 items-center`}>
         <View style={tw`h-40 w-60 mb-6 items-center`}>
           <Image
@@ -131,16 +131,16 @@ const UserProfile = ({ navigation }) => {
       <View style={tw`flex-3`}>
         {/* This view component is just here to space stuff out */}
       </View>
-      <View style={tw`flex-2 items-center`}>
+      <View style={tw`flex-2 items-center w-100%`}>
         <TouchableOpacity onPress={handleEdit}>
-          <View style={tw`bg-blue-400 px-12 py-2  rounded-lg`}>
+          <View style={tw` bg-blue-400 px-13 py-2 mb-10 rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Edit Profile
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout}>
-          <View style={tw`bg-blue-400 px-12 py-2  rounded-lg`}>
+          <View style={tw`bg-red-400 px-12 py-2  rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>
               Sign Out!👋
             </Text>
