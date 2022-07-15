@@ -79,7 +79,7 @@ const HomeNav = () => {
       activeColor='#e91e63'
       labelStyle={{ fontSize: 12 }}
       animationEnabled={true}
-      barStyle={{ backgroundColor: 'cornflowerblue' }}
+      barStyle={{ backgroundColor: 'dodgerblue' }}
     >
       <Tab.Screen
         name='Home'
