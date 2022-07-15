@@ -29,11 +29,11 @@ export const mapArray = (
       color = 'blue';
     }
     let diffColor = 'black';
-    if (ele.difficulty === 'rare') {
+    if (ele.difficulty === 'Rare') {
       diffColor = 'red';
-    } else if (ele.difficulty === 'uncommon') {
+    } else if (ele.difficulty === 'Uncommon') {
       diffColor = 'orange';
-    } else if (ele.difficulty === 'common') {
+    } else if (ele.difficulty === 'Common') {
       diffColor = 'green';
     }
     if (difficulty === ele.difficulty) {
@@ -102,7 +102,7 @@ export default function AllChallenges({ navigation }) {
             handleTextCommon(),
             setHandleToggle({
               ...handleToggle,
-              common: !handleToggle.common,
+              Common: !handleToggle.Common,
             }),
           ]}
         >
@@ -120,7 +120,7 @@ export default function AllChallenges({ navigation }) {
             handleTextUncommo(),
             setHandleToggle({
               ...handleToggle,
-              uncommon: !handleToggle.uncommon,
+              Uncommon: !handleToggle.Uncommon,
             }),
           ]}
         >
@@ -138,7 +138,7 @@ export default function AllChallenges({ navigation }) {
             handleTextRare(),
             setHandleToggle({
               ...handleToggle,
-              rare: !handleToggle.rare,
+              Rare: !handleToggle.Rare,
             }),
           ]}
         >
@@ -149,19 +149,19 @@ export default function AllChallenges({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {handleToggle.uncommon ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
+      {handleToggle.Uncommon ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Uncommon')
       ) : (
         <></>
       )}
 
-      {handleToggle.common ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'common')
+      {handleToggle.Common ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Common')
       ) : (
         <></>
       )}
-      {handleToggle.rare ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
+      {handleToggle.Rare ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Rare')
       ) : (
         <></>
       )}
