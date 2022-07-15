@@ -34,6 +34,7 @@ import Feed from './components/feed';
 import ViewPicture from './components/ViewPicture';
 import PublicProfile from './components/PublicProfile';
 import SearchResults from './components/SearchResults';
+import SocketComponent from './components/SocketComponent';
 import EditProfile from './components/EditProfile';
 
 const Stack = createNativeStackNavigator();
@@ -67,6 +68,16 @@ const FeedNav = () => {
           tabBarLabel: 'Feed',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='book' color={color} size={26} />
+          ),
+        }}
+      />
+      <TabTop.Screen
+        name='Chat'
+        component={SocketComponent}
+        options={{
+          tabBarLabel: 'Chat',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='chat' color={color} size={26} />
           ),
         }}
       />

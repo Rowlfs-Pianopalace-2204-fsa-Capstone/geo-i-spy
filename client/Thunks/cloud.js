@@ -1,9 +1,10 @@
 /** @format */
 import * as SecureStore from 'expo-secure-store';
+import socket from './Socket';
 import { Platform } from 'react-native';
 import { apiAuthGetMe } from './Auth';
 
-export const pictureToCloud = async (base64EncodedImage, id) => {
+export const pictureToCloud = async (base64EncodedImage, id, userId) => {
   try {
     let token;
     if (window.localStorage) {
@@ -25,7 +26,6 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
     console.error(error);
   }
 };
-
 export const apiGetAllAchievements = async () => {
   try {
     let token;
@@ -68,6 +68,9 @@ export const changeProfilePic = async (base64EncodedImage) => {
     );
     const data = await response.json();
 
+    if (data) {
+      window.socket.emit('action', data);
+    }
     return data;
   } catch (error) {
     console.error(error);
