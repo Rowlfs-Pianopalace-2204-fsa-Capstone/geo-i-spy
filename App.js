@@ -31,6 +31,8 @@ export default function App() {
   const [feed, setFeed] = useState([]);
   const [img, setImg] = useState('');
   const [search, setSearch] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [singleRoom, setSingleRoom] = useState([]);
 
   useEffect(function didMount() {
     //   // createSocket();
@@ -90,6 +92,10 @@ export default function App() {
           setImg,
           search,
           setSearch,
+          rooms,
+          setRooms,
+          singleRoom,
+          setSingleRoom,
         }}
       >
         <GlobalIsSignedContext.Provider
