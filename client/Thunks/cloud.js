@@ -2,7 +2,7 @@
 import * as SecureStore from 'expo-secure-store';
 import socket from './Socket';
 
-export const pictureToCloud = async (base64EncodedImage, id) => {
+export const pictureToCloud = async (base64EncodedImage, id, userId) => {
   try {
     let token;
     if (window.localStorage) {
@@ -19,7 +19,6 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
       }
     );
     reponse = await reponse.json();
-    socket.emit('resetFeed');
     return reponse;
   } catch (error) {
     console.error(error);

@@ -24,6 +24,7 @@ import { GlobalDataContext } from '../Context';
 import { apiSendToCloudVision } from '../Thunks/Challenges';
 import LottieView from 'lottie-react-native';
 import { pictureToCloud } from '../Thunks/cloud';
+import socket from '../Thunks/Socket';
 
 export default function CameraComponent({ navigation }) {
   const isFocused = useIsFocused();
@@ -32,6 +33,7 @@ export default function CameraComponent({ navigation }) {
     setSingleChallengeData,
     setAchievements,
     achievements,
+    authData,
   } = React.useContext(GlobalDataContext);
 
   const [hasPermission, setHasPermission] = useState(null);
@@ -68,11 +70,13 @@ export default function CameraComponent({ navigation }) {
       if (challengeResult) {
         const achievement = await pictureToCloud(
           `data:image/jpeg;base64,${image}`,
-          SingleChallengeData.id
+          SingleChallengeData.id,
+          authData.userId
         );
         const newAchievements = achievements.filter(
           (ele) => ele.id !== SingleChallengeData.id
         );
+        socket.emit('resetFeed', authData.id);
         setAchievements([achievement, ...newAchievements]);
         setSingleChallengeData(achievement);
 

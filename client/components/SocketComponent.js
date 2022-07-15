@@ -42,7 +42,7 @@ export default function SocketComponent() {
 
       {hasConnection && (
         <>
-          <TouchableOpacity onPress={() => socket.emit('resetFeed')}>
+          <TouchableOpacity onPress={() => socket.emit('resetFeed', 1)}>
             <Text>Send Users</Text>
           </TouchableOpacity>
           <Text style={[styles.paragraph, { fontWeight: 'bold' }]}>
