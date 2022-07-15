@@ -35,6 +35,8 @@ import ViewPicture from './components/ViewPicture';
 import PublicProfile from './components/PublicProfile';
 import SearchResults from './components/SearchResults';
 import SocketComponent from './components/SocketComponent';
+import EditProfile from './components/EditProfile';
+
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const TabTop = createMaterialTopTabNavigator();
@@ -166,6 +168,7 @@ export default function Navigator() {
         <Stack.Screen name='ViewPicture' component={ViewPicture} />
         <Stack.Screen name='PublicProfile' component={PublicProfile} />
         <Stack.Screen name='SearchResults' component={SearchResults} />
+        <Stack.Screen name='EditProfile' component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

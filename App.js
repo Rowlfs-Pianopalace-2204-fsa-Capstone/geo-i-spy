@@ -33,7 +33,7 @@ export default function App() {
   const [search, setSearch] = useState([]);
 
   useEffect(function didMount() {
-    // createSocket();
+    //   // createSocket();
     return function didUnmount() {
       removeSocket();
     };

@@ -9,16 +9,12 @@ import socket from '../Thunks/Socket';
 // Replace this URL with your own socket-io host, or start the backend locally
 const socketEndpoint = 'https://geoispy.herokuapp.com/';
 export default function SocketComponent() {
-  const [hasConnection, setConnection] = useState(false);
+  const [hasConnection, setConnection] = useState(true);
   const [time, setTime] = useState(null);
   useEffect(() => {
     if (socket !== undefined) {
-      socket.io.on('open', () => setConnection(true));
-      socket.io.on('close', () => setConnection(false));
-
-      socket.on('time-msg', (data) => {
-        setTime(new Date(data.time).toString());
-      });
+      // socket.io.on('open', () => setConnection(true));
+      // socket.io.on('close', () => setConnection(false));
 
       socket.on('resetFeed', (data) => {
         console.log('THIS RAN');
@@ -42,7 +38,7 @@ export default function SocketComponent() {
 
       {hasConnection && (
         <>
-          <TouchableOpacity onPress={() => socket.emit('resetFeed')}>
+          <TouchableOpacity onPress={() => socket.emit('resetFeed', 1)}>
             <Text>Send Users</Text>
           </TouchableOpacity>
           <Text style={[styles.paragraph, { fontWeight: 'bold' }]}>

@@ -69,7 +69,6 @@ const UserProfile = ({ navigation }) => {
     } else {
       await SecureStore.deleteItemAsync('token');
     }
-
     setAuthData({});
     setIsSigned(false);
     setChallengesData([]),
@@ -78,6 +77,9 @@ const UserProfile = ({ navigation }) => {
       setSingleUser({});
     setFollowingData([]);
     setAchievements([]);
+  };
+  const handleEdit = async () => {
+    navigation.navigate('EditProfile');
   };
   return (
     <SafeAreaView style={tw`flex-1 mt-18 px-6`}>
@@ -127,6 +129,13 @@ const UserProfile = ({ navigation }) => {
         {/* This view component is just here to space stuff out */}
       </View>
       <View style={tw`flex-2 items-center`}>
+        <TouchableOpacity onPress={handleEdit}>
+          <View style={tw`bg-blue-400 px-12 py-2  rounded-lg`}>
+            <Text style={tw`text-white font-semibold text-lg`}>
+              Edit Profile
+            </Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout}>
           <View style={tw`bg-blue-400 px-12 py-2  rounded-lg`}>
             <Text style={tw`text-white font-semibold text-lg`}>

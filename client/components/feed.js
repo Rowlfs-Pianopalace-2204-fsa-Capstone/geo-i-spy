@@ -101,6 +101,7 @@ export default function Feed({ navigation }) {
   }, []);
   useEffect(() => {}, [feed]);
   useEffect(() => {
+    console.log('SOCKET');
     socket.on('resetFeed', (data) => {
       console.log(data);
       setFeed(data);
