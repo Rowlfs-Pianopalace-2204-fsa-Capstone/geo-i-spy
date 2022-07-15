@@ -20,11 +20,11 @@ import { apiAuthSignUp } from '../Thunks/Auth';
 import tw from 'twrnc';
 import { apiGetAllAchievements } from '../Thunks/cloud';
 import ImagePickerComponent from './ImagePicker';
+import { updateProfile } from '../Thunks/cloud';
 
 export default function EditProfile() {
-  const { authData, setAuthData, setAchievements } =
-    React.useContext(GlobalDataContext);
-  const { setIsSigned } = React.useContext(GlobalIsSignedContext);
+  const { authData, setAuthData } = React.useContext(GlobalDataContext);
+
   const user = authData;
   //username state
   const [username, setUsername] = useState('');
@@ -47,7 +47,7 @@ export default function EditProfile() {
   useEffect(() => {
     console.log();
   });
-  // const user = authData;
+
   const checkForm = () => {
     if (
       (username.length < 4 || username.length > 16) &&
@@ -121,6 +121,10 @@ export default function EditProfile() {
       if (emailCheck && passLength && capitalization && isMatching) {
         console.log('Submit GOOD---------');
         console.log(form);
+        const newUserInfo = await updateProfile(form);
+        if (newUserInfo) {
+          setAuthData(newUserInfo);
+        }
       } else {
         console.log('submit BAD--------');
       }
