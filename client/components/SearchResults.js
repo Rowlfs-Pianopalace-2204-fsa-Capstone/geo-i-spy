@@ -57,7 +57,16 @@ export const mapArray = (
     //PICTURE
 
     const LeftContent = () => (
-      <Image source={{ uri: ele.img_url }} style={tw`h-16 w-16 pl-16`}></Image>
+      <View style={tw`flex-1 flex-row w-100% h-20`}>
+        <Image
+          source={{ uri: ele.img_url }}
+          style={tw`h-16 w-16 pl-16 rounded-full`}
+        ></Image>
+        <View style={tw`pl-2`}>
+          <Paragraph style={tw`w-30`}>{ele.username}</Paragraph>
+          <Text>Name: Example</Text>
+        </View>
+      </View>
     );
 
     // FOLLOW BUTTON
@@ -87,15 +96,18 @@ export const mapArray = (
     //CARD BOXES
 
     return (
-      <Card key={ele.id} resizeMode={'contain'}>
-        <TouchableOpacity onPress={() => [showPublicProfile(ele.id)]}>
+      <Card key={ele.id} resizeMode={'contain'} style={tw`flex-row`}>
+        <TouchableOpacity
+          onPress={() => [showPublicProfile(ele.id)]}
+          style={tw`m-2 flex-1 border-2 border-gray-100 pb-5`}
+        >
           <Card.Title
             title=''
             left={LeftContent}
             right={RightContent}
-            style={tw`h-20`}
+            style={tw`h-20 flex-1`}
           />
-          <Paragraph style={tw`mb-4 ml-4`}>{ele.username}</Paragraph>
+          {/* <Paragraph style={tw`mb-4 ml-4`}>{ele.username}</Paragraph> */}
         </TouchableOpacity>
       </Card>
     );
