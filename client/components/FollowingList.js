@@ -52,7 +52,7 @@ export default function FollowingList({ navigation }) {
         <View style={tw`flex-1 flex-row`}>
           <TouchableOpacity onPress={() => searchProfile(searchedUser)}>
             <View style={tw`flex-1 bg-blue-400 rounded-lg m-2 items-center`}>
-              <Text style={tw`font-bold m-4`}>Search by uuser</Text>
+              <Text style={tw`font-bold m-4`}>Search by user</Text>
             </View>
           </TouchableOpacity>
         </View>
