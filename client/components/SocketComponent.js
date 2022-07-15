@@ -1,30 +1,30 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import io from 'socket.io-client';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GlobalDataContext } from '../Context';
+
+import socket from '../Thunks/Socket';
 
 // Replace this URL with your own socket-io host, or start the backend locally
 const socketEndpoint = 'https://geoispy.herokuapp.com/';
-
 export default function SocketComponent() {
   const [hasConnection, setConnection] = useState(false);
   const [time, setTime] = useState(null);
+  useEffect(() => {
+    if (socket !== undefined) {
+      socket.io.on('open', () => setConnection(true));
+      socket.io.on('close', () => setConnection(false));
 
-  useEffect(function didMount() {
-    const socket = io(socketEndpoint, {
-      transports: ['websocket'],
-    });
+      socket.on('time-msg', (data) => {
+        setTime(new Date(data.time).toString());
+      });
 
-    socket.io.on('open', () => setConnection(true));
-    socket.io.on('close', () => setConnection(false));
-
-    socket.on('time-msg', (data) => {
-      setTime(new Date(data.time).toString());
-    });
-
-    return function didUnmount() {
-      socket.disconnect();
-      socket.removeAllListeners();
-    };
+      socket.on('resetFeed', (data) => {
+        console.log('THIS RAN');
+        console.log(data);
+      });
+    }
   }, []);
 
   return (
@@ -42,6 +42,9 @@ export default function SocketComponent() {
 
       {hasConnection && (
         <>
+          <TouchableOpacity onPress={() => socket.emit('resetFeed')}>
+            <Text>Send Users</Text>
+          </TouchableOpacity>
           <Text style={[styles.paragraph, { fontWeight: 'bold' }]}>
             Server time
           </Text>

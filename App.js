@@ -16,6 +16,8 @@ import {
 } from './client/Thunks/followers';
 import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
+import io from 'socket.io-client';
+import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -29,6 +31,14 @@ export default function App() {
   const [feed, setFeed] = useState([]);
   const [img, setImg] = useState('');
   const [search, setSearch] = useState([]);
+
+  useEffect(function didMount() {
+    // createSocket();
+    return function didUnmount() {
+      removeSocket();
+    };
+  }, []);
+
   const checkLogin = async () => {
     let token = await apiAuthGetMe();
     if (token) {
@@ -55,6 +65,7 @@ export default function App() {
       setIsSigned(true);
     }
   }, []);
+
   return (
     <>
       <GlobalDataContext.Provider
@@ -91,10 +102,6 @@ export default function App() {
           <SafeAreaProvider>
             <Navigator />
           </SafeAreaProvider>
-
-          {/* <SignUp /> */}
-          {/* <PublicProfile /> */}
-          {/* <FollowingList /> */}
         </GlobalIsSignedContext.Provider>
       </GlobalDataContext.Provider>
     </>
