@@ -22,6 +22,7 @@ import { apiGetFeed, apiSearchUser } from '../Thunks/followers';
 import { timeSince } from '../helpers/time';
 
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import socket from '../Thunks/Socket';
 
 export const mapArray = (
   arr,
@@ -99,6 +100,12 @@ export default function Feed({ navigation }) {
     getFeed();
   }, []);
   useEffect(() => {}, [feed]);
+  useEffect(() => {
+    socket.on('resetFeed', (data) => {
+      console.log(data);
+      setFeed(data);
+    });
+  }, [socket]);
   const showPublicProfile = async (id) => {
     const user = await apiSearchUser(id);
     setSingleUser(user[0]);

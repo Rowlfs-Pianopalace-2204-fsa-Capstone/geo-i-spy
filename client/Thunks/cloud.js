@@ -1,5 +1,6 @@
 /** @format */
 import * as SecureStore from 'expo-secure-store';
+import socket from './Socket';
 
 export const pictureToCloud = async (base64EncodedImage, id) => {
   try {
@@ -18,12 +19,12 @@ export const pictureToCloud = async (base64EncodedImage, id) => {
       }
     );
     reponse = await reponse.json();
+    socket.emit('resetFeed');
     return reponse;
   } catch (error) {
     console.error(error);
   }
 };
-
 export const apiGetAllAchievements = async () => {
   try {
     let token;
@@ -66,6 +67,9 @@ export const changeProfilePic = async (base64EncodedImage) => {
     );
     const data = await response.json();
 
+    if (data) {
+      window.socket.emit('action', data);
+    }
     return data;
   } catch (error) {
     console.error(error);
