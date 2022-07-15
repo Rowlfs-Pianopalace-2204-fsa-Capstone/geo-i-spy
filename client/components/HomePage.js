@@ -84,7 +84,7 @@ export default function HomePage({ navigation }) {
                 />
                 <Card.Content>
                   <Title>{SingleChallengeData.name}</Title>
-                  {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+                  <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
                   <Text>Rarity: {SingleChallengeData.difficulty}</Text>
                   <Text>Score: {SingleChallengeData.score}</Text>
                   <Text>Description: {SingleChallengeData.description}</Text>

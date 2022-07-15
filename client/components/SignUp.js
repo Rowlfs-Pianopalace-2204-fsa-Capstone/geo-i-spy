@@ -54,10 +54,8 @@ export default function SignUp() {
     }
     if (email.slice(-4) === '.com' && email.includes('@')) {
       setEmailCheck(true);
-      console.log('Email: valid');
     } else {
       setEmailCheck(false);
-      console.log('Email: invalid');
     }
     if (name.length > 0) {
       setHasName(true);
@@ -66,16 +64,12 @@ export default function SignUp() {
     }
     if (password.length > 7) {
       setPassLength(true);
-      console.log('password long enough');
     } else {
       setPassLength(false);
-      console.log('too short');
     }
     if (matching === password) {
-      console.log('password matches');
       setIsMatching(true);
     } else {
-      console.log('passwords dont match');
       setIsMatching(false);
     }
     if (
@@ -84,10 +78,8 @@ export default function SignUp() {
       password.length === 0
     ) {
       setCapitalization(false);
-      console.log('CAPS: needs upper and lower');
     } else {
       setCapitalization(true);
-      console.log('CAPS: good');
     }
     let nameForForm = `${name} ${lastName}`;
     setForm({
@@ -96,21 +88,15 @@ export default function SignUp() {
       email: email.trim(),
       password: password,
     });
-    console.log(form);
   };
   const submitForm = async () => {
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
-      console.log('Submit GOOD---------');
-      console.log(form);
-
       const newUser = await apiAuthSignUp(form);
       setAuthData(newUser);
       setIsSigned(true);
       apiGetAllAchievements().then((data) => {
         setAchievements(data);
       });
-    } else {
-      console.log('submit BAD--------');
     }
   };
 
@@ -122,9 +108,7 @@ export default function SignUp() {
       <View style={tw`flex-2 pb-110`}>
         <Text style={tw`${style.text}`}>Username:</Text>
         <TextInput
-          onEndEditing={() => {
-            console.log(username);
-          }}
+          onEndEditing={() => {}}
           value={username}
           onChangeText={setUsername}
           style={tw`${style.textInput}`}
@@ -139,9 +123,7 @@ export default function SignUp() {
         {/*  */}
         <Text style={tw`${style.text}`}>Email:</Text>
         <TextInput
-          onEndEditing={() => {
-            console.log('EDITING');
-          }}
+          onEndEditing={() => {}}
           value={email}
           onChangeText={setEmail}
           style={tw`${style.textInput}`}
