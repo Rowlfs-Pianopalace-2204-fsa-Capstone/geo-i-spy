@@ -82,24 +82,25 @@ export const updateProfile = async (newUserInfo) => {
     } else {
       token = await SecureStore.getItemAsync('token');
     }
-
+    console.log('NewInfo: ', newUserInfo);
     const response = await fetch(
       `https://geoispy.herokuapp.com/api/users/edit/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', authorization: token },
-        body: JSON.stringify({ body: newUserInfo }),
+        body: JSON.stringify(newUserInfo),
+        // body: newUserInfo,
       }
     );
     // console.log(response);
     const data = await response.json();
 
     if (data) {
-      if (Platform.OS === 'web') {
-        window.localStorage.setItem('token', data.token);
-      } else {
-        await SecureStore.setItemAsync('token', data.token);
-      }
+      // if (Platform.OS === 'web') {
+      // window.localStorage.setItem('token', data.token);
+      // } else {
+      // await SecureStore.setItemAsync('token', data.token);
+      // }
       return apiAuthGetMe();
     }
   } catch (error) {
