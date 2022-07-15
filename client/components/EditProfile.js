@@ -105,10 +105,10 @@ export default function EditProfile() {
     }
     if (email) {
       // setEmail(email.trim());
-      setForm(form, ...email.trim());
+      setForm({ ...form, email: email });
     }
     if (password) {
-      setForm(form, ...password);
+      setForm({ ...form, password: password });
     }
 
     console.log(form);
