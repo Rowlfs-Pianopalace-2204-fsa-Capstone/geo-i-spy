@@ -49,6 +49,7 @@ export const mapArray = (
 
 export default function AllChallenges({ navigation }) {
   const [handleToggle, setHandleToggle] = useState({});
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
   const { achievements, setSingleChallengeData } =
     React.useContext(GlobalDataContext);
   useEffect(() => {
@@ -58,41 +59,23 @@ export default function AllChallenges({ navigation }) {
       common: false,
     });
   }, [achievements]);
+
+  let textColor = styles.color;
+  const handleTextChange = () => {
+    if (isButtonPressed === false) {
+      setIsButtonPressed(true);
+      textColor = styles.color2;
+    } else {
+      setIsButtonPressed(false);
+      textColor = styles.color;
+    }
+  };
+
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
       <View style={tw`flex-1 flex-row items-center`}>
         <TouchableOpacity
-          style={tw`flex-1 border-2 items-center py-1`}
-          onPress={() => [
-            setHandleToggle({
-              ...handleToggle,
-              rare: !handleToggle.rare,
-            }),
-          ]}
-        >
-          {}
-          <View>
-            <Text>Rare</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={tw`flex-1 border-2 items-center py-1`}
-          onPress={() => [
-            setHandleToggle({
-              ...handleToggle,
-              uncommon: !handleToggle.uncommon,
-            }),
-          ]}
-        >
-          {}
-          <View>
-            <Text>Uncommon</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={tw`flex-1 border-2 items-center py-1`}
+          style={tw`flex-1 border-2 items-center py-2`}
           onPress={() => [
             setHandleToggle({
               ...handleToggle,
@@ -107,17 +90,33 @@ export default function AllChallenges({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={tw`flex-1 border-2 items-center py-1`}
+          style={tw`flex-1 border-2 items-center py-2`}
           onPress={() => [
             setHandleToggle({
               ...handleToggle,
-              common: !handleToggle.common,
+              uncommon: !handleToggle.uncommon,
             }),
           ]}
         >
           {}
           <View>
-            <Text>Completed</Text>
+            <Text>Uncommon</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={tw`flex-1 border-2 items-center py-2`}
+          onPress={() => [
+            setHandleToggle(),
+            setHandleToggle({
+              ...handleToggle,
+              rare: !handleToggle.rare,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text style={textColor}>Rare</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -144,10 +143,10 @@ export default function AllChallenges({ navigation }) {
 tw`flex-1 pt-12 px-6`;
 
 const styles = StyleSheet.create({
-  filter: {
-    position: 'sticky',
-    flex: 1,
-    paddingTop: 52,
-    paddingHorizontal: 32,
+  color: {
+    color: 'blue',
+  },
+  color2: {
+    color: 'black',
   },
 });
