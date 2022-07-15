@@ -120,10 +120,11 @@ export default function EditProfile() {
     } else {
       if (emailCheck && passLength && capitalization && isMatching) {
         console.log('Submit GOOD---------');
-        console.log(form);
+
         const newUserInfo = await updateProfile(form);
         if (newUserInfo) {
           setAuthData(newUserInfo);
+          Alert.alert('', 'Updated!', [{ text: 'Ok' }]);
         }
       } else {
         console.log('submit BAD--------');
