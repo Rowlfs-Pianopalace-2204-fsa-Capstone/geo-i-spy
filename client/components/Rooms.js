@@ -38,32 +38,50 @@ export default function RoomScreen({ navigation }) {
   useEffect(() => {
     console.log('MAYBE? SOCKET IN CHAT');
     socket.on(`resetMessage${authData.id}`, (msg) => {
-      // console.log(msg);
-      console.log('HEREHERERERE');
-      let gcm = {
-        _id: msg.id,
-        text: msg.message,
-        createdAt: msg.createdAt,
-        user: {
-          _id: msg.user.id,
-          name: msg.user.username,
-          avatar: msg.user.img_url,
-        },
-      };
-      console.log('GCM --------', gcm);
-      const newList = messages;
-      newList.push(gcm);
-      console.log(messages);
-      setMessages(GiftedChat.append(messages, gcm));
-      // setMessages(newList);
-      console.log(messages);
-      // setReset(reset + 1);
+      console.log(msg.messages);
+      let giftedChatMessages = msg.messages.map((msg) => {
+        let gcm = {
+          _id: msg.id,
+          text: msg.message,
+          createdAt: msg.createdAt,
+          user: {
+            _id: msg.user.id,
+            name: msg.user.username,
+            avatar: msg.user.img_url,
+          },
+        };
+        return gcm;
+      });
+      // let gcm = {
+      //   _id: msg.id,
+      //   text: msg.message,
+      //   createdAt: msg.createdAt,
+      //   user: {
+      //     _id: msg.user.id,
+      //     name: msg.user.username,
+      //     avatar: msg.user.img_url,
+      //   },
+      // };
+      // giftedChatMessages.push(gcm);
+      giftedChatMessages = giftedChatMessages.reverse();
+      setMessages(giftedChatMessages);
     });
   }, [socket]);
 
+  const findOtherUser = () => {
+    for (let i = 0; i < singleRoom.messages.length; i++) {
+      const ele = singleRoom.messages[i];
+      if (ele.user.id !== authData.id) {
+        return ele.user.id;
+      }
+    }
+  };
+
   const handleSend = async (newMessage = {}) => {
     const apiMessage = { message: newMessage[0].text };
-    await apiPostMessage(singleRoom.id, apiMessage);
+    const otherUserId = findOtherUser();
+    console.log(singleRoom.id);
+    await apiPostMessage(singleRoom.id, apiMessage, otherUserId);
     newMessage._id = newMessage.id;
     setMessages(GiftedChat.append(messages, newMessage));
   };

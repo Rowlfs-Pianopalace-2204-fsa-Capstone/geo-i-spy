@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import socket from './Socket';
 
-export const apiPostMessage = async (id, message) => {
+export const apiPostMessage = async (id, message, otherUserId) => {
   let token;
   if (window.localStorage) {
     token = window.localStorage.getItem('token');
@@ -26,7 +26,8 @@ export const apiPostMessage = async (id, message) => {
   const data = await response.json();
 
   if (data) {
-    socket.emit('resetMessage', data.id);
+    console.log(otherUserId);
+    socket.emit('resetMessage', { id: id, userId: otherUserId });
   }
   return data;
 };
