@@ -19,6 +19,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function SingleChallenge({ navigation }) {
   const { SingleChallengeData } = React.useContext(GlobalDataContext);
+  useEffect(() => {}, [SingleChallengeData]);
   return (
     <SafeAreaView style={tw`flex-1 items-center justify-center shadow-lg`}>
       <ScrollView>

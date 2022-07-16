@@ -2,6 +2,7 @@
 
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
+import socket from './Socket';
 
 export const apiPostMessage = async (id, message) => {
   let token;
@@ -23,7 +24,10 @@ export const apiPostMessage = async (id, message) => {
     }
   );
   const data = await response.json();
-  console.log(data);
+
+  if (data) {
+    socket.emit('resetMessage', data.id);
+  }
   return data;
 };
 

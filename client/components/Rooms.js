@@ -16,6 +16,7 @@ import socket from '../Thunks/Socket';
 export default function RoomScreen({ navigation }) {
   const { singleRoom, authData } = React.useContext(GlobalDataContext);
   const [messages, setMessages] = useState([]);
+  const [reset, setReset] = useState(1);
 
   useEffect(() => {
     let giftedChatMessages = singleRoom.messages.map((msg) => {
@@ -35,8 +36,10 @@ export default function RoomScreen({ navigation }) {
     setMessages(giftedChatMessages);
   }, []);
   useEffect(() => {
-    socket.on('resetMessage', (msg) => {
-      console.log(msg);
+    console.log('MAYBE? SOCKET IN CHAT');
+    socket.on(`resetMessage${authData.id}`, (msg) => {
+      // console.log(msg);
+      console.log('HEREHERERERE');
       let gcm = {
         _id: msg.id,
         text: msg.message,
@@ -47,9 +50,16 @@ export default function RoomScreen({ navigation }) {
           avatar: msg.user.img_url,
         },
       };
-      setMessages([gcm, ...messages]);
+      console.log('GCM --------', gcm);
+      const newList = messages;
+      newList.push(gcm);
+      console.log(messages);
+      setMessages(GiftedChat.append(messages, gcm));
+      // setMessages(newList);
+      console.log(messages);
+      // setReset(reset + 1);
     });
-  }, []);
+  }, [socket]);
 
   const handleSend = async (newMessage = {}) => {
     const apiMessage = { message: newMessage[0].text };

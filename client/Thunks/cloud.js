@@ -69,7 +69,7 @@ export const changeProfilePic = async (base64EncodedImage) => {
     const data = await response.json();
 
     if (data) {
-      window.socket.emit('action', data);
+      socket.emit('action', data);
     }
     return data;
   } catch (error) {
