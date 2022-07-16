@@ -18,6 +18,7 @@ import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
 import io from 'socket.io-client';
 import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
+import { apiGetAllRooms } from './client/Thunks/Rooms';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -31,9 +32,11 @@ export default function App() {
   const [feed, setFeed] = useState([]);
   const [img, setImg] = useState('');
   const [search, setSearch] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [singleRoom, setSingleRoom] = useState([]);
 
   useEffect(function didMount() {
-    //   // createSocket();
+    //
     return function didUnmount() {
       removeSocket();
     };
@@ -51,6 +54,9 @@ export default function App() {
       });
       apiGetAllFollowers(token.id).then((result) => {
         setFollowData(result);
+      });
+      apiGetAllRooms(token.id).then((result) => {
+        setRooms(result);
       });
       return token;
     } else {
@@ -90,6 +96,10 @@ export default function App() {
           setImg,
           search,
           setSearch,
+          rooms,
+          setRooms,
+          singleRoom,
+          setSingleRoom,
         }}
       >
         <GlobalIsSignedContext.Provider

@@ -36,6 +36,8 @@ import PublicProfile from './components/PublicProfile';
 import SearchResults from './components/SearchResults';
 import SocketComponent from './components/SocketComponent';
 import EditProfile from './components/EditProfile';
+import RoomScreen from './components/Rooms';
+import AllRooms from './components/RoomList';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -73,7 +75,7 @@ const FeedNav = () => {
       />
       <TabTop.Screen
         name='Chat'
-        component={SocketComponent}
+        component={AllRooms}
         options={{
           tabBarLabel: 'Chat',
           tabBarIcon: ({ color }) => (
@@ -169,6 +171,8 @@ export default function Navigator() {
         <Stack.Screen name='PublicProfile' component={PublicProfile} />
         <Stack.Screen name='SearchResults' component={SearchResults} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
+        <Stack.Screen name='Message' component={RoomScreen} />
+        {/* <Stack.Screen name='HomeScreen' component={AllRooms} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

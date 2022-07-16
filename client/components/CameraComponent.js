@@ -77,8 +77,12 @@ export default function CameraComponent({ navigation }) {
           (ele) => ele.id !== SingleChallengeData.id
         );
         socket.emit('resetFeed', authData.id);
-        setAchievements([achievement, ...newAchievements]);
+        console.log(
+          'ACHIEVEMENT RETURNED _______________________',
+          achievement
+        );
         setSingleChallengeData(achievement);
+        setAchievements([achievement, ...newAchievements]);
 
         toast.success({ message: `You found a ${challengeItem}!` });
         setTimeout(testFunction, 5000);

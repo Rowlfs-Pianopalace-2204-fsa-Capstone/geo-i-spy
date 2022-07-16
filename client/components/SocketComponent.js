@@ -1,68 +1,76 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GlobalDataContext } from '../Context';
+// /** @format */
 
-import socket from '../Thunks/Socket';
+// import React, { useEffect, useState } from 'react';
+// import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+// import { GlobalDataContext } from '../Context';
+// import tw from 'twrnc';
+// import socket from '../Thunks/Socket';
+// import { timeSince } from '../helpers/time';
+// import { apiGetRoom } from '../Thunks/Rooms';
+// import { apiSearchUser } from '../Thunks/followers';
 
-// Replace this URL with your own socket-io host, or start the backend locally
-const socketEndpoint = 'https://geoispy.herokuapp.com/';
-export default function SocketComponent() {
-  const [hasConnection, setConnection] = useState(true);
-  const [time, setTime] = useState(null);
-  useEffect(() => {
-    if (socket !== undefined) {
-      // socket.io.on('open', () => setConnection(true));
-      // socket.io.on('close', () => setConnection(false));
+// // Replace this URL with your own socket-io host, or start the backend locally
+// const socketEndpoint = 'https://geoispy.herokuapp.com/';
+// export default function SocketComponent({ navigation }) {
+//   const {
+//     rooms,
+//     setRooms,
+//     singleRoom,
+//     setSingleRoom,
+//     authData,
+//     setSingleUser,
+//   } = React.useContext(GlobalDataContext);
+//   useEffect(() => {
+//     console.log('SOCKET');
+//     socket.on('resetRooms', (data) => {
+//       console.log(data);
+//       setRooms(data);
+//     });
+//   }, [rooms]);
+//   const setSingleRoomMessages = async (id) => {
+//     const data = await apiGetRoom(id);
+//     setSingleRoom(data);
+//     navigation.navigate('SingleRoom');
+//   };
 
-      socket.on('resetFeed', (data) => {
-        console.log('THIS RAN');
-        console.log(data);
-      });
-    }
-  }, []);
+//   const showPublicProfile = async (id) => {
+//     const user = await apiSearchUser(id);
+//     setSingleUser(user[0]);
+//     navigation.navigate('PublicProfile');
+//   };
 
-  return (
-    <View style={styles.container}>
-      {!hasConnection && (
-        <>
-          <Text style={styles.paragraph}>
-            Connecting to {socketEndpoint}...
-          </Text>
-          <Text style={styles.footnote}>
-            Make sure the backend is started and reachable
-          </Text>
-        </>
-      )}
+//   return (
+//     <View>
+//       {dummyData.map((ele) => {
+//         let otherUser;
+//         if (authData.id === ele.users[0].id) {
+//           otherUser = ele.users[1];
+//         } else {
+//           otherUser = ele.users[0];
+//         }
+//         return (
+//           <View key={ele.id}>
+//             <TouchableOpacity onPress={() => showPublicProfile(otherUser.id)}>
+//               <Image
+//                 source={{ uri: otherUser.img_url }}
+//                 style={tw`h-16 w-16 pl-16`}
+//               />
+//             </TouchableOpacity>
 
-      {hasConnection && (
-        <>
-          <TouchableOpacity onPress={() => socket.emit('resetFeed', 1)}>
-            <Text>Send Users</Text>
-          </TouchableOpacity>
-          <Text style={[styles.paragraph, { fontWeight: 'bold' }]}>
-            Server time
-          </Text>
-          <Text style={styles.paragraph}>{time}</Text>
-        </>
-      )}
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paragraph: {
-    fontSize: 16,
-  },
-  footnote: {
-    fontSize: 14,
-    fontStyle: 'italic',
-  },
-});
+//             <TouchableOpacity onPress={() => setSingleRoomMessages(ele.id)}>
+//               <View>
+//                 <Text>{otherUser.username}</Text>
+//                 <Text>Last Message Placeholder</Text>
+//               </View>
+//               <View>
+//                 <Text>{timeSince(new Date(ele.updatedAt))}</Text>
+//               </View>
+//             </TouchableOpacity>
+//           </View>
+//         );
+//       })}
+//     </View>
+//   );
+// }
