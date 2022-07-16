@@ -63,7 +63,9 @@ export const mapArray = (
           style={tw`h-16 w-16 pl-16 rounded-full`}
         ></Image>
         <View style={tw`pl-2`}>
-          <Paragraph style={tw`w-30`}>{ele.username}</Paragraph>
+          <Paragraph style={tw`w-30 text-lg font-bold`}>
+            {ele.username}
+          </Paragraph>
           <Text>Name: Example</Text>
         </View>
       </View>
