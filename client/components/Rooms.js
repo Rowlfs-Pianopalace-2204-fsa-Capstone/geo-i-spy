@@ -13,14 +13,7 @@ import { GlobalDataContext } from '../Context';
 import { apiPostMessage } from '../Thunks/Messages';
 
 export default function RoomScreen({ navigation }) {
-  const {
-    rooms,
-    setRooms,
-    singleRoom,
-    setSingleRoom,
-    authData,
-    setSingleUser,
-  } = React.useContext(GlobalDataContext);
+  const { singleRoom, authData } = React.useContext(GlobalDataContext);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -41,9 +34,7 @@ export default function RoomScreen({ navigation }) {
     setMessages(giftedChatMessages);
   }, []);
 
-  // helper method that is sends a message
   const handleSend = async (newMessage = {}) => {
-    // console.log('MESSAGE:', newMessage[0].text);
     const apiMessage = { message: newMessage[0].text };
     await apiPostMessage(singleRoom.id, apiMessage);
     newMessage._id = newMessage.id;
@@ -52,13 +43,11 @@ export default function RoomScreen({ navigation }) {
 
   function renderBubble(props) {
     return (
-      // Step 3: return the component
       <Bubble
         {...props}
         key={props.currentMessage._id}
         wrapperStyle={{
           right: {
-            // Here is the color change
             backgroundColor: '#6646ee',
           },
         }}
@@ -100,14 +89,12 @@ export default function RoomScreen({ navigation }) {
       placeholder='Type your message here...'
       showUserAvatar
       alwaysShowSend
-      // Step 2: add the prop
       scrollToBottomComponent={scrollToBottomComponent}
       renderLoading={renderLoading}
     />
   );
 }
 
-// Step 3: add corresponding styles
 const styles = StyleSheet.create({
   sendingContainer: {
     justifyContent: 'center',

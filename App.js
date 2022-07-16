@@ -18,6 +18,7 @@ import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
 import io from 'socket.io-client';
 import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
+import { apiGetAllRooms } from './client/Thunks/Rooms';
 
 export default function App() {
   const [followingData, setFollowingData] = useState([]);
@@ -53,6 +54,9 @@ export default function App() {
       });
       apiGetAllFollowers(token.id).then((result) => {
         setFollowData(result);
+      });
+      apiGetAllRooms(token.id).then((result) => {
+        setRooms(result);
       });
       return token;
     } else {

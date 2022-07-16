@@ -21,6 +21,7 @@ import tw from 'twrnc';
 import * as SecureStore from 'expo-secure-store';
 import { apiGetAllAchievements } from '../Thunks/cloud';
 import { apiGetAllFollowers, apiGetAllFollowing } from '../Thunks/followers';
+import { apiGetAllRooms } from '../Thunks/Rooms';
 
 const buttonStyle =
   'm-1 p-2 bg-blue-400 rounded-lg items-center mr-20 ml-20 shadow-lg';
@@ -28,8 +29,13 @@ const buttonStyle =
 export default function SignIn({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { setAuthData, setAchievements, setFollowData, setFollowingData } =
-    React.useContext(GlobalDataContext);
+  const {
+    setAuthData,
+    setAchievements,
+    setFollowData,
+    setFollowingData,
+    setRooms,
+  } = React.useContext(GlobalDataContext);
   const { setIsSigned } = React.useContext(GlobalIsSignedContext);
 
   const handleLogin = async () => {
@@ -45,6 +51,9 @@ export default function SignIn({ navigation }) {
       });
       apiGetAllFollowers(user.id).then((result) => {
         setFollowData(result);
+      });
+      apiGetAllRooms(user.id).then((result) => {
+        setRooms(result);
       });
     } else if (user === undefined) {
       Alert.alert('Alert', 'Username or Password is not valid', [
