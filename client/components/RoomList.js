@@ -1,18 +1,15 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { List, Divider } from 'react-native-paper';
 import { GlobalDataContext } from '../Context';
-import tw from 'twrnc';
-import socket from '../Thunks/Socket';
-import { timeSince } from '../helpers/time';
 import { apiGetRoom } from '../Thunks/Rooms';
-import { apiSearchUser } from '../Thunks/followers';
-
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 const dummyData = [
   {
     id: 1,
-    name: 'DM',
+    name: 'Name',
     createdAt: '2022-07-15T20:28:08.403Z',
     updatedAt: '2022-07-15T20:28:08.403Z',
     users: [
@@ -61,9 +58,8 @@ const dummyData = [
     ],
   },
 ];
-// Replace this URL with your own socket-io host, or start the backend locally
-const socketEndpoint = 'https://geoispy.herokuapp.com/';
-export default function SingleRoom({ navigation }) {
+
+export default function HomeScreen({ navigation }) {
   const {
     rooms,
     setRooms,
@@ -72,50 +68,45 @@ export default function SingleRoom({ navigation }) {
     authData,
     setSingleUser,
   } = React.useContext(GlobalDataContext);
-  useEffect(() => {
-    console.log('SOCKET');
-    socket.on('resetRooms', (data) => {
-      console.log(data);
-      setRooms(data);
-    });
-  }, [rooms]);
+
   const setSingleRoomMessages = async (id) => {
     const data = await apiGetRoom(id);
     setSingleRoom(data);
-    navigation.navigate('SingleRoom');
+    navigation.navigate('RoomScreen');
   };
-
-  const showPublicProfile = async (id) => {
-    const user = await apiSearchUser(id);
-    setSingleUser(user[0]);
-    navigation.navigate('PublicProfile');
-  };
-
-  function renderBubble() {
-    return (
-      // Step 3: return the component
-      <Bubble
-        wrapperStyle={{
-          right: {
-            // Here is the color change
-            backgroundColor: '#6646ee',
-          },
-        }}
-        textStyle={{
-          right: {
-            color: '#fff',
-          },
-        }}
-      />
-    );
-  }
 
   return (
-    <GiftedChat
-      // messages={messages}
-      // onSend={(newMessage) => handleSend(newMessage)}
-      user={{ _id: 1, name: 'User Test' }}
-      renderBubble={renderBubble}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={dummyData}
+        keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => setSingleRoomMessages(item.id)}>
+            <List.Item
+              title={item.name}
+              description='Last Message Placeholder'
+              titleNumberOfLines={1}
+              titleStyle={styles.listTitle}
+              descriptionStyle={styles.listDescription}
+              descriptionNumberOfLines={1}
+            />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+  },
+  listTitle: {
+    fontSize: 22,
+  },
+  listDescription: {
+    fontSize: 16,
+  },
+});
