@@ -22,19 +22,21 @@ export const mapArray = (
   difficulty
 ) => {
   return arr.map((ele) => {
-    let color = 'blue';
-    if (ele.users) {
-      color = 'green';
-    } else {
-      color = 'blue';
-    }
     let diffColor = 'black';
+    // if (ele.users) {
+    //   diffColor = 'blue';
+    // }
+    let completed = null;
     if (ele.difficulty === 'Rare') {
       diffColor = 'red';
     } else if (ele.difficulty === 'Uncommon') {
       diffColor = 'orange';
     } else if (ele.difficulty === 'Common') {
       diffColor = 'green';
+    }
+    if (ele.users) {
+      diffColor = 'blue';
+      completed = <Text style={tw`font-bold`}> Completed!</Text>;
     }
     if (difficulty === ele.difficulty) {
       return (
@@ -44,7 +46,7 @@ export const mapArray = (
             navigation.navigate('SingleChallenge'),
           ]}
           key={ele.id}
-          style={tw`border bg-${color}-400 rounded-lg p-6 ml-2 flex-1 flex-col items-center`}
+          style={tw`border bg-${diffColor}-300 rounded-lg p-6 ml-2 flex-1 flex-col items-center`}
         >
           <Text style={tw`flex-1 items-center font-bold`}>
             <Text>Challenge:</Text>
@@ -52,12 +54,13 @@ export const mapArray = (
           </Text>
           <Text style={tw`font-bold`}>
             <Text>Difficulty:</Text>
-            <Text style={tw`text-${diffColor}-400`}>{ele.difficulty}</Text>
+            <Text>{ele.difficulty}</Text>
           </Text>
           <Text style={tw`font-bold`}>
             <Text> Score: </Text>
             <Text>{ele.score}</Text>
           </Text>
+          {completed}
         </TouchableOpacity>
       );
     }
@@ -96,7 +99,7 @@ export default function AllChallenges({ navigation }) {
       <View style={tw`flex-1 flex-row items-center`}>
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center py-2 bg-${
-            isButtonPressedCommon ? 'blue-400' : ''
+            isButtonPressedCommon ? 'green-300' : ''
           }`}
           onPress={() => [
             handleTextCommon(),
@@ -114,7 +117,7 @@ export default function AllChallenges({ navigation }) {
 
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center m-1 py-2 bg-${
-            isButtonPressedUncommo ? 'blue-400' : ''
+            isButtonPressedUncommo ? 'orange-300' : ''
           }`}
           onPress={() => [
             handleTextUncommo(),
@@ -132,7 +135,7 @@ export default function AllChallenges({ navigation }) {
 
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center py-2  bg-${
-            isButtonPressedRare ? 'blue-400' : ''
+            isButtonPressedRare ? 'red-300' : ''
           }`}
           onPress={() => [
             handleTextRare(),
@@ -148,15 +151,13 @@ export default function AllChallenges({ navigation }) {
           </View>
         </TouchableOpacity>
       </View>
-
-      {handleToggle.Uncommon ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'Uncommon')
+      {handleToggle.Common ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Common')
       ) : (
         <></>
       )}
-
-      {handleToggle.Common ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'Common')
+      {handleToggle.Uncommon ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Uncommon')
       ) : (
         <></>
       )}
