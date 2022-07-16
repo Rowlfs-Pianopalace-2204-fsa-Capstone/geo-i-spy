@@ -39,7 +39,7 @@ export default function FollowingList({ navigation }) {
     setSingleUser(user);
   };
   return (
-    <ScrollView style={tw`flex-1 pt-6 px-8`}>
+    <ScrollView style={tw`flex-1 pt-6 px-8 pb-50`}>
       <View style={tw`flex-1 items-center`}>
         <Text style={tw`p-2 px-1 py-2 font-bold text-2xl`}>
           Your following!
@@ -57,25 +57,33 @@ export default function FollowingList({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={tw`flex-5 border-2 `}>
+      <View style={tw`flex-5 mb-25`}>
         {followingData ? (
           followingData.map((friend) => {
             return (
-              <View key={friend.id} style={tw`pb-10  border-2 mb-10`}>
+              <View
+                key={friend.id}
+                style={tw`pt-2 px-2  border-2 border-gray-300 mb-2 flex-1 flex-row`}
+              >
                 <TouchableOpacity
                   onPress={() => showPublicProfile(friend)}
-                  style={tw`h-30 w-30`}
+                  style={tw`h-30 w-30 flex-row flex-1`}
                 >
                   <Image
-                    style={tw`h-30 w-30`}
+                    style={tw`h-25 w-25 rounded-full `}
                     source={{ uri: friend.img_url }}
                   />
+                  <View style={tw`pl-4 pt-2flex-1`}>
+                    <Text style={tw`font-bold text-lg`}>{friend.username}</Text>
+
+                    <Text style={tw`font-bold text-lg`}>
+                      Score:{friend.score}
+                    </Text>
+                    <Text style={tw`font-bold text-gray-400`}>
+                      Name: Example
+                    </Text>
+                  </View>
                 </TouchableOpacity>
-                <Text>{friend.username}</Text>
-                {/* <Text>Username: {friend.username}</Text> */}
-                <Text>Score:{friend.score}</Text>
-                {/* <Text>Email: {friend.email}</Text> */}
-                {/* <Text>About: {friend.biography}</Text> */}
               </View>
             );
           })
