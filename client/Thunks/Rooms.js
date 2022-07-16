@@ -41,6 +41,9 @@ export const apiGetRoom = async (id) => {
   return data;
 };
 
+// await apiCreateRoom(otherUserId)
+// navigate to allrooms
+// navigate to singleroom
 export const apiCreateRoom = async (id) => {
   let token;
   if (window.localStorage) {

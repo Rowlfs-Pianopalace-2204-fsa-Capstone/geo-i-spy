@@ -39,8 +39,7 @@ export default function AllRooms({ navigation }) {
                   ? item.users[0].username
                   : item.users[1].username
               }
-              description={item.messages[item.messages.length - 1].message}
-              showUserAvatar
+              description={item.messages[0].message}
               titleNumberOfLines={1}
               titleStyle={styles.listTitle}
               descriptionStyle={styles.listDescription}

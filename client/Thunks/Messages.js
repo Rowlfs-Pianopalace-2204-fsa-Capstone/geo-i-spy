@@ -23,6 +23,7 @@ export const apiPostMessage = async (id, message) => {
     }
   );
   const data = await response.json();
+  console.log(data);
   return data;
 };
 

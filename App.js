@@ -36,7 +36,7 @@ export default function App() {
   const [singleRoom, setSingleRoom] = useState([]);
 
   useEffect(function didMount() {
-    //   // createSocket();
+    //
     return function didUnmount() {
       removeSocket();
     };

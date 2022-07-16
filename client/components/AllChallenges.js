@@ -82,7 +82,7 @@ export default function AllChallenges({ navigation }) {
       </TouchableOpacity>
 
       {handleToggle.rare ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
+        mapArray(achievements, navigation, setSingleChallengeData, 'Rare')
       ) : (
         <></>
       )}
@@ -107,7 +107,7 @@ export default function AllChallenges({ navigation }) {
         </View>
       </TouchableOpacity>
       {handleToggle.uncommon ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
+        mapArray(achievements, navigation, setSingleChallengeData, 'Uncommon')
       ) : (
         <></>
       )}
@@ -131,7 +131,7 @@ export default function AllChallenges({ navigation }) {
         </View>
       </TouchableOpacity>
       {handleToggle.common ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'common')
+        mapArray(achievements, navigation, setSingleChallengeData, 'Common')
       ) : (
         <></>
       )}

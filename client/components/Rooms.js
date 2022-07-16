@@ -11,6 +11,7 @@ import {
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { GlobalDataContext } from '../Context';
 import { apiPostMessage } from '../Thunks/Messages';
+import socket from '../Thunks/Socket';
 
 export default function RoomScreen({ navigation }) {
   const { singleRoom, authData } = React.useContext(GlobalDataContext);
@@ -32,6 +33,22 @@ export default function RoomScreen({ navigation }) {
     });
     giftedChatMessages = giftedChatMessages.reverse();
     setMessages(giftedChatMessages);
+  }, []);
+  useEffect(() => {
+    socket.on('resetMessage', (msg) => {
+      console.log(msg);
+      let gcm = {
+        _id: msg.id,
+        text: msg.message,
+        createdAt: msg.createdAt,
+        user: {
+          _id: msg.user.id,
+          name: msg.user.username,
+          avatar: msg.user.img_url,
+        },
+      };
+      setMessages([gcm, ...messages]);
+    });
   }, []);
 
   const handleSend = async (newMessage = {}) => {
