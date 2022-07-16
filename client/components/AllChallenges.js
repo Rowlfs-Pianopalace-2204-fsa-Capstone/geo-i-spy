@@ -11,9 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-const textStyle = `font-bold`;
-// import DownArrow from './arrowAnimations/DownArrow';
-// import UpArrow from './arrowAnimations/UpArrow';
+import CheckBox from '@react-native-community/checkbox';
+
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
 export const mapArray = (
@@ -23,11 +22,21 @@ export const mapArray = (
   difficulty
 ) => {
   return arr.map((ele) => {
-    let color = 'blue';
+    let diffColor = 'black';
+    // if (ele.users) {
+    //   diffColor = 'blue';
+    // }
+    let completed = null;
+    if (ele.difficulty === 'Rare') {
+      diffColor = 'red';
+    } else if (ele.difficulty === 'Uncommon') {
+      diffColor = 'orange';
+    } else if (ele.difficulty === 'Common') {
+      diffColor = 'green';
+    }
     if (ele.users) {
-      color = 'green';
-    } else {
-      color = 'blue';
+      diffColor = 'blue';
+      completed = <Text style={tw`font-bold`}> Completed!</Text>;
     }
     if (difficulty === ele.difficulty) {
       return (
@@ -37,11 +46,21 @@ export const mapArray = (
             navigation.navigate('SingleChallenge'),
           ]}
           key={ele.id}
-          style={tw`border bg-${color}-400 p-6 ml-2`}
+          style={tw`border bg-${diffColor}-300 rounded-lg p-6 ml-2 flex-1 flex-col items-center`}
         >
-          <Text style={tw`${textStyle}`}>{ele.name}</Text>
-          <Text style={tw`${textStyle}`}>{ele.difficulty}</Text>
-          <Text style={tw`${textStyle}`}>{ele.score}</Text>
+          <Text style={tw`flex-1 items-center font-bold`}>
+            <Text>Challenge:</Text>
+            <Text>{ele.name}</Text>
+          </Text>
+          <Text style={tw`font-bold`}>
+            <Text>Difficulty:</Text>
+            <Text>{ele.difficulty}</Text>
+          </Text>
+          <Text style={tw`font-bold`}>
+            <Text> Score: </Text>
+            <Text>{ele.score}</Text>
+          </Text>
+          {completed}
         </TouchableOpacity>
       );
     }
@@ -50,6 +69,9 @@ export const mapArray = (
 
 export default function AllChallenges({ navigation }) {
   const [handleToggle, setHandleToggle] = useState({});
+  const [isButtonPressedCommon, setIsButtonPressedCommon] = useState(false);
+  const [isButtonPressedRare, setIsButtonPressedRare] = useState(false);
+  const [isButtonPressedUncommo, setIsButtonPressedUncommo] = useState(false);
   const { achievements, setSingleChallengeData } =
     React.useContext(GlobalDataContext);
   useEffect(() => {
@@ -59,93 +81,117 @@ export default function AllChallenges({ navigation }) {
       common: false,
     });
   }, [achievements]);
+
+  const handleTextCommon = () => {
+    setIsButtonPressedCommon((current) => !current);
+  };
+
+  const handleTextRare = () => {
+    setIsButtonPressedRare((current) => !current);
+  };
+
+  const handleTextUncommo = () => {
+    setIsButtonPressedUncommo((current) => !current);
+  };
+
   return (
     <ScrollView style={tw`flex-1 pt-12 px-6`}>
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            rare: !handleToggle.rare,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Rare</Text>
-          {/* {handleToggle.rare ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
+      <View style={tw`flex-1 flex-row items-center`}>
+        <TouchableOpacity
+          style={tw`flex-1 border-2 rounded-md items-center py-2 bg-${
+            isButtonPressedCommon ? 'green-300' : ''
+          }`}
+          onPress={() => [
+            handleTextCommon(),
+            setHandleToggle({
+              ...handleToggle,
+              Common: !handleToggle.Common,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Common</Text>
+          </View>
+        </TouchableOpacity>
 
-      {handleToggle.rare ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'rare')
-      ) : (
-        <></>
-      )}
+        <TouchableOpacity
+          style={tw`flex-1 border-2 rounded-md items-center m-1 py-2 bg-${
+            isButtonPressedUncommo ? 'orange-300' : ''
+          }`}
+          onPress={() => [
+            handleTextUncommo(),
+            setHandleToggle({
+              ...handleToggle,
+              Uncommon: !handleToggle.Uncommon,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Uncommon</Text>
+          </View>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            uncommon: !handleToggle.uncommon,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Uncommon</Text>
-          {/* {handleToggle.uncommon ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
-      {handleToggle.uncommon ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'uncommon')
+        <TouchableOpacity
+          style={tw`flex-1 border-2 rounded-md items-center py-2  bg-${
+            isButtonPressedRare ? 'red-300' : ''
+          }`}
+          onPress={() => [
+            handleTextRare(),
+            setHandleToggle({
+              ...handleToggle,
+              Rare: !handleToggle.Rare,
+            }),
+          ]}
+        >
+          {}
+          <View>
+            <Text>Rare</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      {handleToggle.Common ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Common')
       ) : (
         <></>
       )}
-      <TouchableOpacity
-        style={tw`border bg-blue-500 p-6 rounded-tl-lg rounded-tr-lg rounded-bl-lg`}
-        onPress={() => [
-          setHandleToggle({
-            ...handleToggle,
-            common: !handleToggle.common,
-          }),
-        ]}
-      >
-        {}
-        <View style={tw`flex-row`}>
-          <Text style={tw`flex-5`}>Toggle Common</Text>
-          {/* {handleToggle.common ? (
-            <UpArrow style={tw`flex-1`} />
-          ) : (
-            <DownArrow style={tw`flex-1`} />
-          )} */}
-        </View>
-      </TouchableOpacity>
-      {handleToggle.common ? (
-        mapArray(achievements, navigation, setSingleChallengeData, 'common')
+      {handleToggle.Uncommon ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Uncommon')
       ) : (
         <></>
       )}
-      <Text style={tw`h-200`}></Text>
+      {handleToggle.Rare ? (
+        mapArray(achievements, navigation, setSingleChallengeData, 'Rare')
+      ) : (
+        <></>
+      )}
+      {/* <Text style={tw`h-200`}></Text> */}
     </ScrollView>
   );
 }
 tw`flex-1 pt-12 px-6`;
 
 const styles = StyleSheet.create({
-  filter: {
-    position: 'sticky',
+  color: {
+    color: 'blue',
+  },
+  color2: {
+    color: 'black',
+  },
+  container: {
     flex: 1,
-    paddingTop: 52,
-    paddingHorizontal: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  label: {
+    margin: 8,
   },
 });
