@@ -11,15 +11,15 @@ export const apiPostMessage = async (id, message) => {
     token = await SecureStore.getItemAsync('token');
   }
   const response = await fetch(
-    `https://geoispy.herokuapp.com/api/rooms/${id}`,
+    `https://geoispy.herokuapp.com/api/messages/${id}`,
     {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         authorization: token,
       },
-      body: { message: message },
+      body: JSON.stringify(message),
     }
   );
   const data = await response.json();

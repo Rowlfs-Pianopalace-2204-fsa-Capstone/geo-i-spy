@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { GlobalDataContext } from '../Context';
+import { apiPostMessage } from '../Thunks/Messages';
 
 export default function RoomScreen({ navigation }) {
   const {
@@ -20,31 +21,10 @@ export default function RoomScreen({ navigation }) {
     authData,
     setSingleUser,
   } = React.useContext(GlobalDataContext);
-  const [messages, setMessages] = useState([
-    /**
-     * Mock message data
-     */
-    // example of system message
-    {
-      _id: 0,
-      text: 'New room created.',
-      createdAt: new Date().getTime(),
-      system: true,
-    },
-    // example of chat message
-    {
-      _id: 1,
-      text: 'Henlo!',
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 2,
-        name: 'Test User',
-      },
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const giftedChatMessages = singleRoom.messages.map((msg) => {
+    let giftedChatMessages = singleRoom.messages.map((msg) => {
       let gcm = {
         _id: msg.id,
         text: msg.message,
@@ -57,13 +37,18 @@ export default function RoomScreen({ navigation }) {
       };
       return gcm;
     });
+    giftedChatMessages = giftedChatMessages.reverse();
     setMessages(giftedChatMessages);
   }, []);
 
   // helper method that is sends a message
-  function handleSend(newMessage = []) {
+  const handleSend = async (newMessage = {}) => {
+    // console.log('MESSAGE:', newMessage[0].text);
+    const apiMessage = { message: newMessage[0].text };
+    await apiPostMessage(singleRoom.id, apiMessage);
+    newMessage._id = newMessage.id;
     setMessages(GiftedChat.append(messages, newMessage));
-  }
+  };
 
   function renderBubble(props) {
     return (
@@ -106,7 +91,11 @@ export default function RoomScreen({ navigation }) {
     <GiftedChat
       messages={messages}
       onSend={(newMessage) => handleSend(newMessage)}
-      user={{ _id: 1, name: 'AB' }}
+      user={{
+        _id: authData.id,
+        name: authData.username,
+        avatar: authData.img_url,
+      }}
       renderBubble={renderBubble}
       placeholder='Type your message here...'
       showUserAvatar
