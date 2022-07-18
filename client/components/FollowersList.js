@@ -57,24 +57,29 @@ export default function FollowersList({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={tw`flex-5 border-2 `}>
+      <View style={tw`flex-5`}>
         {followData.map((follower) => {
           return (
-            <View key={follower.id} style={tw`pb-10  border-2 mb-10`}>
+            <View
+              key={follower.id}
+              style={tw`pt-2 px-2  border-2 border-gray-300 mb-2 flex-1 flex-row`}
+            >
               <TouchableOpacity
                 onPress={() => showPublicProfile(follower)}
-                style={tw`h-30 w-30`}
+                style={tw`h-30 w-30 flex-row flex-1`}
               >
                 <Image
-                  style={tw`h-30 w-30`}
+                  style={tw`h-25 w-25 rounded-full `}
                   source={{ uri: follower.img_url }}
                 />
+                <View style={tw`pl-4 pt-2flex-1`}>
+                  <Text style={tw`font-bold text-lg`}>{follower.username}</Text>
+                  <Text style={tw`font-bold text-lg`}>
+                    Score:{follower.score}
+                  </Text>
+                  <Text style={tw`font-bold text-gray-400`}>Name: Example</Text>
+                </View>
               </TouchableOpacity>
-              <Text>{follower.username}</Text>
-              {/* <Text>Username: {follower.username}</Text> */}
-              <Text>Score:{follower.score}</Text>
-              {/* <Text>Email: {follower.email}</Text> */}
-              {/* <Text>About: {follower.biography}</Text> */}
             </View>
           );
         })}
