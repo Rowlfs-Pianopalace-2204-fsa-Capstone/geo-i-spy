@@ -75,7 +75,7 @@ export default function FriendProfile({ navigation }) {
   return (
     <SafeAreaView style={tw`flex-1 px-6 mt-2`}>
       <View style={tw`flex-1 items-center pb-26`}>
-        <Text style={tw`font-bold text-4xl`}>{friendData.name}</Text>
+        <Text style={tw`font-bold text-4xl`}>{friendData.username}</Text>
         <Image
           source={{ uri: friendData.img_url }}
           style={tw`h-50 w-50 rounded-full`}

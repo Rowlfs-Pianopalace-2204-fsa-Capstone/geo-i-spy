@@ -33,6 +33,7 @@ export const apiAuthSignUp = async (user) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   });
+
   const data = await response.json();
   if (data) {
     if (Platform.OS === 'web') {
