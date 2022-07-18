@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// import CheckBox from '@react-native-community/checkbox';
 
 import tw from 'twrnc';
 import { GlobalDataContext } from '../Context';
@@ -22,10 +21,8 @@ export const mapArray = (
   difficulty
 ) => {
   return arr.map((ele) => {
-    let diffColor = 'black';
-    // if (ele.users) {
-    //   diffColor = 'blue';
-    // }
+    let diffColor = 'white';
+
     let completed = null;
     if (ele.difficulty === 'Rare') {
       diffColor = 'red';
@@ -72,6 +69,9 @@ export default function AllChallenges({ navigation }) {
   const [isButtonPressedCommon, setIsButtonPressedCommon] = useState(false);
   const [isButtonPressedRare, setIsButtonPressedRare] = useState(false);
   const [isButtonPressedUncommo, setIsButtonPressedUncommo] = useState(false);
+  const [CommonColor, setCommonColor] = useState('white');
+  const [RareColor, setRareColor] = useState('white');
+  const [UncommonColor, setUncommonColor] = useState('white');
   const { achievements, setSingleChallengeData } =
     React.useContext(GlobalDataContext);
   useEffect(() => {
@@ -80,6 +80,9 @@ export default function AllChallenges({ navigation }) {
       uncommon: false,
       common: false,
     });
+    setIsButtonPressedCommon(false);
+    setIsButtonPressedRare(false);
+    setIsButtonPressedUncommo(false);
   }, [achievements]);
 
   const handleTextCommon = () => {
@@ -99,7 +102,7 @@ export default function AllChallenges({ navigation }) {
       <View style={tw`flex-1 flex-row items-center`}>
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center py-2 bg-${
-            isButtonPressedCommon ? 'green-300' : ''
+            isButtonPressedCommon ? 'green-300' : 'white'
           }`}
           onPress={() => [
             handleTextCommon(),
@@ -117,7 +120,7 @@ export default function AllChallenges({ navigation }) {
 
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center m-1 py-2 bg-${
-            isButtonPressedUncommo ? 'orange-300' : ''
+            isButtonPressedUncommo ? 'orange-300' : 'white'
           }`}
           onPress={() => [
             handleTextUncommo(),
@@ -135,7 +138,7 @@ export default function AllChallenges({ navigation }) {
 
         <TouchableOpacity
           style={tw`flex-1 border-2 rounded-md items-center py-2  bg-${
-            isButtonPressedRare ? 'red-300' : ''
+            isButtonPressedRare ? 'red-300' : 'white'
           }`}
           onPress={() => [
             handleTextRare(),
