@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@babel/runtime": "^7.18.9",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-navigation/bottom-tabs": "^6.3.1",
