@@ -47,7 +47,7 @@ export const apiGetRoom = async (id) => {
 export const apiCreateRoom = async (id) => {
   let token;
   if (window.localStorage) {
-    token = window.localStorage.getItem('token');
+    token = await window.localStorage.getItem('token');
   } else {
     token = await SecureStore.getItemAsync('token');
   }
@@ -62,6 +62,8 @@ export const apiCreateRoom = async (id) => {
       },
     }
   );
-  const data = await response.json();
-  return data;
+  // console.log('ROUTE =====', response);
+  // const data = await response.json();
+  // console.log(data);
+  return;
 };
