@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # geo-i-spy
 
 Overview:
@@ -26,21 +28,17 @@ Stretch goals:
 techstack:
 
 React-Native
-Tailwind css
-Context
-
-TensorFlow
-
-PostGres
+Tailwind CSS
+Expo
+Google Cloud Vision
+Lottie
+Socket.io
 Express
-Sequelize
-
-or
-
-Firebase Firestore
-Firebase Auth
-
-Javascript
+Postrgres
+Sequalize
+Node.js
+Cloudinary
+Heroku
 
 Pitch:
 Our app is designed to gamify and encourage getting outside, building mindfulness and discovering more of the area around you., such as catching the smaller details, diving into landmarks or finding hidden gems

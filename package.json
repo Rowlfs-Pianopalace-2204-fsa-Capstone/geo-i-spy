@@ -30,7 +30,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-vision-camera": "^2.13.5",
     "react-native-web": "0.17.7",
-    "socket.io-client": "^4.5.1",
+    "socket.io-client": "^2.5.0",
     "twrnc": "^3.3.3"
   },
   "devDependencies": {
