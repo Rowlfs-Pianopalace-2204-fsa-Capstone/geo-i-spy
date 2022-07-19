@@ -16,14 +16,21 @@ import {
   apiStartFollowing,
   apiStopFollowing,
 } from '../Thunks/followers';
-import { apiCreateRoom } from '../Thunks/Rooms';
+import { apiCreateRoom, apiGetAllRooms, apiGetRoom } from '../Thunks/Rooms';
 
 const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
 const textStyle = 'pb-2 font-bold';
 
 export default function FriendProfile({ navigation }) {
-  const { singleUser, followData, followingData, setFollowingData, authData } =
-    React.useContext(GlobalDataContext);
+  const {
+    singleUser,
+    followData,
+    followingData,
+    setFollowingData,
+    authData,
+    setRooms,
+    rooms,
+  } = React.useContext(GlobalDataContext);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isFollower, setIsFollower] = useState(false);
   const friendData = singleUser;
@@ -67,8 +74,14 @@ export default function FriendProfile({ navigation }) {
     }
   };
   const startMessage = async (id) => {
-    console.log(id);
-    await apiCreateRoom(id);
+    const result = await apiGetRoom(id);
+    if (!result) {
+      await apiCreateRoom(id);
+      apiGetAllRooms(authData.id).then((result) => {
+        setRooms(result);
+      });
+    }
+
     navigation.navigate('Chat');
   };
 

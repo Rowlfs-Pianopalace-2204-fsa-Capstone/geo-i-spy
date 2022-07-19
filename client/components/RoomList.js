@@ -23,7 +23,9 @@ export default function AllRooms({ navigation }) {
     navigation.navigate('Message');
   };
 
-  useEffect(() => {}, [rooms]);
+  useEffect(() => {
+    console.log(rooms);
+  }, [rooms]);
 
   return (
     <View style={styles.container}>

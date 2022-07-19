@@ -73,7 +73,7 @@ export const mapArray = (
                 style={tw`h-40`}
               />
               <Paragraph>
-                {timeSince(new Date(ele.challenge.Achievement.createdAt))} ago
+                {timeSince(new Date(ele.challenge.Achievement.updatedAt))} ago
               </Paragraph>
             </TouchableOpacity>
           </Card.Content>
@@ -89,16 +89,19 @@ export default function Feed({ navigation }) {
     setFeed,
     setSingleUser,
     singleUser,
+    followingData,
     setImg,
     setSingleChallengeData,
   } = React.useContext(GlobalDataContext);
 
   useEffect(() => {
     const getFeed = async () => {
-      setFeed(await apiGetFeed());
+      const feed = await apiGetFeed();
+      console.log('FEED RAN', feed);
+      await setFeed(feed);
     };
     getFeed();
-  }, []);
+  }, [followingData]);
   useEffect(() => {}, [feed]);
   useEffect(() => {
     console.log('SOCKET');
