@@ -16,8 +16,8 @@ import {
 } from './client/Thunks/followers';
 import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
-import io from 'socket.io-client';
-import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
+// import io from 'socket.io-client';
+// import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
 import { apiGetAllRooms } from './client/Thunks/Rooms';
 
 export default function App() {
@@ -35,12 +35,12 @@ export default function App() {
   const [rooms, setRooms] = useState([]);
   const [singleRoom, setSingleRoom] = useState([]);
 
-  useEffect(function didMount() {
-    //
-    return function didUnmount() {
-      removeSocket();
-    };
-  }, []);
+  // useEffect(function didMount() {
+  //   //
+  //   return function didUnmount() {
+  //     removeSocket();
+  //   };
+  // }, []);
 
   const checkLogin = async () => {
     let token = await apiAuthGetMe();

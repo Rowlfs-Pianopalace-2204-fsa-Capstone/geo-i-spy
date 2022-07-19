@@ -1,6 +1,6 @@
 /** @format */
 import * as SecureStore from 'expo-secure-store';
-import socket from './Socket';
+// import socket from './Socket';
 import { Platform } from 'react-native';
 import { apiAuthGetMe } from './Auth';
 
@@ -69,7 +69,7 @@ export const changeProfilePic = async (base64EncodedImage) => {
     const data = await response.json();
 
     if (data) {
-      socket.emit('action', data);
+      // socket.emit('action', data);
     }
     return data;
   } catch (error) {

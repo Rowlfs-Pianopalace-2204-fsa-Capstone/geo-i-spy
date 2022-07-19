@@ -1,29 +1,31 @@
 /** @format */
 
-import io from 'socket.io-client';
+// /** @format */
 
-const socketEndpoint = 'https://geoispy.herokuapp.com/';
+// import io from 'socket.io-client';
 
-let socket;
+// const socketEndpoint = 'https://geoispy.herokuapp.com/';
 
-export const createSocket = () => {
-  socket = io(socketEndpoint, {
-    transports: ['websocket'],
-  });
-  // console.log(socket.engine.clientsCount);
-  if (io.engine) {
-    console.log(io.engine.clientsCount);
-  }
+// let socket;
 
-  return;
-};
-createSocket();
-export const removeSocket = () => {
-  console.log('REMOVED');
-  socket.disconnect();
-  socket.removeAllListeners();
-  socket = null;
-  return;
-};
+// export const createSocket = () => {
+//   socket = io(socketEndpoint, {
+//     transports: ['websocket'],
+//   });
+//   // console.log(socket.engine.clientsCount);
+//   if (io.engine) {
+//     console.log(io.engine.clientsCount);
+//   }
 
-export default socket;
+//   return;
+// };
+// createSocket();
+// export const removeSocket = () => {
+//   console.log('REMOVED');
+//   socket.disconnect();
+//   socket.removeAllListeners();
+//   socket = null;
+//   return;
+// };
+
+// export default socket;

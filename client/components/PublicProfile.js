@@ -16,7 +16,7 @@ import {
   apiStartFollowing,
   apiStopFollowing,
 } from '../Thunks/followers';
-import { apiCreateRoom } from '../Thunks/Rooms';
+// import { apiCreateRoom } from '../Thunks/Rooms';
 
 const buttonStyle = 'rounded-lg mx-12 justify-center items-center p-2';
 const textStyle = 'pb-2 font-bold';
@@ -68,8 +68,8 @@ export default function FriendProfile({ navigation }) {
   };
   const startMessage = async (id) => {
     console.log(id);
-    await apiCreateRoom(id);
-    navigation.navigate('Chat');
+    // await apiCreateRoom(id);
+    // navigation.navigate('Chat');
   };
 
   return (
@@ -86,12 +86,12 @@ export default function FriendProfile({ navigation }) {
         <Text style={tw`${textStyle}`}>Score:{friendData.score}</Text>
         <Text style={tw`${textStyle}`}>Email: {friendData.email}</Text>
         <Text style={tw`${textStyle}`}>About: {friendData.biography}</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => startMessage(friendData.id)}
           style={tw`${buttonStyle} bg-blue-400`}
         >
           <Text>Send Message</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {isFollowing ? (
           <TouchableOpacity
             onPress={() => handleFollow()}

@@ -73,7 +73,7 @@ const FeedNav = () => {
           ),
         }}
       />
-      <TabTop.Screen
+      {/* <TabTop.Screen
         name='Chat'
         component={AllRooms}
         options={{
@@ -82,7 +82,7 @@ const FeedNav = () => {
             <MaterialCommunityIcons name='chat' color={color} size={26} />
           ),
         }}
-      />
+      /> */}
     </TabTop.Navigator>
   );
 };
@@ -171,7 +171,7 @@ export default function Navigator() {
         <Stack.Screen name='PublicProfile' component={PublicProfile} />
         <Stack.Screen name='SearchResults' component={SearchResults} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
-        <Stack.Screen name='Message' component={RoomScreen} />
+        {/* <Stack.Screen name='Message' component={RoomScreen} /> */}
         {/* <Stack.Screen name='HomeScreen' component={AllRooms} /> */}
       </Stack.Navigator>
     </NavigationContainer>
