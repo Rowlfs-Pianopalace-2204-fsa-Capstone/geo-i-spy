@@ -77,7 +77,9 @@ export default function FollowersList({ navigation }) {
                   <Text style={tw`font-bold text-lg`}>
                     Score:{follower.score}
                   </Text>
-                  <Text style={tw`font-bold text-gray-400`}>Name: Example</Text>
+                  {/* <Text style={tw`font-bold text-gray-400`}>
+                    {follower.first} {follower.last}
+                  </Text> */}
                 </View>
               </TouchableOpacity>
             </View>
