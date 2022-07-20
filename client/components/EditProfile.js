@@ -100,8 +100,12 @@ export default function EditProfile() {
       setForm({ ...form, username: username.trim() });
     }
     if (name) {
-      let nameForForm = `${name} ${lastName}`;
-      setForm({ ...form, name: nameForForm.trim() });
+      let nameForForm = name;
+      setForm({ ...form, first: nameForForm.trim() });
+      if (lastName) {
+        let lastForForm = lastName;
+        setForm({ ...form, last: lastForForm.trim() });
+      }
     }
     if (email) {
       // setEmail(email.trim());

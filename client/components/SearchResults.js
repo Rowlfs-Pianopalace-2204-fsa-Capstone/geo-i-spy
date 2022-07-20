@@ -27,6 +27,7 @@ export const mapArray = (
   setFollowingData
 ) => {
   return arr.map((ele) => {
+    console.log(ele);
     const alreadyFollowing = followingData.filter((e) => e.id === ele.id);
 
     //Checks to see if user is already following
@@ -66,7 +67,7 @@ export const mapArray = (
           <Paragraph style={tw`w-30 text-lg font-bold`}>
             {ele.username}
           </Paragraph>
-          <Text>Name: Example</Text>
+          <Text>{ele.first}</Text>
         </View>
       </View>
     );
