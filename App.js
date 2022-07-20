@@ -16,7 +16,7 @@ import {
 } from './client/Thunks/followers';
 import { apiGetAllAchievements } from './client/Thunks/cloud';
 import { apiAuthGetMe } from './client/Thunks/Auth';
-import io from 'socket.io-client';
+import io from './socket.io-client/dist/socket.io';
 import socket, { createSocket, removeSocket } from './client/Thunks/Socket';
 import { apiGetAllRooms } from './client/Thunks/Rooms';
 

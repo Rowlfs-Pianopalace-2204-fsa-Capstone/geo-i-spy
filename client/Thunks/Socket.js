@@ -1,6 +1,6 @@
 /** @format */
 
-import io from 'socket.io-client';
+import io from '../../socket.io-client/dist/socket.io';
 
 const socketEndpoint = 'https://geoispy.herokuapp.com/';
 
