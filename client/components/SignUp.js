@@ -88,7 +88,7 @@ export default function SignUp() {
       email: email.trim(),
       password: password,
     });
-    if (lastName) {
+    if (name && lastName) {
       let lastForForm = lastName;
       setForm({ ...form, last: lastForForm.trim() });
     }
