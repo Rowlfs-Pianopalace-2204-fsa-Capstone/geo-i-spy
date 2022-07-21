@@ -81,10 +81,10 @@ export default function SignUp() {
     } else {
       setCapitalization(true);
     }
-    let nameForForm = `${name} ${lastName}`;
+    let firstForForm = name;
     setForm({
       username: username.trim(),
-      first: nameForForm.trim(),
+      first: firstForForm.trim(),
       email: email.trim(),
       password: password,
     });
