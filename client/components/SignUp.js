@@ -84,10 +84,14 @@ export default function SignUp() {
     let nameForForm = `${name} ${lastName}`;
     setForm({
       username: username.trim(),
-      name: nameForForm.trim(),
+      first: nameForForm.trim(),
       email: email.trim(),
       password: password,
     });
+    if (lastName) {
+      let lastForForm = lastName;
+      setForm({ ...form, last: lastForForm.trim() });
+    }
   };
   const submitForm = async () => {
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
