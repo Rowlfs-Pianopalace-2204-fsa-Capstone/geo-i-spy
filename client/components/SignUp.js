@@ -82,18 +82,17 @@ export default function SignUp() {
       setCapitalization(true);
     }
     let firstForForm = name;
+    let lastForForm = lastName;
     setForm({
       username: username.trim(),
       first: firstForForm.trim(),
       email: email.trim(),
       password: password,
+      last: lastForForm.trim(),
     });
-    if (name && lastName) {
-      let lastForForm = lastName;
-      setForm({ ...form, last: lastForForm.trim() });
-    }
   };
   const submitForm = async () => {
+    console.log(form);
     if (emailCheck && passLength && capitalization && isMatching && hasName) {
       const newUser = await apiAuthSignUp(form);
       setAuthData(newUser);
