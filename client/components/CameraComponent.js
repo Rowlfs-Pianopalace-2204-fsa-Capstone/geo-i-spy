@@ -245,7 +245,7 @@ export default function CameraComponent({ navigation }) {
         >
           <View
             style={
-              uploading
+              resultVisible
                 ? tw`flex-1 opacity-0 bg-transparent flex-row m-4`
                 : tw`flex-1 opacity-70 bg-transparent flex-row m-4`
             }
