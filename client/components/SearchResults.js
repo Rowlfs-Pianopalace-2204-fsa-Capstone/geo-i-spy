@@ -67,9 +67,9 @@ export const mapArray = (
           <Paragraph style={tw`w-30 text-lg font-bold`}>
             {ele.username}
           </Paragraph>
-          <Text>
-            {ele.first} {ele.last}
-          </Text>
+
+          <Text>{ele.first + ' ' + ele.last}</Text>
+
         </View>
       </View>
     );
