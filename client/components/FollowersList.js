@@ -74,12 +74,12 @@ export default function FollowersList({ navigation }) {
                 />
                 <View style={tw`pl-4 pt-2flex-1`}>
                   <Text style={tw`font-bold text-lg`}>{follower.username}</Text>
+                  <Text style={tw`font-bold text-gray-400`}>
+                    {follower.first + ' ' + follower.last}
+                  </Text>
                   <Text style={tw`font-bold text-lg`}>
                     Score:{follower.score}
                   </Text>
-                  {/* <Text style={tw`font-bold text-gray-400`}>
-                    {follower.first} {follower.last }
-                  </Text> */}
                 </View>
               </TouchableOpacity>
             </View>
