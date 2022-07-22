@@ -81,14 +81,14 @@ export default function SignUp() {
     } else {
       setCapitalization(true);
     }
-    let firstForForm = name;
-    let lastForForm = lastName;
+    // let firstForForm = name;
+    // let lastForForm = lastName;
     setForm({
       username: username.trim(),
-      first: firstForForm.trim(),
+      first: name.trim(),
       email: email.trim(),
       password: password,
-      last: lastForForm.trim(),
+      last: lastName.trim(),
     });
   };
   const submitForm = async () => {
