@@ -11,6 +11,7 @@ import {
   Modal,
   Alert,
   Pressable,
+  Platform,
 } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import tw from 'twrnc';
@@ -44,6 +45,7 @@ export default function CameraComponent({ navigation }) {
   const [uploading, setUpload] = useState(false);
   const [image, setImage] = useState({});
   const [result, setResult] = useState(false);
+  const [padding, setPadding] = useState('');
   const animationRef = useRef(null);
   const submitToGoogle = async (image) => {
     try {
@@ -102,6 +104,11 @@ export default function CameraComponent({ navigation }) {
       setHasPermission(status === 'granted');
     })();
   }, [isFocused]);
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      setPadding('mt-15 mb-15');
+    }
+  }, []);
 
   const handleRecord = async () => {
     if (recording) {
@@ -162,7 +169,7 @@ export default function CameraComponent({ navigation }) {
   }
   if (isFocused) {
     return (
-      <View style={tw`flex-1`}>
+      <View style={tw`flex-1 bg-black`}>
         <Modal
           style={tw`bg-gray-100`}
           animationType='slide'
@@ -230,8 +237,19 @@ export default function CameraComponent({ navigation }) {
             )}
           </View>
         </Modal>
-        <Camera style={tw`flex-1`} type={type} ref={(ref) => setCamera(ref)}>
-          <View style={tw`flex-1 opacity-70 bg-transparent flex-row m-4`}>
+        <Camera
+          style={tw`flex-1 ${padding}`}
+          type={type}
+          ratio={'16:9'}
+          ref={(ref) => setCamera(ref)}
+        >
+          <View
+            style={
+              resultVisible
+                ? tw`flex-1 opacity-0 bg-transparent flex-row m-4`
+                : tw`flex-1 opacity-70 bg-transparent flex-row m-4`
+            }
+          >
             <TouchableOpacity
               style={tw`absolute top-10 left-1`}
               onPress={() => {
@@ -239,7 +257,7 @@ export default function CameraComponent({ navigation }) {
                 navigation.navigate('Home');
               }}
             >
-              <MaterialCommunityIcons name='alpha-x' size={40} color='black' />
+              <MaterialCommunityIcons name='close' size={40} color='white' />
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`absolute bottom-10 left-5`}
@@ -252,7 +270,7 @@ export default function CameraComponent({ navigation }) {
               <MaterialCommunityIcons
                 name='camera-flip'
                 size={40}
-                color='black'
+                color='white'
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -264,8 +282,7 @@ export default function CameraComponent({ navigation }) {
               <MaterialCommunityIcons
                 name='radiobox-marked'
                 size={50}
-                color={recording ? 'red' : 'black'}
-                style={tw`opacity-60`}
+                color={recording ? 'red' : 'white'}
               />
             </TouchableOpacity>
           </View>
